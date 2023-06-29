@@ -88,8 +88,15 @@ selector_iniciativa = dcc.Dropdown(
     value=''
 )
 
-selector_criterio = dcc.Dropdown(
-    id="selector_criterio",
+selector_criterio_entidad = dcc.Dropdown(
+    id="selector_criterio_entidad",
+    options=[],
+    placeholder='',
+    value=''
+)
+
+selector_criterio_bucle = dcc.Dropdown(
+    id="selector_criterio_bucle",
     options=[],
     placeholder='',
     value=''
@@ -116,8 +123,11 @@ zona_de_peligro = dbc.Card(
                 html.H5(children='Selector de iniciativa: ', className="card-title me-2"),
                 selector_iniciativa,
                 html.Br(),
-                html.H5(children='Selector de criterio: ', className="card-title me-2"),
-                selector_criterio,
+                html.H5(children='Selector de criterio entidad: ', className="card-title me-2"),
+                selector_criterio_entidad,
+                html.Br(),
+                html.H5(children='Selector de criterio bucle: ', className="card-title me-2"),
+                selector_criterio_bucle,
                 html.Br(),
                 html.H5(children='Entrada de nota: ', className="card-title me-2"),
                 html.Br(),
@@ -168,7 +178,8 @@ layout = dbc.Container([
         
         dcc.Store(id='pregunta_seleccionada',storage_type='memory'),
         dcc.Store(id='iniciativa_seleccionada',storage_type='memory'),
-        dcc.Store(id='criterio_seleccionado',storage_type='memory'),
+        dcc.Store(id='criterio_seleccionado_entidad',storage_type='memory'),
+        dcc.Store(id='criterio_seleccionado_bucle',storage_type='memory'),
         dcc.Store(id='nota',storage_type='memory'),
 
         #Nombre entidad seleccionada
@@ -406,6 +417,8 @@ def diagrama_velas(pregunta_seleccionada):
         mean_top_2021 = 0
         mean_bottom_2021 = 0
         outliers_bottom_2021 = 0
+    
+    """
     
     if pregunta_seleccionada=='p1':
 
@@ -680,6 +693,16 @@ def diagrama_velas(pregunta_seleccionada):
         mean_bottom_2023 = p39_df['nota_iniciativa'].median() - p39_df['nota_iniciativa'].std()
         outliers_bottom_2023 = p39_df['nota_iniciativa'].min()
 
+    #""" 
+    #El problema son las "notas de las iniciativas"
+    #Arreglar cuando cambiemos columnas
+
+
+    outliers_top_2023=outliers_top_2021
+    mean_top_2023=mean_top_2021
+    mean_bottom_2023=mean_bottom_2021
+    outliers_bottom_2023=outliers_bottom_2021
+
     outliers_top.append(outliers_top_2021)
     outliers_top.append(outliers_top_2023)
 
@@ -726,13 +749,21 @@ def seleccion_pregunta(value):
 def seleccion_iniciativa(value):
     return value
 
-#Callback guardar criterio seleccionado
+#Callback guardar criterio entidad seleccionado
 @dash.callback(
-    Output('criterio_seleccionado', 'data'),
-    Input('selector_criterio', 'value')
+    Output('criterio_seleccionado_entidad', 'data'),
+    Input('selector_criterio_entidad', 'value'),
 )
-def seleccion_criterio(value):
-    return value
+def seleccion_criterio(entidad):
+    return entidad
+
+#Callback guardar criterio bucle seleccionado
+@dash.callback(
+    Output('criterio_seleccionado_bucle', 'data'),
+    Input('selector_criterio_bucle', 'value'),
+)
+def seleccion_criterio(bucle):
+    return bucle
 
 #Callback para llamar valor de nota
 @dash.callback(
@@ -750,40 +781,26 @@ def llamar_numero(valor):
     Input('entidad_seleccionada', 'data'),
     Input('pregunta_seleccionada', 'data'),
     Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado):
+def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     cri=html.Tr([
-                        html.Th('N/A'),
-                        html.Th('N/A'),
-                        html.Th('N/A'),
-                    ],
-                    )
+                    html.Th('N/A'),
+                ],
+                )
     val=html.Tr([
                     html.Td(0),
-                    html.Td(0),
-                    html.Td(0),
-                ])
+                ],
+                )
     
     if pregunta_seleccionada=='p1':
-        df=p1_df
-        crits=list(CRITS[pregunta_seleccionada].keys())
-        cri=html.Tr([
-                        html.Th(crits[0]),
-                        html.Th(crits[1]),
-                        html.Th(crits[2]),
-                    ],
-                    )
-        val=html.Tr([
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[2]]),
-                    ])
+        pass
 
 
     elif pregunta_seleccionada=='p2':
         df=p2_df
-        crits=list(CRITS[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         cri=html.Tr([
                         html.Th(crits[0]),
                         html.Th(crits[1]),
@@ -794,21 +811,19 @@ def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecci
                         html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[0]]),
                         html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[1]]),
                         html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[2]]),
-                    ])
+                    ],
+                    )
 
 
     else:
         cri=html.Tr([
                         html.Th('N/A'),
-                        html.Th('N/A'),
-                        html.Th('N/A'),
                     ],
                     )
         val=html.Tr([
                         html.Td(0),
-                        html.Td(0),
-                        html.Td(0),
-                    ])
+                    ],
+                    )
 
     tabla_criterios=html.Div(children=[
             dbc.Table(
@@ -831,6 +846,424 @@ def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecci
         )
     return tabla_criterios
 
+#Callback enviar criterios bucle
+@dash.callback(
+    Output('selector_criterio_bucle', 'options'),
+    Output('selector_criterio_bucle', 'value'),
+
+    Input('criterio_seleccionado_entidad', 'data'),
+    State('pregunta_seleccionada', 'data'),
+)
+def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
+    salida_criterios_bucle=[]
+    salida_criterios_bucle_seleccionado='N/A'
+    
+
+
+    #Acuerdos y/o actos administrativos
+    if pregunta_seleccionada=='p1':
+        pass
+        
+
+    #Enfoques, lineas o proyectos
+    elif pregunta_seleccionada=='p2':
+
+        if criterio_seleccionado=='c3':
+            salida_criterios_bucle=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+    #Presupuesto general
+    elif pregunta_seleccionada=='p3':
+        pass
+        
+        
+    #Presupuesto general innovación
+    elif pregunta_seleccionada=='p4':
+        pass
+        
+
+    #Presupuesto inversión general
+    elif pregunta_seleccionada=='p5':
+        pass
+        
+        
+    #Presupuesto inversión innovación
+    elif pregunta_seleccionada=='p6':
+        pass
+        
+
+    #Funcionarios total
+    elif pregunta_seleccionada=='p7':
+        pass
+        
+
+    #Funcionarios manual en innovación 
+    elif pregunta_seleccionada=='p8':
+        pass
+        
+
+    #Funcionarios ocasionales
+    elif pregunta_seleccionada=='p9':
+        pass
+        
+
+    #Contratistas total
+    elif pregunta_seleccionada=='p10':
+        pass
+        
+
+    #Contratistas en innovación 
+    elif pregunta_seleccionada=='p11':
+        pass
+        
+
+    #Contratistas ocasionales
+    elif pregunta_seleccionada=='p12':
+        pass
+        
+
+    # Recursos digitales
+    elif pregunta_seleccionada=='p13':
+        if criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #retos SDQS
+    elif pregunta_seleccionada=='p14':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #retos otros para ciudadanos
+    elif pregunta_seleccionada=='p15':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #retos por funcionarios/contratistas
+    elif pregunta_seleccionada=='p16':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #canales retos
+    elif pregunta_seleccionada=='p17':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #actividades retos
+    elif pregunta_seleccionada=='p18':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #ideas ciudadanos
+    elif pregunta_seleccionada=='p19':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #ideas funcionarios
+    elif pregunta_seleccionada=='p20':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #canales ideas
+    elif pregunta_seleccionada=='p21':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #actividades ideas
+    elif pregunta_seleccionada=='p22':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p23':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p24_1':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p24_2':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p24_3':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p24_4':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #innovaciones diseñadas
+    elif pregunta_seleccionada=='p24_5':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+
+    #promoción de una cultura de innovación
+    elif pregunta_seleccionada=='p25':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        elif criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #espacios de experimentación
+    elif pregunta_seleccionada=='p26':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        if criterio_seleccionado=='c2':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #unidades de innovación
+    elif pregunta_seleccionada=='p27':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #implementación de innovaciones
+    elif pregunta_seleccionada=='p28':
+        if criterio_seleccionado=='c1':
+            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            try:
+                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+        
+
+    #funcionarios formados
+    elif pregunta_seleccionada=='p29':
+        pass
+        
+
+    #contratistas formados
+    elif pregunta_seleccionada=='p30':
+        pass
+        
+
+    #acuerdos o actos en gestión del conocimiento
+    elif pregunta_seleccionada=='p31':
+        pass
+        
+
+    #proyectos o lineas en gestión del conocimiento
+    elif pregunta_seleccionada=='p32':
+        pass
+        
+
+    #sistematización de retos ciudadanos
+    elif pregunta_seleccionada=='p33':
+        pass
+        
+
+    #sistematización de retos de funcionarios contratistas
+    elif pregunta_seleccionada=='p34':
+        pass
+        
+
+    #sistematización ideas de ciudadanos
+    elif pregunta_seleccionada=='p35':
+        pass
+        
+
+    #sistematización ideas de funcionarios contratistas
+    elif pregunta_seleccionada=='p36':
+        pass
+        
+
+    #buenas prácticas y lecciones aprendidas en innovación
+    elif pregunta_seleccionada=='p37':
+        pass
+        
+
+    #buenas prácticas y lecciones aprendidas generales
+    elif pregunta_seleccionada=='p38':
+        pass
+        
+
+    #Monitoreo y seguimiento a innovaciones
+    elif pregunta_seleccionada=='p39':
+        pass
+        
+
+    #Cualquier caso no definido
+    else:
+        pass
+    
+
+    return salida_criterios_bucle,salida_criterios_bucle_seleccionado
+
 #Callback calificar iniciativa seleccionada
 @dash.callback(
     Output('empty', 'children'),
@@ -840,38 +1273,48 @@ def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecci
     State('entidad_seleccionada', 'data'),
     State('pregunta_seleccionada', 'data'),
     State('iniciativa_seleccionada', 'data'),
-    State('criterio_seleccionado', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
     State('nota', 'data'),
 )
-def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,nota):
-
+def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,nota):
+    
     if clicks is not None:
 
         #Acuerdos y/o actos administrativos
         if pregunta_seleccionada=='p1':
-                       
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO
+            pass
             
-            p1_df.loc[p1_df['_index']==iniciativa_seleccionada, criterio_seleccionado]=nota
-
-            #CALCULO NOTA INICIATIVA
-
-            #Aqui se cambia entre suma, promedio o cálculo dependiendo de caso
-            
-            p1_df['nota_iniciativa'] = p1_df[CRITS[pregunta_seleccionada][criterio_seleccionado]].sum(axis=1)
-
-            #CALCULO NOTA GENERAL ENTIDAD
-            
-            nota_entidad=p1_df[p1_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean()
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_entidad
-
-            #GUARDADO ARCHIVOS
-            p1_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #Enfoques, lineas o proyectos
         elif pregunta_seleccionada=='p2':
-            pass
+            
+            if criterio_seleccionado=='c1':
+                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+            
+            
+            if criterio_seleccionado=='c2':
+                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+            
+            
+            if criterio_seleccionado=='c3':
+                df=p2_df
+                criterios_bucle=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+                
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO NOTA INICIATIVA
+                p2_df['m_i'] = p2_df[criterios_bucle].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                
+                nota_entidad = p2_df.loc[:,criterios_bucle].mean()
+                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p2_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #Presupuesto general
         elif pregunta_seleccionada=='p3':
@@ -1066,8 +1509,8 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
     Output('respuesta_2023', 'children'),
     Output('selector_iniciativa', 'options'),
     Output('selector_iniciativa', 'value'),
-    Output('selector_criterio', 'options'),
-    Output('selector_criterio', 'value'),
+    Output('selector_criterio_entidad', 'options'),
+    Output('selector_criterio_entidad', 'value'),
 
     Input('entidad_seleccionada', 'data'),
     Input('pregunta_seleccionada', 'data'),
@@ -1127,7 +1570,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     estilo={'display':'flex','flex-wrap': 'wrap','justify-content':'space-between'} 
     indices_carousel=[0]
     salida_criterio=indices_carousel
-    salida_criterios=['c1']
 
     #Acuerdos y/o actos administrativos
     if pregunta_seleccionada=='p1':
@@ -1171,7 +1613,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_1()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Enfoques, lineas o proyectos
@@ -1214,7 +1656,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_2()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Presupuesto general
@@ -1255,7 +1697,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_3()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
         
     #Presupuesto general innovación
@@ -1296,7 +1738,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_4()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Presupuesto inversión general
@@ -1337,7 +1779,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_5()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
         
     #Presupuesto inversión innovación
@@ -1378,7 +1820,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_6()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Funcionarios total
@@ -1422,7 +1864,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_7()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Funcionarios manual en innovación 
@@ -1466,7 +1908,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_8()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Funcionarios ocasionales
@@ -1510,7 +1952,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_9()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Contratistas total
@@ -1554,7 +1996,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_10()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Contratistas en innovación 
@@ -1598,7 +2040,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
 
         salida_criterio=criterio_11()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Contratistas ocasionales
@@ -1642,7 +2084,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_12()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     # Recursos digitales
@@ -1687,7 +2129,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_13()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #retos SDQS
@@ -1748,7 +2190,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_14()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #retos otros para ciudadanos
@@ -1809,7 +2251,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_15()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #retos por funcionarios/contratistas
@@ -1870,7 +2312,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_16()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #canales retos
@@ -1906,7 +2348,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 ])
             
         salida_criterio=criterio_17()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #actividades retos
@@ -1942,7 +2384,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 ])
 
         salida_criterio=criterio_18()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #ideas ciudadanos
@@ -2003,7 +2445,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_19()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #ideas funcionarios
@@ -2064,7 +2506,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_20()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #canales ideas
@@ -2100,7 +2542,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 ])
             
         salida_criterio=criterio_21()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #actividades ideas
@@ -2136,7 +2578,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 ])
             
         salida_criterio=criterio_22()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #innovaciones diseñadas
@@ -2177,7 +2619,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_23()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #eventos o formación
@@ -2319,7 +2761,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_24()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
 
     #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
@@ -2359,7 +2801,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_25()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #espacios de experimentación
@@ -2400,7 +2842,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_26()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #unidades de innovación
@@ -2443,7 +2885,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_27()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #implementación de innovaciones
@@ -2503,7 +2945,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_28()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #funcionarios formados
@@ -2540,7 +2982,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_29()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #contratistas formados
@@ -2577,7 +3019,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             ])
         
         salida_criterio=criterio_30()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #acuerdos o actos en gestión del conocimiento
@@ -2621,7 +3063,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_31()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #proyectos o lineas en gestión del conocimiento
@@ -2665,7 +3107,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_32()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #sistematización de retos ciudadanos
@@ -2705,7 +3147,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_33()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #sistematización de retos de funcionarios contratistas
@@ -2745,7 +3187,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_34()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #sistematización ideas de ciudadanos
@@ -2785,7 +3227,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_35()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #sistematización ideas de funcionarios contratistas
@@ -2825,7 +3267,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_36()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #buenas prácticas y lecciones aprendidas en innovación
@@ -2865,7 +3307,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_37()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #buenas prácticas y lecciones aprendidas generales
@@ -2905,7 +3347,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_38()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Monitoreo y seguimiento a innovaciones
@@ -2945,7 +3387,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([])
 
         salida_criterio=criterio_39()
-        salida_criterios=list(CRITS[pregunta_seleccionada].keys())
+        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Cualquier caso no definido
@@ -2967,11 +3409,13 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
 
     try:
-        salida_criterios_seleccionada=str(salida_criterios[0])
+        salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
     except:
-        salida_criterios_seleccionada='N/A'
+        salida_criterios_entidad_seleccionado='N/A'
 
-    return pregunta,salida_criterio,salida_respuesta_2021,salida_nota_2021,salida_max_2021,salida_respuesta_2023,salida_iniciativas,salida_iniciativa_seleccionada,salida_criterios,salida_criterios_seleccionada,
+
+
+    return pregunta,salida_criterio,salida_respuesta_2021,salida_nota_2021,salida_max_2021,salida_respuesta_2023,salida_iniciativas,salida_iniciativa_seleccionada,salida_criterios_entidad,salida_criterios_entidad_seleccionado
 
 #Callback descarga individuales
 @dash.callback(
