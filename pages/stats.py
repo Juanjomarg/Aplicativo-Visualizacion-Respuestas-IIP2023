@@ -1350,7 +1350,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 print(f"promedio: \n{mediana}\n")
                 print(f"promedio de medianas: \n{p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i']}\n")
 
-                nota_entidad = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean().round(2)
+                nota_entidad = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean()
                 print(f'nota entidad: \n{nota_entidad}')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
