@@ -180,6 +180,7 @@ layout = dbc.Container([
         dcc.Store(id='iniciativa_seleccionada',storage_type='memory'),
         dcc.Store(id='criterio_seleccionado_entidad',storage_type='memory'),
         dcc.Store(id='criterio_seleccionado_bucle',storage_type='memory'),
+        dcc.Store(id='criterios_disponibles_bucle',storage_type='memory'),
         dcc.Store(id='nota',storage_type='memory'),
 
         #Nombre entidad seleccionada
@@ -760,10 +761,12 @@ def seleccion_criterio(entidad):
 #Callback guardar criterio bucle seleccionado
 @dash.callback(
     Output('criterio_seleccionado_bucle', 'data'),
+    Output('criterios_disponibles_bucle', 'data'),
     Input('selector_criterio_bucle', 'value'),
+    Input('selector_criterio_bucle', 'options'),
 )
-def seleccion_criterio(bucle):
-    return bucle
+def seleccion_criterio(bucle,opciones_bucle):
+    return bucle,opciones_bucle
 
 #Callback para llamar valor de nota
 @dash.callback(
@@ -857,6 +860,7 @@ def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecci
 def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     salida_criterios_bucle=[]
     salida_criterios_bucle_seleccionado='N/A'
+    unwanted=['m_i','s_i']
     
 
 
@@ -869,9 +873,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     elif pregunta_seleccionada=='p2':
 
         if criterio_seleccionado=='c3':
-            salida_criterios_bucle=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -928,9 +933,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     # Recursos digitales
     elif pregunta_seleccionada=='p13':
         if criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -938,16 +944,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #retos SDQS
     elif pregunta_seleccionada=='p14':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -955,16 +963,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -972,16 +982,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -989,16 +1001,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #canales retos
     elif pregunta_seleccionada=='p17':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1006,16 +1020,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #actividades retos
     elif pregunta_seleccionada=='p18':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1023,16 +1039,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1040,16 +1058,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #ideas funcionarios
     elif pregunta_seleccionada=='p20':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1057,16 +1077,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #canales ideas
     elif pregunta_seleccionada=='p21':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1074,16 +1096,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #actividades ideas
     elif pregunta_seleccionada=='p22':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1091,9 +1115,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1101,9 +1126,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p24_1':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1111,9 +1137,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p24_2':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1121,9 +1148,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p24_3':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1131,9 +1159,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p24_4':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1141,9 +1170,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p24_5':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
@@ -1151,16 +1181,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         elif criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1168,16 +1200,18 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #espacios de experimentación
     elif pregunta_seleccionada=='p26':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
         if criterio_seleccionado=='c2':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1185,9 +1219,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #unidades de innovación
     elif pregunta_seleccionada=='p27':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1195,9 +1230,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado].keys())
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
-                salida_criterios_bucle_seleccionado=str(salida_criterios_bucle[0])
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
         
@@ -1259,7 +1295,8 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
 
     #Cualquier caso no definido
     else:
-        pass
+        salida_criterios_bucle=[]
+        salida_criterios_bucle_seleccionado='N/A'
     
 
     return salida_criterios_bucle,salida_criterios_bucle_seleccionado
@@ -1274,10 +1311,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     State('pregunta_seleccionada', 'data'),
     State('iniciativa_seleccionada', 'data'),
     Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
+    State('criterio_seleccionado_bucle', 'data'),
+    State('criterios_disponibles_bucle', 'data'),
     State('nota', 'data'),
 )
-def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,nota):
+def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota):
     
     if clicks is not None:
 
@@ -1290,31 +1328,31 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p2':
             
             if criterio_seleccionado=='c1':
-                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
             if criterio_seleccionado=='c2':
-                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
             if criterio_seleccionado=='c3':
-                df=p2_df
-                criterios_bucle=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO NOTA INICIATIVA
-                p2_df['m_i'] = p2_df[criterios_bucle].mean(axis=1)
+                mediana=p2_df[criterios_disponibles_bucle].mean()
+                p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada,'m_i']=mediana.mean()
 
                 #CALCULO NOTA GENERAL ENTIDAD
-                
-                nota_entidad = p2_df.loc[:,criterios_bucle].mean()
-                resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
+                nota_entidad = p2_df['m_i'].mean()
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
                 #GUARDADO ARCHIVOS
                 p2_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
         #Presupuesto general
         elif pregunta_seleccionada=='p3':
