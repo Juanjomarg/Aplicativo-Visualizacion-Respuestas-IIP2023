@@ -131,7 +131,7 @@ zona_de_peligro = dbc.Card(
                 html.Br(),
                 html.H5(children='Entrada de nota: ', className="card-title me-2"),
                 html.Br(),
-                dbc.Input(id='entrada_nota', value=555, placeholder="Ingrese la nota: ", type="number"),
+                dbc.Input(id='entrada_nota', value=1.6, placeholder="Ingrese la nota: ", type="number"),
                 html.Br(),
                 html.Div(id='empty'),
                 dbc.Button(id='enviar_nota',children='Enviar nota a excel', style={'width':'100%'}),
@@ -1343,11 +1343,15 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO NOTA INICIATIVA
-                mediana=p2_df[criterios_disponibles_bucle].mean()
+                mediana = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada][criterios_disponibles_bucle].mean()
                 p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada,'m_i']=mediana.mean()
 
                 #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = p2_df['m_i'].mean()
+                print(f"promedio: \n{mediana}\n")
+                print(f"promedio de medianas: \n{p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i']}\n")
+
+                nota_entidad = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean().round(2)
+                print(f'nota entidad: \n{nota_entidad}')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
                 #GUARDADO ARCHIVOS
