@@ -6,7 +6,7 @@ PREGUNTAS_TODAS=    ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10','p11','p
 PREGUNTAS_BINARIAS= ['p1','p2','p13','p14','p15','p16',            'p19','p20',            'p23','p24','p25','p26','p27','p28','p29','p30','p31','p32','p33','p34','p35','p36','p37','p38','p39']
 PREGUNTAS_BUCLES=   ['p1','p2','p13','p14','p15','p16','p17','p18','p19','p20','p21','p22','p23','p24_1','p24_2','p24_3','p24_4','p24_5','p25','p26','p27','p28',            'p31','p32','p33','p34','p35','p36','p37','p38','p39']
 ENTIDAD_INICIAL='Empresa De Renovacion Urbana Y Desarrollo Urbano De Bogota'
-PREGUNTA_INICIAL='p2'
+PREGUNTA_INICIAL='p1'
 
 preguntas_df=pd.read_excel('./files/preguntas/leyenda_columnas.xlsx')
 
@@ -53,7 +53,7 @@ p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
 
 CRITS_PREGUNTAS_BASE={
     'p1':{},
-    'p2':{'c1':0,'c2':0,'c3':['c1','c2','c3','m_i']},
+    'p2':{'c1':0,'c2':0,'c3':['c1','c2','c3','nota_iniciativa']},
     'p3':{'c1':1,},
     'p4':{'c1':0,'c2':0},
     'p5':{'c1':1},
@@ -64,7 +64,7 @@ CRITS_PREGUNTAS_BASE={
     'p10':{'c1':1},
     'p11':{'c1':0,'c2':0},
     'p12':{},
-    'p13':{'c1':0,'c2':['c1','c2','c3','m_i']},
+    'p13':{'c1':0,'c2':['c1','c2','c3','nota_iniciativa']},
     'p14':{'c1':['c1','c2','c3','s_i'],'c2':['c4']},
     'p15':{'c1':['c1','c2','c3','s_i'],'c2':['c4']},
     'p16':{'c1':['c1','c2','c3','s_i'],'c2':['c4']},
@@ -75,6 +75,7 @@ CRITS_PREGUNTAS_BASE={
     'p21':{'c1':['c1','c2','c3','s_i'],'c2':['c4']},
     'p22':{'c1':['c1','c2','c3','s_i'],'c2':['c4']},
     'p23':{'c1':['c1','c2','c3','c4','s_i','c5','c6']},
+    'p24':{'c1':0},
     'p24_1':{'c1':0},
     'p24_2':{'c1':0},
     'p24_3':{'c1':0},

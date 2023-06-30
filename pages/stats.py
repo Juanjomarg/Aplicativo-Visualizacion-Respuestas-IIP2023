@@ -419,7 +419,7 @@ def diagrama_velas(pregunta_seleccionada):
         mean_bottom_2021 = 0
         outliers_bottom_2021 = 0
     
-    """
+    #"""
     
     if pregunta_seleccionada=='p1':
 
@@ -699,10 +699,12 @@ def diagrama_velas(pregunta_seleccionada):
     #Arreglar cuando cambiemos columnas
 
 
+    """
     outliers_top_2023=outliers_top_2021
     mean_top_2023=mean_top_2021
     mean_bottom_2023=mean_bottom_2021
     outliers_bottom_2023=outliers_bottom_2021
+    #"""
 
     outliers_top.append(outliers_top_2021)
     outliers_top.append(outliers_top_2023)
@@ -1462,6 +1464,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p23':
             pass
 
+        #innovaciones diseñadas
+        elif pregunta_seleccionada=='p24':
+            pass
+
         #promoción de una cultura de innovación
         elif pregunta_seleccionada=='p25':
             pass
@@ -1624,16 +1630,16 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
         
-        if list(respuesta_2021)[0] == 1:
+        if list(respuesta_2021)[0] == 'Si':
             salida_respuesta_2021 = f"Si: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
 
-        elif list(respuesta_2021)[0] == 0:
+        elif list(respuesta_2021)[0] == 'No':
             salida_respuesta_2021 = f'No registra iniciativas'
 
         else:
             salida_respuesta_2021 = f'Respuesta no binaria'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -1669,14 +1675,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(respuesta_2021)[0] == 1:
+        if list(respuesta_2021)[0] == 'Si':
             salida_respuesta_2021 = f"Si: \n {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
-        elif list(respuesta_2021)[0] == 0:
+        elif list(respuesta_2021)[0] == 'No':
             salida_respuesta_2021 = f'No registra iniciativas'
         else:
             salida_respuesta_2021 = f'Respuesta no binaria'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2141,14 +2147,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(respuesta_2021)[0] == 1:
+        if list(respuesta_2021)[0] == 'Si':
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        elif list(respuesta_2021)[0] == 0:
+        elif list(respuesta_2021)[0] == 'No':
             salida_respuesta_2021 = f'No registra iniciativas'
         else:
             salida_respuesta_2021 = f'Respuesta no binaria'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2190,7 +2196,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]==1:
+        if list(act_4_carousel)[0]=='Si':
             act_4_otr = p14_df[p14_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
         else:
             act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2204,7 +2210,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
         ##########################################
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2251,7 +2257,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]==1:
+        if list(act_4_carousel)[0]=='Si':
             act_4_otr = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
         else:
             act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2265,7 +2271,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
         ##########################################
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2312,7 +2318,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]==1:
+        if list(act_4_carousel)[0]=='Si':
             act_4_otr = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
         else:
             act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2326,7 +2332,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
         ##########################################
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2445,7 +2451,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]==1:
+        if list(act_4_carousel)[0]=='Si':
             act_4_otr = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
         else:
             act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2459,7 +2465,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
         ##########################################
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2506,7 +2512,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]==1:
+        if list(act_4_carousel)[0]=='Si':
             act_4_otr = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
         else:
             act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2520,7 +2526,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
         ##########################################
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2630,16 +2636,33 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         codigos_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_nom']
         descripciones_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_des']
         soportes_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
+        usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_usr/{pregunta_seleccionada}_usr_1']
+        usr_2_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_usr/{pregunta_seleccionada}_usr_2']
+        usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_usr/{pregunta_seleccionada}_usr_3']
+        prototipado = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_pro']
+
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
+        
+
+        if list(prototipado)[0] == 'Si':
+            vali_usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_1']
+            vali_usr_2_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_2']
+            vali_usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_3']
+        else:
+            vali_usr_1_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
+            vali_usr_2_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
+            vali_usr_3_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
+
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2651,6 +2674,13 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         ind_car=list(indices_carousel)[i],
                         nom_car=list(codigos_carousel)[i],
                         des_car=list(descripciones_carousel)[i],
+                        us1_car=list(usr_1_carousel)[i],
+                        us2_car=list(usr_2_carousel)[i],
+                        us3_car=list(usr_3_carousel)[i],
+                        pro_car=list(prototipado)[i],
+                        va1_car=list(vali_usr_1_carousel)[i],
+                        va2_car=list(vali_usr_2_carousel)[i],
+                        va3_car=list(vali_usr_3_carousel)[i],
                         sop_car=list(soportes_carousel)[i])
                     cards.append(card)
 
@@ -2710,7 +2740,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
 
             if p24_1_indices_carousel.empty == False:
                 cards1=[]
@@ -2725,7 +2755,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_1_soportes_carousel)[i])
                     cards1.append(card)
             else:
-                cards1=[html.P('N/A'),html.Br()]
+                cards1=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
             
             if p24_2_indices_carousel.empty == False:
                 cards2=[]
@@ -2740,7 +2770,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_2_soportes_carousel)[i])
                     cards2.append(card)
             else:
-                cards2=[html.P('N/A'),html.Br()]
+                cards2=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
 
             if p24_3_indices_carousel.empty == False:
                 cards3=[]
@@ -2755,7 +2785,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_3_soportes_carousel)[i])
                     cards3.append(card)
             else:
-                cards3=[html.P('N/A'),html.Br()]
+                cards3=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
 
             if p24_4_indices_carousel.empty == False:
                 cards4=[]
@@ -2770,7 +2800,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_4_soportes_carousel)[i])
                     cards4.append(card)
             else:
-                cards4=[html.P('N/A'),html.Br()]
+                cards4=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
             
             if p24_5_indices_carousel.empty == False:
                 cards5=[]
@@ -2785,7 +2815,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_5_soportes_carousel)[i])
                     cards5.append(card)
             else:
-                cards5=[html.P('N/A'),html.Br()]
+                cards5=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
 
             salida_respuesta_2023 = html.Div([
                     html.H5('Eventos Auspiciados y/o financiados directamente por esa entidad'),
@@ -2821,7 +2851,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2862,7 +2892,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2904,7 +2934,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -2944,12 +2974,12 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(beneficia_carousel)[0]==1:
+        if list(beneficia_carousel)[0]=='Si':
             beneficiados_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'beneficiados']
         else:
             beneficiados_carousel=['N/A' for x in range(len(indices_carousel)+1)]
         
-        if list(ahorro_carousel)[0]==1:
+        if list(ahorro_carousel)[0]=='Si':
             ahorrado_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'recursos_ahorrados']
         else:
             ahorrado_carousel=['N/A' for x in range(len(indices_carousel)+1)]
@@ -2959,7 +2989,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3001,7 +3031,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             form_2021 = 'N/A'
 
-        if list(respuesta_2023)[0]==1:
+        if list(respuesta_2023)[0]=='Si':
             formados_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_1']
             formados_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_2']
         else:
@@ -3038,7 +3068,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             form_2021 = 'N/A'
 
-        if list(respuesta_2023)[0]==1:
+        if list(respuesta_2023)[0]=='Si':
             formados_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_1']
             formados_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_2']
         else:
@@ -3081,7 +3111,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3125,7 +3155,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3167,7 +3197,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3207,7 +3237,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3247,7 +3277,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3287,7 +3317,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3327,7 +3357,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3367,7 +3397,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:
@@ -3407,7 +3437,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_respuesta_2021 = 'N/A'
 
-        if list(respuesta_2023)[0] == 1:
+        if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
                 salida_respuesta_2023 = html.Div([])
             else:

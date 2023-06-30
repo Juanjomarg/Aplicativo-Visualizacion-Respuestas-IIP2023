@@ -298,6 +298,59 @@ def card_p23(**kwargs):
 
                     html.H5(children='Descripción', className="card-title me-2",style={'font-weight':'bold'}),
                     html.P(children=kwargs['des_car'], className="card-text",style={'text-justify':'auto','text-align': 'justify'}),
+
+                    dbc.Table(
+                    children=[
+                        html.Thead([
+                            html.Tr([
+                                html.Th("Crea 1"),
+                                html.Th("Crea 2"),
+                                html.Th("Crea 3"),
+                            ])
+                        ]                            
+                        ),
+                        html.Tbody([
+                            html.Tr([
+                                html.Td(kwargs['us1_car']),
+                                html.Td(kwargs['us2_car']),
+                                html.Td(kwargs['us3_car']),
+                            ])
+                        ]
+                        )
+                        ],
+                    bordered=True,
+                    hover=True,
+                    responsive=True,
+                    striped=True,
+                    ),
+
+                    html.H5(children='Prototipado', className="card-title me-2",style={'font-weight':'bold'}),
+                    html.P(children=kwargs['pro_car'], className="card-text",style={'text-justify':'auto','text-align': 'justify'}),
+
+                    dbc.Table(
+                    children=[
+                        html.Thead([
+                            html.Tr([
+                                html.Th("Valida 1"),
+                                html.Th("Valida 2"),
+                                html.Th("Valida 3"),
+                            ])
+                        ]                            
+                        ),
+                        html.Tbody([
+                            html.Tr([
+                                html.Td(kwargs['va1_car']),
+                                html.Td(kwargs['va2_car']),
+                                html.Td(kwargs['va3_car']),
+                            ])
+                        ]
+                        )
+                        ],
+                    bordered=True,
+                    hover=True,
+                    responsive=True,
+                    striped=True,
+                    ),
                     
                     html.H5(children='Soporte', className="card-title me-2",style={'font-weight':'bold'}),
                     html.P(children=kwargs['sop_car'], className="card-text"),
