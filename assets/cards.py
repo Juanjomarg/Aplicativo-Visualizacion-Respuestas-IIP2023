@@ -299,6 +299,7 @@ def card_p23(**kwargs):
                     html.H5(children='Descripción', className="card-title me-2",style={'font-weight':'bold'}),
                     html.P(children=kwargs['des_car'], className="card-text",style={'text-justify':'auto','text-align': 'justify'}),
 
+                    html.H5(children='Creado con', className="card-title me-2",style={'font-weight':'bold'}),
                     dbc.Table(
                     children=[
                         html.Thead([
@@ -327,6 +328,7 @@ def card_p23(**kwargs):
                     html.H5(children='Prototipado', className="card-title me-2",style={'font-weight':'bold'}),
                     html.P(children=kwargs['pro_car'], className="card-text",style={'text-justify':'auto','text-align': 'justify'}),
 
+                    html.H5(children='Validado', className="card-title me-2",style={'font-weight':'bold'}),
                     dbc.Table(
                     children=[
                         html.Thead([
