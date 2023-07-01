@@ -48,33 +48,138 @@ def card_p2(**kwargs):
 
 def card_p3_p4_p5_p6(**kwargs):
 
-    gastos=['Presupuesto 2021','Gasto 2021','Presupuesto 2022','Gasto 2022']
     return dbc.Card(
         [
             dbc.CardBody(
                 [   
+                    html.H3(children=f"{kwargs['tip_preg']}", className="card-title me-2",style={'font-weight':'bold'}),
+                    html.Br(),
                     html.Div([
-                        html.H3(children='Año 2021', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.H5(children='Presupuesto Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("$ 2021 "),
+                                        html.Th("$ 2022"),
+                                        html.Th("$ Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['pre_2021_dis']):,}"),
+                                        html.Td(f"{round(kwargs['pre_2022_dis']):,}"),
+                                        html.Td(f"{round(kwargs['pre_med_dis']):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
                         html.Br(),
-                        html.H5(children=gastos[0], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"$ {kwargs['pre_2021']:,}", className="card-text"),
-
-                        html.H5(children=gastos[1], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"$ {kwargs['cos_2021']:,}", className="card-text"),
+                        html.H5(children='Gasto Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("$ 2021"),
+                                        html.Th("$ 2022"),
+                                        html.Th("$ Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['cos_2021_dis']):,}"),
+                                        html.Td(f"{round(kwargs['cos_2022_dis']):,}"),
+                                        html.Td(f"{round(kwargs['cos_med_dis']):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
                     ],
-                    style={'width': '50%','float': 'left'}
+                    style={'width': '48%','float': 'left','margin-right':'2%'}
+                    ),
+                    
+                    html.Div([
+                        html.H5(children='Presupuesto Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("$ 2021"),
+                                        html.Th("$ 2022"),
+                                        html.Th("$ Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['pre_2021_ent']):,}"),
+                                        html.Td(f"{round(kwargs['pre_2022_ent']):,}"),
+                                        html.Td(f"{round(kwargs['pre_med_ent']):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
+                        html.Br(),
+                        html.H5(children='Gasto Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("$ 2021"),
+                                        html.Th("$ 2022"),
+                                        html.Th("$ Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['cos_2021_ent']):,}"),
+                                        html.Td(f"{round(kwargs['cos_2022_ent']):,}"),
+                                        html.Td(f"{round(kwargs['cos_med_ent']):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
+                    ],
+                    style={'width': '48%','float': 'right','margin-left':'2%'}
                     ),
 
                     html.Div([
-                        html.H3(children='Año 2022', className="card-title me-2",style={'font-weight':'bold'}),
                         html.Br(),
-                        html.H5(children=gastos[2], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"$ {kwargs['pre_2022']:,}", className="card-text"),
-
-                        html.H5(children=gastos[3], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"$ {kwargs['cos_2022']:,}", className="card-text"),
+                        html.H5(children='Relacion Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.P(children=round(kwargs['res_dist'],2), className="card-text"),
                     ],
-                    style={'width': '50%','float': 'left'}
+                    style={'width': '48%','float': 'left','margin-right':'2%'}
+                    ),
+
+                    html.Div([
+                        html.Br(),
+                        html.H5(children='Relacion Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.P(children=round(kwargs['res_enti'],2), className="card-text"),
+                    ],
+                    style={'width': '48%','float': 'right','margin-left':'2%'}
                     ),
 
                     html.Div([
@@ -90,101 +195,140 @@ def card_p3_p4_p5_p6(**kwargs):
         style={"width": "96%",'padding':'1rem 1rem 1rem 1rem','margin':'2% 2% 2% 2%','background-color':'#f8f9fa'},
     )
 
-def card_p7_p8_p9(**kwargs):
+def card_p7_p8_p9_p10_p11_p12(**kwargs):
 
-    gastos=['Funcionarios totales 2021',
-            'Funcionarios manual 2021',
-            'Funcionarios ocasionales 2021',
-            'Funcionarios totales 2022',
-            'Funcionarios manual 2022',
-            'Funcionarios ocasionales 2022']
     return dbc.Card(
         [
             dbc.CardBody(
                 [   
+                    html.H3(children=f"{kwargs['tip_preg']}", className="card-title me-2",style={'font-weight':'bold'}),
+                    html.Br(),
                     html.Div([
-                        html.H3(children='Año 2021', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.H5(children='Funcionarios Total Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("2021"),
+                                        html.Th("2022"),
+                                        html.Th("Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['can_2021_dis'],2):,}"),
+                                        html.Td(f"{round(kwargs['can_2022_dis'],2):,}"),
+                                        html.Td(f"{round(kwargs['can_med_dis'],2):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
                         html.Br(),
-                        html.H5(children=gastos[0], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['can_2021']:,}", className="card-text"),
-
-                        html.H5(children=gastos[1], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['fun_2021']:,}", className="card-text"),
-
-                        html.H5(children=gastos[2], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['oca_2021']:,}", className="card-text"),
+                        html.H5(children='Funcionarios Innovación Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("2021"),
+                                        html.Th("2022"),
+                                        html.Th("Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['fun_2021_dis'],2):,}"),
+                                        html.Td(f"{round(kwargs['fun_2022_dis'],2):,}"),
+                                        html.Td(f"{round(kwargs['fun_med_dis'],2):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
                     ],
-                    style={'width': '50%','float': 'left'}
+                    style={'width': '48%','float': 'left','margin-right':'2%'}
+                    ),
+                    
+                    html.Div([
+                        html.H5(children='Funcionarios Total Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("2021"),
+                                        html.Th("2022"),
+                                        html.Th("Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['can_2021_ent'],2):,}"),
+                                        html.Td(f"{round(kwargs['can_2022_ent'],2):,}"),
+                                        html.Td(f"{round(kwargs['can_med_ent'],2):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
+                        html.Br(),
+                        html.H5(children='Funcionarios Innovación Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        dbc.Table(
+                            children=[
+                                html.Thead([
+                                    html.Tr([
+                                        html.Th("2021"),
+                                        html.Th("2022"),
+                                        html.Th("Mediana"),
+                                    ])
+                                ]                            
+                                ),
+                                html.Tbody([
+                                    html.Tr([
+                                        html.Td(f"{round(kwargs['fun_2021_ent'],2):,}"),
+                                        html.Td(f"{round(kwargs['fun_2022_ent'],2):,}"),
+                                        html.Td(f"{round(kwargs['fun_med_ent'],2):,}"),
+                                    ])
+                                ]
+                                )
+                                ],
+                            bordered=True,
+                            hover=True,
+                            responsive=True,
+                            striped=True,
+                        ),
+                    ],
+                    style={'width': '48%','float': 'right','margin-left':'2%'}
                     ),
 
                     html.Div([
-                        html.H3(children='Año 2022', className="card-title me-2",style={'font-weight':'bold'}),
                         html.Br(),
-                        html.H5(children=gastos[3], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['can_2022']:,}", className="card-text"),
-
-                        html.H5(children=gastos[4], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['fun_2022']:,}", className="card-text"),
-
-                        html.H5(children=gastos[5], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['oca_2022']:,}", className="card-text"),
+                        html.H5(children='Relacion Distrito', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.P(children=round(kwargs['res_dist'],2), className="card-text"),
                     ],
-                    style={'width': '50%','float': 'left'}
+                    style={'width': '48%','float': 'left','margin-right':'2%'}
                     ),
 
                     html.Div([
                         html.Br(),
-                        html.H5(children='Soporte', className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=kwargs['sop_car'], className="card-text"),
+                        html.H5(children='Relacion Entidad', className="card-title me-2",style={'font-weight':'bold'}),
+                        html.P(children=round(kwargs['res_enti'],2), className="card-text"),
                     ],
-                    style={'width': '100%','float': 'left'}
-                    ),                    
-                ]
-            ),
-        ],
-        style={"width": "96%",'padding':'1rem 1rem 1rem 1rem','margin':'2% 2% 2% 2%','background-color':'#f8f9fa'},
-    )
-
-def card_p10_p11_p12(**kwargs):
-
-    gastos=['Contratistas totales 2021',
-            'Contratistas manual 2021',
-            'Contratistas ocasionales 2021',
-            'Contratistas totales 2022',
-            'Contratistas manual 2022',
-            'Contratistas ocasionales 2022']
-    return dbc.Card(
-        [
-            dbc.CardBody(
-                [   
-                    html.Div([
-                        html.H3(children='Año 2021', className="card-title me-2",style={'font-weight':'bold'}),
-                        html.Br(),
-                        html.H5(children=gastos[0], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['can_2021']:,}", className="card-text"),
-
-                        html.H5(children=gastos[1], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['fun_2021']:,}", className="card-text"),
-
-                        html.H5(children=gastos[2], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['oca_2021']:,}", className="card-text"),
-                    ],
-                    style={'width': '50%','float': 'left'}
-                    ),
-
-                    html.Div([
-                        html.H3(children='Año 2022', className="card-title me-2",style={'font-weight':'bold'}),
-                        html.Br(),
-                        html.H5(children=gastos[3], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['can_2022']:,}", className="card-text"),
-
-                        html.H5(children=gastos[4], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['fun_2022']:,}", className="card-text"),
-
-                        html.H5(children=gastos[5], className="card-title me-2",style={'font-weight':'bold'}),
-                        html.P(children=f"{kwargs['oca_2022']:,}", className="card-text"),
-                    ],
-                    style={'width': '50%','float': 'left'}
+                    style={'width': '48%','float': 'right','margin-left':'2%'}
                     ),
 
                     html.Div([

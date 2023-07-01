@@ -1412,7 +1412,32 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
         # Recursos digitales
         elif pregunta_seleccionada=='p13':
-            pass
+            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            
+            
+            if criterio_seleccionado=='c2':
+                
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p13_df.loc[p13_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO NOTA INICIATIVA
+                mediana = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada][criterios_disponibles_bucle].mean()
+                p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada,'m_i']=mediana.mean()
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                print(f"promedio: \n{mediana}\n")
+                print(f"promedio de medianas: \n{p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['m_i']}\n")
+
+                nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean()
+                print(f'nota entidad: \n{nota_entidad}')
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p13_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
 
         #retos SDQS
@@ -1715,10 +1740,16 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             costo_2019_2020 = 'N/A'
         
-        presupuesto_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_1']
-        presupuesto_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_2']
-        costo_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_1']
-        costo_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_2']
+        presupuesto_2021_dis = respuestas_2023_df[f'p3_val_1'].median()
+        presupuesto_2022_dis = respuestas_2023_df[f'p3_val_2'].median()
+        costo_2021_dis = respuestas_2023_df[f'p4_val_1'].median()
+        costo_2022_dis = respuestas_2023_df[f'p4_val_2'].median()
+
+        presupuesto_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_1']
+        presupuesto_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_2']
+        costo_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_1']
+        costo_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_2']
+
         soporte_2023 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1727,15 +1758,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Presupuesto: \n {costo_2019_2020}"
 
         cards=[]
+        tipo_pregunta=['Presupuesto funcionamiento', 'Presupuesto inversión']
+
+        rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
+        rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
+        res_dis = rel_dist_cos*100/rel_dist_pre
+
+        rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
+        rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
+        res_ent=rel_enti_cos*100/rel_enti_pre
             
         card_2023=card_p3_p4_p5_p6(
-            pre_2021=list(presupuesto_2021)[0],
-            pre_2022=list(presupuesto_2022)[0],
+            tip_preg=tipo_pregunta[0],
 
-            cos_2021=list(costo_2021)[0],
-            cos_2022=list(costo_2022)[0],     
+            pre_2021_dis=presupuesto_2021_dis,
+            pre_2022_dis=presupuesto_2022_dis,
+            pre_med_dis=rel_dist_pre,
+            cos_2021_dis=costo_2021_dis,
+            cos_2022_dis=costo_2022_dis,
+            cos_med_dis=rel_dist_cos,
+            res_dist=res_dis,
 
-            sop_car_2023=list(soporte_2023)[0]
+            pre_2021_ent=list(presupuesto_2021_ent)[0],
+            pre_2022_ent=list(presupuesto_2022_ent)[0],
+            pre_med_ent=rel_enti_pre,
+            cos_2021_ent=list(costo_2021_ent)[0],
+            cos_2022_ent=list(costo_2022_ent)[0],
+            cos_med_ent=rel_enti_cos,
+            res_enti=res_ent,
+
+            sop_car_2023=list(soporte_2023)[0],
         )
 
         cards.append(card_2023)
@@ -1756,10 +1808,16 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             costo_2019_2020 = 'N/A'
         
-        presupuesto_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_1']
-        presupuesto_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_2']
-        costo_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_1']
-        costo_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_2']
+        presupuesto_2021_dis = respuestas_2023_df[f'p3_val_1'].median()
+        presupuesto_2022_dis = respuestas_2023_df[f'p3_val_2'].median()
+        costo_2021_dis = respuestas_2023_df[f'p4_val_1'].median()
+        costo_2022_dis = respuestas_2023_df[f'p4_val_2'].median()
+
+        presupuesto_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_1']
+        presupuesto_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p3_val_2']
+        costo_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_1']
+        costo_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p4_val_2']
+
         soporte_2023 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1768,15 +1826,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Presupuesto: \n {costo_2019_2020}"
 
         cards=[]
+        tipo_pregunta=['Presupuesto funcionamiento', 'Presupuesto inversión']
+
+        rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
+        rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
+        res_dis = rel_dist_cos*100/rel_dist_pre
+
+        rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
+        rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
+        res_ent=rel_enti_cos*100/rel_enti_pre
             
         card_2023=card_p3_p4_p5_p6(
-            pre_2021=list(presupuesto_2021)[0],
-            pre_2022=list(presupuesto_2022)[0],
+            tip_preg=tipo_pregunta[0],
 
-            cos_2021=list(costo_2021)[0],
-            cos_2022=list(costo_2022)[0],     
-                  
-            sop_car_2023=list(soporte_2023)[0]
+            pre_2021_dis=presupuesto_2021_dis,
+            pre_2022_dis=presupuesto_2022_dis,
+            pre_med_dis=rel_dist_pre,
+            cos_2021_dis=costo_2021_dis,
+            cos_2022_dis=costo_2022_dis,
+            cos_med_dis=rel_dist_cos,
+            res_dist=res_dis,
+
+            pre_2021_ent=list(presupuesto_2021_ent)[0],
+            pre_2022_ent=list(presupuesto_2022_ent)[0],
+            pre_med_ent=rel_enti_pre,
+            cos_2021_ent=list(costo_2021_ent)[0],
+            cos_2022_ent=list(costo_2022_ent)[0],
+            cos_med_ent=rel_enti_cos,
+            res_enti=res_ent,
+
+            sop_car_2023=list(soporte_2023)[0],
         )
 
         cards.append(card_2023)
@@ -1797,10 +1876,16 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             costo_2019_2020 = 'N/A'
         
-        presupuesto_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_1']
-        presupuesto_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_2']
-        costo_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_1']
-        costo_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_2']
+        presupuesto_2021_dis = respuestas_2023_df[f'p5_val_1'].median()
+        presupuesto_2022_dis = respuestas_2023_df[f'p5_val_2'].median()
+        costo_2021_dis = respuestas_2023_df[f'p6_val_1'].median()
+        costo_2022_dis = respuestas_2023_df[f'p6_val_2'].median()
+
+        presupuesto_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_1']
+        presupuesto_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_2']
+        costo_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_1']
+        costo_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_2']
+
         soporte_2023 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1809,15 +1894,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Presupuesto: \n {costo_2019_2020}"
 
         cards=[]
+        tipo_pregunta=['Presupuesto funcionamiento', 'Presupuesto inversión']
+
+        rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
+        rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
+        res_dis = rel_dist_cos*100/rel_dist_pre
+
+        rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
+        rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
+        res_ent=rel_enti_cos*100/rel_enti_pre
             
         card_2023=card_p3_p4_p5_p6(
-            pre_2021=list(presupuesto_2021)[0],
-            pre_2022=list(presupuesto_2022)[0],
+            tip_preg=tipo_pregunta[0],
 
-            cos_2021=list(costo_2021)[0],
-            cos_2022=list(costo_2022)[0],     
+            pre_2021_dis=presupuesto_2021_dis,
+            pre_2022_dis=presupuesto_2022_dis,
+            pre_med_dis=rel_dist_pre,
+            cos_2021_dis=costo_2021_dis,
+            cos_2022_dis=costo_2022_dis,
+            cos_med_dis=rel_dist_cos,
+            res_dist=res_dis,
 
-            sop_car_2023=list(soporte_2023)[0]
+            pre_2021_ent=list(presupuesto_2021_ent)[0],
+            pre_2022_ent=list(presupuesto_2022_ent)[0],
+            pre_med_ent=rel_enti_pre,
+            cos_2021_ent=list(costo_2021_ent)[0],
+            cos_2022_ent=list(costo_2022_ent)[0],
+            cos_med_ent=rel_enti_cos,
+            res_enti=res_ent,
+
+            sop_car_2023=list(soporte_2023)[0],
         )
 
         cards.append(card_2023)
@@ -1838,10 +1944,16 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             costo_2019_2020 = 'N/A'
         
-        presupuesto_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_1']
-        presupuesto_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_2']
-        costo_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_1']
-        costo_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_2']
+        presupuesto_2021_dis = respuestas_2023_df[f'p5_val_1'].median()
+        presupuesto_2022_dis = respuestas_2023_df[f'p5_val_2'].median()
+        costo_2021_dis = respuestas_2023_df[f'p6_val_1'].median()
+        costo_2022_dis = respuestas_2023_df[f'p6_val_2'].median()
+
+        presupuesto_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_1']
+        presupuesto_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p5_val_2']
+        costo_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_1']
+        costo_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p6_val_2']
+
         soporte_2023 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1850,15 +1962,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Presupuesto: \n {costo_2019_2020}"
 
         cards=[]
+        tipo_pregunta=['Presupuesto funcionamiento', 'Presupuesto inversión']
+
+        rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
+        rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
+        res_dis = rel_dist_cos*100/rel_dist_pre
+
+        rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
+        rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
+        res_ent=rel_enti_cos*100/rel_enti_pre
             
         card_2023=card_p3_p4_p5_p6(
-            pre_2021=list(presupuesto_2021)[0],
-            pre_2022=list(presupuesto_2022)[0],
+            tip_preg=tipo_pregunta[0],
 
-            cos_2021=list(costo_2021)[0],
-            cos_2022=list(costo_2022)[0],     
-                  
-            sop_car_2023=list(soporte_2023)[0]
+            pre_2021_dis=presupuesto_2021_dis,
+            pre_2022_dis=presupuesto_2022_dis,
+            pre_med_dis=rel_dist_pre,
+            cos_2021_dis=costo_2021_dis,
+            cos_2022_dis=costo_2022_dis,
+            cos_med_dis=rel_dist_cos,
+            res_dist=res_dis,
+
+            pre_2021_ent=list(presupuesto_2021_ent)[0],
+            pre_2022_ent=list(presupuesto_2022_ent)[0],
+            pre_med_ent=rel_enti_pre,
+            cos_2021_ent=list(costo_2021_ent)[0],
+            cos_2022_ent=list(costo_2022_ent)[0],
+            cos_med_ent=rel_enti_cos,
+            res_enti=res_ent,
+
+            sop_car_2023=list(soporte_2023)[0],
         )
 
         cards.append(card_2023)
@@ -1878,13 +2011,21 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             funcionarios_ent = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]
         except Exception as e:
             funcionarios_ent = 'N/A'
+
+        cantidad_2021_dis = respuestas_2023_df[f'p7_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p7_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p8_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p8_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p9_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p9_val_2'].median()
         
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1893,17 +2034,45 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Funcionarios: \n {funcionarios_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p7_p8_p9(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[0],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
@@ -1923,12 +2092,20 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             funcionarios_ent = 'N/A'
         
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+        cantidad_2021_dis = respuestas_2023_df[f'p7_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p7_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p8_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p8_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p9_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p9_val_2'].median()
+        
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -1937,17 +2114,45 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Funcionarios: \n {funcionarios_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p7_p8_p9(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[0],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
@@ -1967,12 +2172,20 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             funcionarios_ent = 'N/A'
 
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+        cantidad_2021_dis = respuestas_2023_df[f'p7_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p7_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p8_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p8_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p9_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p9_val_2'].median()
+        
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p8_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p9_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada]['p8']
@@ -1981,17 +2194,45 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_respuesta_2021=f"Funcionarios: \n {funcionarios_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p7_p8_p9(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[0],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
@@ -2011,31 +2252,67 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             contratistas_ent = 'N/A'
         
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+        cantidad_2021_dis = respuestas_2023_df[f'p10_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p10_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p11_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p11_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p12_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p12_val_2'].median()
+        
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        salida_respuesta_2021=f"Contratistas: \n {contratistas_ent}"
+        salida_respuesta_2021=f"Funcionarios: \n {contratistas_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p10_p11_p12(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[1],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
@@ -2055,31 +2332,67 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             contratistas_ent = 'N/A'
         
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+        cantidad_2021_dis = respuestas_2023_df[f'p10_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p10_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p11_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p11_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p12_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p12_val_2'].median()
+        
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        salida_respuesta_2021=f"Contratistas: \n {contratistas_ent}"
+        salida_respuesta_2021=f"Funcionarios: \n {contratistas_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p10_p11_p12(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[1],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
@@ -2099,31 +2412,67 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             contratistas_ent = 'N/A'
 
-        cantidad_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
-        cantidad_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
-        manual_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
-        manual_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
-        ocasionales_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
-        ocasionales_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+        cantidad_2021_dis = respuestas_2023_df[f'p10_val_1'].median()
+        cantidad_2022_dis = respuestas_2023_df[f'p10_val_2'].median()
+        manual_2021_dis = respuestas_2023_df[f'p11_val_1'].median()
+        manual_2022_dis = respuestas_2023_df[f'p11_val_2'].median()
+        ocasionales_2021_dis = respuestas_2023_df[f'p12_val_1'].median()
+        ocasionales_2022_dis = respuestas_2023_df[f'p12_val_2'].median()
+        
+        cantidad_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
+        cantidad_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
+        manual_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_1']
+        manual_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p11_val_2']
+        ocasionales_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_1']
+        ocasionales_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p12_val_2']
+
         soporte = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada]['p11']
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        salida_respuesta_2021=f"Contratistas: \n {contratistas_ent}"
+        salida_respuesta_2021=f"Funcionarios: \n {contratistas_ent}"
 
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
+        rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
+        rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
+        res_dis = rel_dist_man*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
+        rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
+        rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
+        res_ent = rel_enti_man*100/rel_enti_tot
             
-        card_2023=card_p10_p11_p12(
-            can_2021=list(cantidad_2021)[0],
-            can_2022=list(cantidad_2022)[0],
+        card_2023=card_p7_p8_p9_p10_p11_p12(
+            tip_preg=tipo_pregunta[1],
 
-            fun_2021=list(manual_2021)[0],
-            fun_2022=list(manual_2022)[0],
+            can_2021_dis=cantidad_2021_dis,
+            can_2022_dis=cantidad_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=manual_2021_dis,
+            fun_2022_dis=manual_2022_dis,
+            fun_med_dis=rel_dist_man,
+            oca_2021_dis=ocasionales_2021_dis,
+            oca_2022_dis=ocasionales_2022_dis,
+            oca_med_dis=rel_dist_oca,
+            res_dist=res_dis,
 
-            oca_2021=list(ocasionales_2021)[0],
-            oca_2022=list(ocasionales_2022)[0],
-            sop_car=list(soporte)[0])
+            can_2021_ent=list(cantidad_2021_ent)[0],
+            can_2022_ent=list(cantidad_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(manual_2021_ent)[0],
+            fun_2022_ent=list(manual_2022_ent)[0],
+            fun_med_ent=rel_enti_man,
+            oca_2021_ent=list(ocasionales_2021_ent)[0],
+            oca_2022_ent=list(ocasionales_2022_ent)[0],
+            oca_med_ent=rel_enti_oca,
+            res_enti=res_ent,
+
+            sop_car=list(soporte)[0]
+        )
 
         cards.append(card_2023)
 
