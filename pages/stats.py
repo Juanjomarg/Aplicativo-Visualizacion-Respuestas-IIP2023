@@ -3380,20 +3380,47 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             form_2021 = 'N/A'
 
-        if list(respuesta_2023)[0]=='Si':
-            formados_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_1']
-            formados_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_2']
-        else:
-            formados_2021='N/A'
-            formados_2022='N/A'
-
         salida_respuesta_2021=f"Funcionarios y contratistas formados: \n {form_2021}"
 
+        total_2021_dis = respuestas_2023_df[f'p7_val_1'].median()
+        total_2022_dis = respuestas_2023_df[f'p7_val_2'].median()
+        formados_2021_dis = respuestas_2023_df[f'p29_val_1'].median()
+        formados_2022_dis = respuestas_2023_df[f'p29_val_2'].median()
+        
+        total_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_1']
+        total_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p7_val_2']
+        formados_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p29_val_1']
+        formados_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p29_val_2']
+
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(total_2021_dis), float(total_2022_dis)])
+        rel_dist_for = statistics.mean([float(formados_2021_dis), float(formados_2022_dis)])
+        res_dis = rel_dist_for*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(total_2021_ent.iloc[0]), float(total_2022_ent.iloc[0])])
+        rel_enti_for = statistics.mean([float(formados_2021_ent.iloc[0]), float(formados_2022_ent.iloc[0])])
+        res_ent = rel_enti_for*100/rel_enti_tot
             
         card_2023=card_p29_p30(
-            for_2021=list(formados_2021)[0],
-            for_2022=list(formados_2022)[0],
+            tip_preg=tipo_pregunta[0],
+
+            can_2021_dis=total_2021_dis,
+            can_2022_dis=total_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=formados_2021_dis,
+            fun_2022_dis=formados_2022_dis,
+            fun_med_dis=rel_dist_for,
+            res_dist=res_dis,
+
+            can_2021_ent=list(total_2021_ent)[0],
+            can_2022_ent=list(total_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(formados_2021_ent)[0],
+            fun_2022_ent=list(formados_2022_ent)[0],
+            fun_med_ent=rel_enti_for,
+            res_enti=res_ent,
         )
 
         cards.append(card_2023)
@@ -3417,20 +3444,47 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e:
             form_2021 = 'N/A'
 
-        if list(respuesta_2023)[0]=='Si':
-            formados_2021 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_1']
-            formados_2022 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val_2']
-        else:
-            formados_2021='N/A'
-            formados_2022='N/A'
-
         salida_respuesta_2021=f"Funcionarios y contratistas formados: \n {form_2021}"
 
+        total_2021_dis = respuestas_2023_df[f'p10_val_1'].median()
+        total_2022_dis = respuestas_2023_df[f'p10_val_2'].median()
+        formados_2021_dis = respuestas_2023_df[f'p30_val_1'].median()
+        formados_2022_dis = respuestas_2023_df[f'p30_val_2'].median()
+        
+        total_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_1']
+        total_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p10_val_2']
+        formados_2021_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p30_val_1']
+        formados_2022_ent = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada][f'p30_val_2']
+
         cards=[]
+        tipo_pregunta=['Funcionarios', 'Contratistas']
+
+        rel_dist_tot = statistics.mean([float(total_2021_dis), float(total_2022_dis)])
+        rel_dist_for = statistics.mean([float(formados_2021_dis), float(formados_2022_dis)])
+        res_dis = rel_dist_for*100/rel_dist_tot
+
+        rel_enti_tot = statistics.mean([float(total_2021_ent.iloc[0]), float(total_2022_ent.iloc[0])])
+        rel_enti_for = statistics.mean([float(formados_2021_ent.iloc[0]), float(formados_2022_ent.iloc[0])])
+        res_ent = rel_enti_for*100/rel_enti_tot
             
         card_2023=card_p29_p30(
-            for_2021=list(formados_2021)[0],
-            for_2022=list(formados_2022)[0],
+            tip_preg=tipo_pregunta[1],
+
+            can_2021_dis=total_2021_dis,
+            can_2022_dis=total_2022_dis,
+            can_med_dis=rel_dist_tot,
+            fun_2021_dis=formados_2021_dis,
+            fun_2022_dis=formados_2022_dis,
+            fun_med_dis=rel_dist_for,
+            res_dist=res_dis,
+
+            can_2021_ent=list(total_2021_ent)[0],
+            can_2022_ent=list(total_2022_ent)[0],
+            can_med_ent=rel_enti_tot,
+            fun_2021_ent=list(formados_2021_ent)[0],
+            fun_2022_ent=list(formados_2022_ent)[0],
+            fun_med_ent=rel_enti_for,
+            res_enti=res_ent,
         )
 
         cards.append(card_2023)
