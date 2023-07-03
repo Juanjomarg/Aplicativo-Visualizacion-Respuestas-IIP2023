@@ -345,15 +345,15 @@ def mision_vision_entidad_f(value):
     Output('sc4', 'value'),
     Input('entidad_seleccionada', 'data')
 )
-def tabla_resumen_2021(value):
+def tabla_resumen_2021(entidad):
     
-    pos = resultados_2021_df[resultados_2021_df['_uuid'] == value]['pos']
+    pos = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['pos']
     if pos.empty == False:
         pos_2021 = pos
     else:
         pos_2021 = 'N/A'
 
-    total = resultados_2021_df[resultados_2021_df['_uuid'] == value]['total'].round(2)
+    total = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['total'].round(2)
     if total.empty == False:
         res_total  = total
         st = total
@@ -361,7 +361,7 @@ def tabla_resumen_2021(value):
         res_total = 'N/A'
         st = 0
 
-    c1 = resultados_2021_df[resultados_2021_df['_uuid'] == value]['res_c1'].round(2)
+    c1 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c1'].round(2)
     if c1.empty == False:
         res_c1 = c1
         sc1 = c1
@@ -369,7 +369,7 @@ def tabla_resumen_2021(value):
         res_c1 = 'N/A'
         sc1 = 0
 
-    c2 = resultados_2021_df[resultados_2021_df['_uuid'] == value]['res_c2'].round(2)
+    c2 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c2'].round(2)
     if c2.empty == False:
         res_c2 = c2
         sc2 = c2
@@ -377,7 +377,7 @@ def tabla_resumen_2021(value):
         res_c2 = 'N/A'
         sc2 = 0
 
-    c3 = resultados_2021_df[resultados_2021_df['_uuid'] == value]['res_c3'].round(2)
+    c3 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c3'].round(2)
     if c3.empty == False:
         res_c3 = c3
         sc3 = c3
@@ -385,7 +385,7 @@ def tabla_resumen_2021(value):
         res_c3 = 'N/A'
         sc3 = 0
 
-    c4 = resultados_2021_df[resultados_2021_df['_uuid'] == value]['res_c4'].round(2)
+    c4 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c4'].round(2)
     if c4.empty == False:
         res_c4 = c4
         sc4 = c4
