@@ -1901,7 +1901,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #retos SDQS
         elif pregunta_seleccionada=='p14':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -1919,7 +1932,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #retos otros para ciudadanos
         elif pregunta_seleccionada=='p15':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -1937,7 +1963,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #retos por funcionarios/contratistas
         elif pregunta_seleccionada=='p16':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -1955,7 +1994,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #canales retos
         elif pregunta_seleccionada=='p17':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -1973,7 +2025,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #actividades retos
         elif pregunta_seleccionada=='p18':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -1991,7 +2056,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #ideas ciudadanos
         elif pregunta_seleccionada=='p19':
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+
+                #CALCULO NOTA GENERAL ENTIDAD
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+
+                #GUARDADO ARCHIVOS
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
