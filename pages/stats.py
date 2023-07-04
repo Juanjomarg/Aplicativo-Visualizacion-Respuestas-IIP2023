@@ -857,6 +857,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         ],
         style={'width':'100%'}
         )
+
     elif pregunta_seleccionada=='p3':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         tabla_criterios=html.Div(children=[
@@ -1132,6 +1133,42 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                 html.Tbody([
                     html.Tr([
                         html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p13':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2',colSpan=3),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),colSpan=3),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
