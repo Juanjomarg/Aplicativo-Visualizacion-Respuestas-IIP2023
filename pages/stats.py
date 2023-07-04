@@ -1313,27 +1313,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
         
 
     #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
@@ -1352,26 +1336,10 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-        elif criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-        
 
     #canales retos
     elif pregunta_seleccionada=='p17':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
@@ -1389,27 +1357,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
         
 
     #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
@@ -1427,14 +1379,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
         
 
     #canales ideas
@@ -1446,27 +1390,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
         
 
     #actividades ideas
     elif pregunta_seleccionada=='p22':
         if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle= [ele for ele in salida_criterios_bucle_full if ele not in unwanted]
             try:
