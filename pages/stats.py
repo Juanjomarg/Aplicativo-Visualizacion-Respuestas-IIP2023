@@ -1599,7 +1599,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except Exception as e_pre:
             pregunta = 'N/A'
             salida_pregunta=pregunta
-            out_pre=f"Couldn't load pregunta due to {e_pre}"
+            out_pre=f"|||PREGUNTA||| Couldn't load pregunta due to {e_pre}"
             print(out_pre)
 
         return salida_pregunta,out_pre
@@ -1615,7 +1615,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             out_2021='Success'
         except Exception as e_res_2021:
             salida_respuesta_2021 = respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada]['p1']
-            out_2021=f"Couldn't load respuesta_2021 due to {e_res_2021}"
+            out_2021=f"|||RESPUESTA 2021||| Couldn't load respuesta 2021 due to {e_res_2021}"
             print(out_2021)
         
         return salida_respuesta_2021,out_2021
@@ -1631,7 +1631,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             out_2023='Success'
         except Exception as e_res_2023:
             salida_respuesta_2023 = respuestas_2023_df[respuestas_2023_df['_uuid'] == entidad_seleccionada]['p1']
-            out_2023=f"Couldn't load respuesta_2023 due to {e_res_2023}"
+            out_2023=f"|||RESPUESTA 2023||| Couldn't load respuesta 2023 due to {e_res_2023}"
             print(out_2023)
 
         return salida_respuesta_2023,out_2023
@@ -1640,7 +1640,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     respuesta_2021,error_2021=test_empty_respuesta_2021(entidad_seleccionada,pregunta_seleccionada)
     respuesta_2023,error_2023=test_empty_respuesta_2023(entidad_seleccionada,pregunta_seleccionada)
 
-    estilo={'display':'flex','flex-wrap': 'wrap','justify-content':'space-between'} 
+    estilo={'display':'flex','flex-wrap': 'wrap','justify-content':'space-between'}
     indices_carousel=[0]
     salida_criterio=indices_carousel
 
@@ -1649,32 +1649,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         indices_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada]['_index']
         codigos_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_cod']
+        nombres_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_nom']
         descripciones_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_des']
         soportes_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
         
-        if list(respuesta_2021)[0] == 'Si':
-            salida_respuesta_2021 = f"Si: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
+        try:
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
 
-        elif list(respuesta_2021)[0] == 'No':
+        except Exception as e:
             salida_respuesta_2021 = f'No registra iniciativas'
-
-        else:
-            salida_respuesta_2021 = f'Respuesta no binaria'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
                     
-                    card=card_p1(
+                    card=card_p1_p2(
                         ind_car=list(indices_carousel)[i],
-                        nom_car=list(codigos_carousel)[i],
+                        cod_car=list(codigos_carousel)[i],
+                        nom_car=list(nombres_carousel)[i],
                         des_car=list(descripciones_carousel)[i],
                         sop_car=list(soportes_carousel)[i])
                     cards.append(card)
@@ -1682,11 +1686,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_1()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #Enfoques, lineas o proyectos
@@ -1694,30 +1710,36 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         indices_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada]['_index']
         codigos_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_cod']
+        nombres_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_nom']
         descripciones_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_des']
         soportes_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_sop']
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(respuesta_2021)[0] == 'Si':
-            salida_respuesta_2021 = f"Si: \n {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
-        elif list(respuesta_2021)[0] == 'No':
+        try:
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
             salida_respuesta_2021 = f'No registra iniciativas'
-        else:
-            salida_respuesta_2021 = f'Respuesta no binaria'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
                     
-                    card=card_p2(
+                    card=card_p1_p2(
                         ind_car=list(indices_carousel)[i],
-                        nom_car=list(codigos_carousel)[i],
+                        cod_car=list(codigos_carousel)[i],
+                        nom_car=list(nombres_carousel)[i],
                         des_car=list(descripciones_carousel)[i],
                         sop_car=list(soportes_carousel)[i])
                     cards.append(card)
@@ -1725,12 +1747,24 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_2()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        
+
 
     #Presupuesto general
     elif pregunta_seleccionada=='p3':
@@ -2496,16 +2530,20 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(respuesta_2021)[0] == 'Si':
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        elif list(respuesta_2021)[0] == 'No':
+        try:
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
             salida_respuesta_2021 = f'No registra iniciativas'
-        else:
-            salida_respuesta_2021 = f'Respuesta no binaria'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -2522,13 +2560,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_13()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #retos SDQS
     elif pregunta_seleccionada=='p14':
 
@@ -2545,25 +2595,27 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]=='Si':
-            act_4_otr = p14_df[p14_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-        else:
-            act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
-        
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]
+            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][pregunta_seleccionada])[0]
         except:
-            salida_respuesta_2021 = 'N/A'
-
-        ##########################################
-        #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
-        ##########################################
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
-                cards=[]
+
+                if list(act_4_carousel)[0]==1:
+                    act_4_otr = p14_df[p14_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
+                else:
+                    act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
+
+                cards=[]                
                 
                 for i in range(len(indices_carousel)):
                     
@@ -2583,11 +2635,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_14()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #retos otros para ciudadanos
@@ -2606,24 +2670,26 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(act_4_carousel)[0]=='Si':
-            act_4_otr = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-        else:
-            act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
-        
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
 
-        ##########################################
-        #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
-        ##########################################
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(act_4_carousel)[0]==1:
+                    act_4_otr = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
+                else:
+                    act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
+
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -2644,13 +2710,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_15()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
 
@@ -2666,25 +2744,26 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
-
-        if list(act_4_carousel)[0]=='Si':
-            act_4_otr = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-        else:
-            act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
         
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
-
-        ##########################################
-        #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
-        ##########################################
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(act_4_carousel)[0]==1:
+                    act_4_otr = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
+                else:
+                    act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
+
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -2705,13 +2784,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_16()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #canales retos
     elif pregunta_seleccionada=='p17':
         
@@ -2724,11 +2815,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if indices_carousel.empty == True:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
             cards=[]
             
@@ -2743,11 +2840,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([
                     html.Div(children=cards,style=estilo)
                 ])
+            salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
             
         salida_criterio=criterio_17()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #actividades retos
     elif pregunta_seleccionada=='p18':
 
@@ -2760,11 +2857,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'p17'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if indices_carousel.empty == True:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=["N/A"]
         else:
             cards=[]
             
@@ -2779,11 +2882,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([
                     html.Div(children=cards,style=estilo)
                 ])
+            salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
 
         salida_criterio=criterio_18()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
 
@@ -2799,25 +2902,27 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
-
-        if list(act_4_carousel)[0]=='Si':
-            act_4_otr = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-        else:
-            act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
         
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
 
-        ##########################################
-        #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
-        ##########################################
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(act_4_carousel)[0]==1:
+                    act_4_otr = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
+                else:
+                    act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
+
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -2838,11 +2943,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_19()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #ideas funcionarios
@@ -2860,25 +2977,27 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
-
-        if list(act_4_carousel)[0]=='Si':
-            act_4_otr = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-        else:
-            act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
         
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
 
-        ##########################################
-        #Aquí toca colocar la lógica de califación dependiendo de los unos de las actividades
-        ##########################################
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(act_4_carousel)[0]==1:
+                    act_4_otr = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
+                else:
+                    act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
+
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -2899,13 +3018,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_20()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #canales ideas
     elif pregunta_seleccionada=='p21':
 
@@ -2918,11 +3049,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if indices_carousel.empty == True:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
             cards=[]
             
@@ -2937,11 +3074,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([
                     html.Div(children=cards,style=estilo)
                 ])
+            salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
             
         salida_criterio=criterio_21()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #actividades ideas
     elif pregunta_seleccionada=='p22':
 
@@ -2954,11 +3091,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'p21'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if indices_carousel.empty == True:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad='N/A'
         else:
             cards=[]
             
@@ -2973,11 +3116,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_respuesta_2023 = html.Div([
                     html.Div(children=cards,style=estilo)
                 ])
+            salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
             
         salida_criterio=criterio_22()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
 
@@ -2990,31 +3133,32 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_usr/{pregunta_seleccionada}_usr_3']
         prototipado = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_pro']
 
-
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
         
-
-        if list(prototipado)[0] == 'Si':
-            vali_usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_1']
-            vali_usr_2_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_2']
-            vali_usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_3']
-        else:
-            vali_usr_1_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
-            vali_usr_2_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
-            vali_usr_3_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
-
-
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
 
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(prototipado)[0] == 'Si':
+                    vali_usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_1']
+                    vali_usr_2_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_2']
+                    vali_usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_3']
+                else:
+                    vali_usr_1_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
+                    vali_usr_2_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
+                    vali_usr_3_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -3036,13 +3180,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_23()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #eventos o formación
     elif pregunta_seleccionada=='p24':
 
@@ -3085,9 +3241,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = f"{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
         except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
 
@@ -3104,7 +3260,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_1_soportes_carousel)[i])
                     cards1.append(card)
             else:
-                cards1=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
+                cards1=[html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)]),html.Br()]
             
             if p24_2_indices_carousel.empty == False:
                 cards2=[]
@@ -3119,7 +3279,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_2_soportes_carousel)[i])
                     cards2.append(card)
             else:
-                cards2=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
+                cards2=[html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)]),html.Br()]
 
             if p24_3_indices_carousel.empty == False:
                 cards3=[]
@@ -3134,7 +3298,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_3_soportes_carousel)[i])
                     cards3.append(card)
             else:
-                cards3=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
+                cards3=[html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)]),html.Br()]
 
             if p24_4_indices_carousel.empty == False:
                 cards4=[]
@@ -3149,7 +3317,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_4_soportes_carousel)[i])
                     cards4.append(card)
             else:
-                cards4=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
+                cards4=[html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)]),html.Br()]
             
             if p24_5_indices_carousel.empty == False:
                 cards5=[]
@@ -3164,7 +3336,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                         sop_car=list(p24_5_soportes_carousel)[i])
                     cards5.append(card)
             else:
-                cards5=[dbc.Alert("No registra iniciativas", color="danger",dismissable=True,is_open=True,),html.Br()]
+                cards5=[html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)]),html.Br()]
 
             salida_respuesta_2023 = html.Div([
                     html.H5('Eventos Auspiciados y/o financiados directamente por esa entidad'),
@@ -3178,11 +3354,24 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     html.H5('Otras actividades de esa entidad'),
                     html.Div(children=cards5,style=estilo),
                 ])
+            salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_24()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        
 
     #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
@@ -3196,13 +3385,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = f"{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
         except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3218,11 +3412,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_25()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #espacios de experimentación
@@ -3237,13 +3443,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = f"{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
         except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = 'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3259,13 +3470,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_26()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #unidades de innovación
     elif pregunta_seleccionada=='p27':
 
@@ -3280,12 +3503,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         try:
             salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3302,13 +3531,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_27()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
 
@@ -3323,25 +3564,30 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
-        if list(beneficia_carousel)[0]=='Si':
-            beneficiados_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'beneficiados']
-        else:
-            beneficiados_carousel=['N/A' for x in range(len(indices_carousel)+1)]
-        
-        if list(ahorro_carousel)[0]=='Si':
-            ahorrado_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'recursos_ahorrados']
-        else:
-            ahorrado_carousel=['N/A' for x in range(len(indices_carousel)+1)]
-
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
+                if list(beneficia_carousel)[0]=='Si':
+                    beneficiados_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'beneficiados']
+                else:
+                    beneficiados_carousel=['N/A' for x in range(len(indices_carousel)+1)]
+                
+                if list(ahorro_carousel)[0]=='Si':
+                    ahorrado_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'recursos_ahorrados']
+                else:
+                    ahorrado_carousel=['N/A' for x in range(len(indices_carousel)+1)]
                 cards=[]
                 
                 for i in range(len(indices_carousel)):
@@ -3362,13 +3608,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_28()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #funcionarios formados
     elif pregunta_seleccionada=='p29':
 
@@ -3510,13 +3768,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3534,11 +3798,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_31()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #proyectos o lineas en gestión del conocimiento
@@ -3554,13 +3830,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3578,13 +3860,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_32()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #sistematización de retos ciudadanos
     elif pregunta_seleccionada=='p33':
 
@@ -3596,13 +3890,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3618,13 +3918,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_33()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #sistematización de retos de funcionarios contratistas
     elif pregunta_seleccionada=='p34':
 
@@ -3636,13 +3948,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3658,13 +3976,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_34()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #sistematización ideas de ciudadanos
     elif pregunta_seleccionada=='p35':
 
@@ -3676,13 +4006,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3698,11 +4034,23 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_35()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
 
     #sistematización ideas de funcionarios contratistas
@@ -3716,13 +4064,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3738,13 +4092,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_36()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #buenas prácticas y lecciones aprendidas en innovación
     elif pregunta_seleccionada=='p37':
 
@@ -3756,13 +4122,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3778,13 +4150,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_37()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #buenas prácticas y lecciones aprendidas generales
     elif pregunta_seleccionada=='p38':
 
@@ -3796,13 +4180,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3818,13 +4208,25 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_38()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #Monitoreo y seguimiento a innovaciones
     elif pregunta_seleccionada=='p39':
 
@@ -3836,13 +4238,19 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_max_2021=preguntas_df[preguntas_df['codigo 2023'] == pregunta_seleccionada]['nota maxima']
 
         try:
-            salida_respuesta_2021 = list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]
-        except:
-            salida_respuesta_2021 = 'N/A'
+            salida_respuesta_2021 = f"""{list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}'])[0]}\n a través de: {list(respuestas_2021_df[respuestas_2021_df['_uuid'] == entidad_seleccionada][f'r_{pregunta_seleccionada}'])[0]}"""
+
+        except Exception as e:
+            salida_respuesta_2021 = f'No registra iniciativas'
 
         if list(respuesta_2023)[0] == 'Si':
             if indices_carousel.empty == True:
-                salida_respuesta_2023 = html.Div([])
+                salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+                salida_criterios_entidad=['N/A','N/A','N/A']
             else:
                 cards=[]
                 
@@ -3858,17 +4266,32 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_respuesta_2023 = html.Div([
                         html.Div(children=cards,style=estilo)
                     ])
+                salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        elif list(respuesta_2023)[0] == 'No':
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Esta entidad no tiene iniciativas',
+                    color="warning",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
         else:
-            salida_respuesta_2023 = html.Div([])
+            salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Respuesta 2023 != Si',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
+            salida_criterios_entidad=['N/A','N/A','N/A']
 
         salida_criterio=criterio_39()
-        salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
+        
     #Cualquier caso no definido
     else:
-        salida_respuesta_2023 = html.Div([])
-
+        salida_respuesta_2023 = html.Div([dbc.Alert(
+                    children='Caso no definido',
+                    color="danger",
+                    dismissable=True,
+                    is_open=True)])
 
 
     if pregunta_seleccionada != 'p24':
