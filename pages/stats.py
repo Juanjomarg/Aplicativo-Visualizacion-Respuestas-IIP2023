@@ -1906,7 +1906,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].mean(axis=1)
+                p14_df['nota_iniciativa']= p14_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -1937,7 +1937,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p15_df.loc[p15_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p15_df['nota_iniciativa']= p15_df[['c1','c2','c3']].mean(axis=1)
+                p15_df['nota_iniciativa']= p15_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -1968,7 +1968,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p16_df.loc[p16_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p16_df['nota_iniciativa']= p16_df[['c1','c2','c3']].mean(axis=1)
+                p16_df['nota_iniciativa']= p16_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -1999,7 +1999,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p17_df.loc[p17_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p17_df['nota_iniciativa']= p17_df[['c1','c2','c3']].mean(axis=1)
+                p17_df['nota_iniciativa']= p17_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -2030,7 +2030,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p18_df.loc[p18_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p18_df['nota_iniciativa']= p18_df[['c1','c2','c3']].mean(axis=1)
+                p18_df['nota_iniciativa']= p18_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -2061,7 +2061,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p19_df.loc[p19_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p19_df['nota_iniciativa']= p19_df[['c1','c2','c3']].mean(axis=1)
+                p19_df['nota_iniciativa']= p19_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -2092,7 +2092,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p20_df.loc[p20_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p20_df['nota_iniciativa']= p20_df[['c1','c2','c3']].mean(axis=1)
+                p20_df['nota_iniciativa']= p20_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -2123,7 +2123,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p21_df.loc[p21_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p21_df['nota_iniciativa']= p21_df[['c1','c2','c3']].mean(axis=1)
+                p21_df['nota_iniciativa']= p21_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
@@ -2154,7 +2154,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p22_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p22_df['nota_iniciativa']= p22_df[['c1','c2','c3']].mean(axis=1)
+                p22_df['nota_iniciativa']= p22_df[['c1','c2','c3']].sum(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
                 nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
