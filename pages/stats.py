@@ -789,56 +789,22 @@ def llamar_numero(valor):
     Input('criterio_seleccionado_entidad', 'data'),
     Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
-    cri=html.Tr([
-                    html.Th('N/A'),
-                ],
-                )
-    val=html.Tr([
-                    html.Td(0),
-                ],
-                )
-    
-    if pregunta_seleccionada=='p1':
-        pass
-
-
-    elif pregunta_seleccionada=='p2':
-        df=p2_df
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        cri=html.Tr([
-                        html.Th(crits[0]),
-                        html.Th(crits[1]),
-                        html.Th(crits[2]),
-                    ],
-                    )
-        val=html.Tr([
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(df.loc[df['_index']==iniciativa_seleccionada,crits[2]]),
-                    ],
-                    )
-
-
-    else:
-        cri=html.Tr([
-                        html.Th('N/A'),
-                    ],
-                    )
-        val=html.Tr([
-                        html.Td(0),
-                    ],
-                    )
-
+def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
                 html.Thead(children=[
-                    cri,                    
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
                 ]),
 
                 html.Tbody([
-                    val,
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
                 ])
             ],
             bordered=True,
@@ -849,6 +815,364 @@ def tabl_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecci
         ],
         style={'width':'100%'}
         )
+    
+    if pregunta_seleccionada=='p1':
+        pass
+
+
+    elif pregunta_seleccionada=='p2':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3',colSpan=3),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),colSpan=3),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[2]]),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+    elif pregunta_seleccionada=='p3':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p4':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p5':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        
+    elif pregunta_seleccionada=='p6':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p7':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p8':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p9':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p10':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p11':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p12':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    else:
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    
     return tabla_criterios
 
 #Callback enviar criterios bucle
@@ -1312,7 +1636,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     State('entidad_seleccionada', 'data'),
     State('pregunta_seleccionada', 'data'),
     State('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
+    State('criterio_seleccionado_entidad', 'data'),
     State('criterio_seleccionado_bucle', 'data'),
     State('criterios_disponibles_bucle', 'data'),
     State('nota', 'data'),
@@ -1324,167 +1648,381 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #Acuerdos y/o actos administrativos
         if pregunta_seleccionada=='p1':
             pass
-            
 
         #Enfoques, lineas o proyectos
         elif pregunta_seleccionada=='p2':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
-            if criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
-            if criterio_seleccionado=='c3':
+            elif criterio_seleccionado=='c3':
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
-                #CALCULO NOTA INICIATIVA
-                mediana = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada][criterios_disponibles_bucle].mean()
-                p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada,'m_i']=mediana.mean()
+                #CALCULO PROMEDIO INICIATIVA
+                p2_df['nota_iniciativa']= p2_df[['c1','c2','c3']].mean(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
-                print(f"promedio: \n{mediana}\n")
-                print(f"promedio de medianas: \n{p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i']}\n")
-
-                nota_entidad = p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean()
-                print(f'nota entidad: \n{nota_entidad}')
+                nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
                 #GUARDADO ARCHIVOS
                 p2_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            
+            else:
+                pass
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #Presupuesto general
         elif pregunta_seleccionada=='p3':
-            pass
             
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 1
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
         #Presupuesto general innovación
         elif pregunta_seleccionada=='p4':
-            pass
             
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #Presupuesto inversión general
         elif pregunta_seleccionada=='p5':
-            pass
             
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 1
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
         #Presupuesto inversión innovación
         elif pregunta_seleccionada=='p6':
-            pass
             
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #Funcionarios total
         elif pregunta_seleccionada=='p7':
-            pass
-            
 
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 2
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #Funcionarios manual en innovación 
         elif pregunta_seleccionada=='p8':
-            pass
-            
 
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #Funcionarios ocasionales
         elif pregunta_seleccionada=='p9':
             pass
             
-
         #Contratistas total
         elif pregunta_seleccionada=='p10':
-            pass
-            
 
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 2
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #Contratistas en innovación 
         elif pregunta_seleccionada=='p11':
-            pass
-            
 
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #Contratistas ocasionales
         elif pregunta_seleccionada=='p12':
             pass
             
-
         # Recursos digitales
         elif pregunta_seleccionada=='p13':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            
-            
-            if criterio_seleccionado=='c2':
+           
+            elif criterio_seleccionado=='c2':
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p13_df.loc[p13_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
-                #CALCULO NOTA INICIATIVA
-                mediana = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada][criterios_disponibles_bucle].mean()
-                p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada,'m_i']=mediana.mean()
+                #CALCULO PROMEDIO INICIATIVA
+                p13_df['nota_iniciativa']= p13_df[['c1','c2','c3']].mean(axis=1)
 
                 #CALCULO NOTA GENERAL ENTIDAD
-                print(f"promedio: \n{mediana}\n")
-                print(f"promedio de medianas: \n{p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['m_i']}\n")
-
-                nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['m_i'].mean()
-                print(f'nota entidad: \n{nota_entidad}')
+                nota_entidad = round(p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
                 #GUARDADO ARCHIVOS
                 p13_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
-
+            else:
+                pass
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #retos SDQS
         elif pregunta_seleccionada=='p14':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #retos otros para ciudadanos
         elif pregunta_seleccionada=='p15':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #retos por funcionarios/contratistas
         elif pregunta_seleccionada=='p16':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #canales retos
         elif pregunta_seleccionada=='p17':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #actividades retos
         elif pregunta_seleccionada=='p18':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #ideas ciudadanos
         elif pregunta_seleccionada=='p19':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #ideas funcionarios
         elif pregunta_seleccionada=='p20':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #canales ideas
         elif pregunta_seleccionada=='p21':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #actividades ideas
         elif pregunta_seleccionada=='p22':
-            pass
-            
+            if criterio_seleccionado=='c1':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
+            elif criterio_seleccionado=='c2':
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                
+            else:
+                pass
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            
         #innovaciones diseñadas
         elif pregunta_seleccionada=='p23':
             pass
@@ -1669,7 +2207,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -1693,14 +2231,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_1()
         
@@ -1730,7 +2268,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -1754,14 +2292,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_2()
 
@@ -2543,7 +3081,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -2567,14 +3105,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_13()
         
@@ -2607,7 +3145,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
 
                 if list(act_4_carousel)[0]==1:
@@ -2642,14 +3180,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_14()
         
@@ -2683,7 +3221,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(act_4_carousel)[0]==1:
                     act_4_otr = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
@@ -2717,14 +3255,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_15()
         
@@ -2757,7 +3295,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(act_4_carousel)[0]==1:
                     act_4_otr = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
@@ -2791,14 +3329,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_16()
         
@@ -2825,7 +3363,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             cards=[]
             
@@ -2916,7 +3454,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(act_4_carousel)[0]==1:
                     act_4_otr = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
@@ -2950,14 +3488,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_19()
         
@@ -2991,7 +3529,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(act_4_carousel)[0]==1:
                     act_4_otr = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
@@ -3025,14 +3563,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_20()
         
@@ -3059,7 +3597,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             cards=[]
             
@@ -3149,7 +3687,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(prototipado)[0] == 'Si':
                     vali_usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_1']
@@ -3187,14 +3725,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_23()
         
@@ -3361,14 +3899,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_24()
         
@@ -3396,7 +3934,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3419,14 +3957,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_25()
         
@@ -3454,7 +3992,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3477,14 +4015,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_26()
         
@@ -3514,7 +4052,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3538,14 +4076,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_27()
         
@@ -3577,7 +4115,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 if list(beneficia_carousel)[0]=='Si':
                     beneficiados_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada][f'beneficiados']
@@ -3615,14 +4153,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_28()
         
@@ -3780,7 +4318,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3805,14 +4343,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_31()
         
@@ -3842,7 +4380,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3867,14 +4405,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_32()
         
@@ -3902,7 +4440,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3925,14 +4463,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_33()
         
@@ -3960,7 +4498,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -3983,14 +4521,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_34()
         
@@ -4018,7 +4556,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -4041,14 +4579,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_35()
         
@@ -4076,7 +4614,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -4099,14 +4637,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_36()
         
@@ -4134,7 +4672,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -4157,14 +4695,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_37()
         
@@ -4192,7 +4730,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -4215,14 +4753,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_38()
         
@@ -4250,7 +4788,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-                salida_criterios_entidad=['N/A','N/A','N/A']
+                salida_criterios_entidad=[]
             else:
                 cards=[]
                 
@@ -4273,14 +4811,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     color="warning",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
         else:
             salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Respuesta 2023 != Si',
                     color="danger",
                     dismissable=True,
                     is_open=True)])
-            salida_criterios_entidad=['N/A','N/A','N/A']
+            salida_criterios_entidad=[]
 
         salida_criterio=criterio_39()
         
@@ -4294,10 +4832,48 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
 
 
-    if pregunta_seleccionada != 'p24':
-        salida_iniciativas=list(indices_carousel)
-    else:
+    if pregunta_seleccionada == 'p3':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p4':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p5':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p6':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p7':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p8':
+        salida_iniciativas=[]
+    
+    elif pregunta_seleccionada == 'p9':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p10':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p11':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p12':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p29':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p30':
+        salida_iniciativas=[]
+
+    elif pregunta_seleccionada == 'p24':
         salida_iniciativas=[list(p24_1_indices_carousel),list(p24_2_indices_carousel),list(p24_3_indices_carousel),list(p24_4_indices_carousel),list(p24_5_indices_carousel)][0]
+    
+    else:
+        salida_iniciativas=list(indices_carousel)
+        
 
 
     try:
