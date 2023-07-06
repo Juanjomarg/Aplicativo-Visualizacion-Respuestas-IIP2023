@@ -861,32 +861,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p3':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
 
     elif pregunta_seleccionada=='p4':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
@@ -919,32 +894,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p5':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
         
     elif pregunta_seleccionada=='p6':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
@@ -1050,6 +1000,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
 
     elif pregunta_seleccionada=='p13':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        print(crits)
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1068,9 +1019,9 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c2']),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c3']),
                     ],
                     ),
                 ])
@@ -3077,6 +3028,27 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             if criterio_seleccionado=='p24_1':
 
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+           
+            elif criterio_seleccionado=='p24_2':
+
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='p24_3':
+
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            elif criterio_seleccionado=='p24_4':
+
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+
+            else:
+                pass
+
+            
+            """
+            if criterio_seleccionado=='p24_1':
+
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
@@ -3125,6 +3097,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             
             else:
                 pass
+            """
             
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1':f'cri_{pregunta_seleccionada}_p24_4'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
