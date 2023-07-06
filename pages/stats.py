@@ -823,7 +823,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         pass
 
     elif pregunta_seleccionada=='p2':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c3'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -999,8 +999,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         pass
 
     elif pregunta_seleccionada=='p13':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        print(crits)
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1019,9 +1018,9 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c2']),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'c3']),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1036,7 +1035,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p14':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1072,7 +1071,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p15':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1108,7 +1107,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p16':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1144,7 +1143,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p17':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1180,7 +1179,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p18':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1216,7 +1215,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p19':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1252,7 +1251,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p20':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1288,7 +1287,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p21':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1324,7 +1323,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p22':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1360,7 +1359,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p23':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1404,7 +1402,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p24':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1428,10 +1425,10 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                        html.Td(p24_2_df.loc[p24_2_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                        html.Td(p24_3_df.loc[p24_3_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                        html.Td(p24_4_df.loc[p24_4_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        html.Td(p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada,'p24_1']),
+                        html.Td(p24_2_df.loc[p24_2_df['_index']==iniciativa_seleccionada,'p24_2']),
+                        html.Td(p24_3_df.loc[p24_3_df['_index']==iniciativa_seleccionada,'p24_3']),
+                        html.Td(p24_4_df.loc[p24_4_df['_index']==iniciativa_seleccionada,'p24_4']),
                     ],
                     ),
                 ])
@@ -1446,7 +1443,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p25':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1466,9 +1463,9 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[2]]),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[3]]),
                     ],
                     ),
                 ])
@@ -1483,7 +1480,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p26':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1503,9 +1500,9 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[2]]),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[3]]),
                     ],
                     ),
                 ])
@@ -1520,7 +1517,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p27':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1538,7 +1535,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1553,7 +1550,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p28':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1663,7 +1659,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         pass
 
     elif pregunta_seleccionada=='p32':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1683,7 +1679,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1698,7 +1694,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p33':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1718,7 +1714,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1733,7 +1729,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p34':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1753,7 +1749,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1768,7 +1764,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p35':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1788,7 +1784,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1803,7 +1799,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p36':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1823,7 +1819,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1838,7 +1834,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p37':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1858,7 +1854,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1873,7 +1869,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p38':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1893,7 +1889,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -1908,7 +1904,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p39':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'].keys())
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1928,7 +1924,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                     ],
                     ),
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,crits[1]]),
                     ],
                     ),
                 ])
@@ -3689,7 +3685,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_1()
         
-
     #Enfoques, lineas o proyectos
     elif pregunta_seleccionada=='p2':
 
@@ -3749,7 +3744,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_2()
-
 
     #Presupuesto general
     elif pregunta_seleccionada=='p3':
@@ -3818,7 +3812,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_3()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-        
     #Presupuesto general innovación
     elif pregunta_seleccionada=='p4':
 
@@ -3886,7 +3879,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_4()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Presupuesto inversión general
     elif pregunta_seleccionada=='p5':
 
@@ -3953,7 +3945,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         
         salida_criterio=criterio_5()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        
         
     #Presupuesto inversión innovación
     elif pregunta_seleccionada=='p6':
@@ -4022,7 +4013,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_6()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Funcionarios total
     elif pregunta_seleccionada=='p7':
 
@@ -4102,7 +4092,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_7()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Funcionarios manual en innovación 
     elif pregunta_seleccionada=='p8':
 
@@ -4182,7 +4171,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_8()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Funcionarios ocasionales
     elif pregunta_seleccionada=='p9':
 
@@ -4262,7 +4250,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_9()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Contratistas total
     elif pregunta_seleccionada=='p10':
         
@@ -4342,7 +4329,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_10()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Contratistas en innovación 
     elif pregunta_seleccionada=='p11':
 
@@ -4422,7 +4408,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_11()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #Contratistas ocasionales
     elif pregunta_seleccionada=='p12':
 
@@ -4502,7 +4487,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_12()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     # Recursos digitales
     elif pregunta_seleccionada=='p13':
 
@@ -4562,7 +4546,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_13()
-        
         
     #retos SDQS
     elif pregunta_seleccionada=='p14':
@@ -4638,7 +4621,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_14()
         
-
     #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
 
@@ -4713,7 +4695,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_15()
         
-        
     #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
 
@@ -4787,7 +4768,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_16()
         
-        
     #canales retos
     elif pregunta_seleccionada=='p17':
         
@@ -4829,7 +4809,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             
         salida_criterio=criterio_17()
         
-        
     #actividades retos
     elif pregunta_seleccionada=='p18':
 
@@ -4870,7 +4849,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
 
         salida_criterio=criterio_18()
-        
         
     #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
@@ -4946,7 +4924,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_19()
         
-
     #ideas funcionarios
     elif pregunta_seleccionada=='p20':
 
@@ -5021,7 +4998,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_20()
         
-        
     #canales ideas
     elif pregunta_seleccionada=='p21':
 
@@ -5063,7 +5039,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             
         salida_criterio=criterio_21()
         
-        
     #actividades ideas
     elif pregunta_seleccionada=='p22':
 
@@ -5104,7 +5079,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
             
         salida_criterio=criterio_22()
-        
         
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
@@ -5182,7 +5156,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_23()
-        
         
     #eventos o formación
     elif pregunta_seleccionada=='p24':
@@ -5358,7 +5331,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_24()
         
-
     #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
 
@@ -5416,7 +5388,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_25()
         
-
     #espacios de experimentación
     elif pregunta_seleccionada=='p26':
 
@@ -5473,7 +5444,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_26()
-        
         
     #unidades de innovación
     elif pregunta_seleccionada=='p27':
@@ -5534,7 +5504,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_27()
-        
         
     #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
@@ -5612,7 +5581,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_28()
         
-        
     #funcionarios formados
     elif pregunta_seleccionada=='p29':
 
@@ -5676,7 +5644,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_29()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #contratistas formados
     elif pregunta_seleccionada=='p30':
 
@@ -5740,7 +5707,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_30()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-
     #acuerdos o actos en gestión del conocimiento
     elif pregunta_seleccionada=='p31':
 
@@ -5802,7 +5768,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_31()
         
-
     #proyectos o lineas en gestión del conocimiento
     elif pregunta_seleccionada=='p32':
 
@@ -5864,7 +5829,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_32()
         
-        
     #sistematización de retos ciudadanos
     elif pregunta_seleccionada=='p33':
 
@@ -5921,7 +5885,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_33()
-        
         
     #sistematización de retos de funcionarios contratistas
     elif pregunta_seleccionada=='p34':
@@ -5980,7 +5943,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_34()
         
-        
     #sistematización ideas de ciudadanos
     elif pregunta_seleccionada=='p35':
 
@@ -6038,7 +6000,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_35()
         
-
     #sistematización ideas de funcionarios contratistas
     elif pregunta_seleccionada=='p36':
 
@@ -6095,7 +6056,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_36()
-        
         
     #buenas prácticas y lecciones aprendidas en innovación
     elif pregunta_seleccionada=='p37':
@@ -6154,7 +6114,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_37()
         
-        
     #buenas prácticas y lecciones aprendidas generales
     elif pregunta_seleccionada=='p38':
 
@@ -6212,7 +6171,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_38()
         
-        
     #Monitoreo y seguimiento a innovaciones
     elif pregunta_seleccionada=='p39':
 
@@ -6269,7 +6227,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad=[]
 
         salida_criterio=criterio_39()
-        
         
     #Cualquier caso no definido
     else:
