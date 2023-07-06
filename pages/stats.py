@@ -156,11 +156,15 @@ zona_descarga = dbc.Card(
     [
         dbc.CardBody(
             [
-                dbc.Button("Exportar resultados 2023", id="btn-download_2023", style={'width':'100%'}),
-                dcc.Download(id="download_2023"),
+                dbc.Button("Exportar respuestas 2023", id="btn_download_respuestas_2023", style={'width':'100%'}),
+                dcc.Download(id="download_respuestas_2023"),
                 html.Br(),
                 html.Br(),
-                dbc.Button("Exportar repeats", id="btn-download_repeats", style={'width':'100%'}),
+                dbc.Button("Exportar resultados 2023", id="btn_download_resultados_2023", style={'width':'100%'}),
+                dcc.Download(id="download_resultados_2023"),
+                html.Br(),
+                html.Br(),
+                dbc.Button("Exportar repeats", id="btn_download_repeats", style={'width':'100%'}),
                 dcc.Download(id="download_repeats"),
             ]
         ),
@@ -782,7 +786,6 @@ def llamar_numero(valor):
 @dash.callback(
     Output('tabla_criterios', 'children'),
 
-    #Input('enviar_nota', 'n_clicks'),
     Input('entidad_seleccionada', 'data'),
     Input('pregunta_seleccionada', 'data'),
     Input('iniciativa_seleccionada', 'data'),
@@ -974,32 +977,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p7':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
 
     elif pregunta_seleccionada=='p8':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
@@ -1032,60 +1010,10 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p9':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
 
     elif pregunta_seleccionada=='p10':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
 
     elif pregunta_seleccionada=='p11':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
@@ -1118,32 +1046,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         )
 
     elif pregunta_seleccionada=='p12':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
+        pass
 
     elif pregunta_seleccionada=='p13':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
@@ -1549,6 +1452,545 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         style={'width':'100%'}
         )
 
+    elif pregunta_seleccionada=='p24':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'p24_1'),
+                        html.Th(f'p24_2'),
+                        html.Th(f'p24_3'),
+                        html.Th(f'p24_4'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_2'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_3'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_4'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        html.Td(p24_2_df.loc[p24_2_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        html.Td(p24_3_df.loc[p24_3_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        html.Td(p24_4_df.loc[p24_4_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p25':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p26':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p27':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p28':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                        html.Th(f'c4',colSpan=4),
+                        html.Th(f'c5'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2),colSpan=4),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c4']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c5']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p29':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p30':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p31':
+        pass
+
+    elif pregunta_seleccionada=='p32':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p33':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p34':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p35':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p36':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p37':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p38':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+    elif pregunta_seleccionada=='p39':
+        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
     else:
         tabla_criterios=html.Div(children=[
             dbc.Table(
@@ -1575,7 +2017,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
         ],
         style={'width':'100%'}
         )
-
     
     return tabla_criterios
 
@@ -1607,56 +2048,50 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+
     #Presupuesto general
     elif pregunta_seleccionada=='p3':
         pass
-        
         
     #Presupuesto general innovación
     elif pregunta_seleccionada=='p4':
         pass
         
-
     #Presupuesto inversión general
     elif pregunta_seleccionada=='p5':
         pass
-        
         
     #Presupuesto inversión innovación
     elif pregunta_seleccionada=='p6':
         pass
         
-
     #Funcionarios total
     elif pregunta_seleccionada=='p7':
         pass
         
-
     #Funcionarios manual en innovación 
     elif pregunta_seleccionada=='p8':
         pass
         
-
     #Funcionarios ocasionales
     elif pregunta_seleccionada=='p9':
         pass
         
-
     #Contratistas total
     elif pregunta_seleccionada=='p10':
         pass
         
-
     #Contratistas en innovación 
     elif pregunta_seleccionada=='p11':
         pass
         
-
     #Contratistas ocasionales
     elif pregunta_seleccionada=='p12':
         pass
         
-
     # Recursos digitales
     elif pregunta_seleccionada=='p13':
         if criterio_seleccionado=='c2':
@@ -1667,8 +2102,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #retos SDQS
     elif pregunta_seleccionada=='p14':
         if criterio_seleccionado=='c1':
@@ -1679,8 +2117,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
         if criterio_seleccionado=='c1':
@@ -1691,8 +2132,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
         if criterio_seleccionado=='c1':
@@ -1704,6 +2148,9 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
 
     #canales retos
     elif pregunta_seleccionada=='p17':
@@ -1715,8 +2162,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #actividades retos
     elif pregunta_seleccionada=='p18':
         if criterio_seleccionado=='c1':
@@ -1727,8 +2177,12 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
         if criterio_seleccionado=='c1':
@@ -1739,8 +2193,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #ideas funcionarios
     elif pregunta_seleccionada=='p20':
         if criterio_seleccionado=='c1':
@@ -1751,8 +2208,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #canales ideas
     elif pregunta_seleccionada=='p21':
         if criterio_seleccionado=='c1':
@@ -1763,8 +2223,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #actividades ideas
     elif pregunta_seleccionada=='p22':
         if criterio_seleccionado=='c1':
@@ -1775,8 +2238,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
         if criterio_seleccionado=='c1':
@@ -1788,7 +2254,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-        if criterio_seleccionado=='c2':
+        elif criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1797,7 +2263,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-        if criterio_seleccionado=='c3':
+        elif criterio_seleccionado=='c3':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1806,7 +2272,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-        if criterio_seleccionado=='c4':
+        elif criterio_seleccionado=='c4':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1815,10 +2281,13 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
 
     #innovaciones diseñadas
-    elif pregunta_seleccionada=='p24_1':
-        if criterio_seleccionado=='c2':
+    elif pregunta_seleccionada=='p24':
+        if criterio_seleccionado=='p24_1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1827,10 +2296,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-
-    #innovaciones diseñadas
-    elif pregunta_seleccionada=='p24_2':
-        if criterio_seleccionado=='c2':
+        elif criterio_seleccionado=='p24_2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1839,10 +2305,15 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
+        elif criterio_seleccionado=='p24_3':
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
+            try:
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
 
-    #innovaciones diseñadas
-    elif pregunta_seleccionada=='p24_3':
-        if criterio_seleccionado=='c2':
+        elif criterio_seleccionado=='p24_4':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1851,30 +2322,9 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             except:
                 salida_criterios_bucle_seleccionado='N/A'
 
-
-    #innovaciones diseñadas
-    elif pregunta_seleccionada=='p24_4':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-
-    #innovaciones diseñadas
-    elif pregunta_seleccionada=='p24_5':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
 
     #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
@@ -1886,8 +2336,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #espacios de experimentación
     elif pregunta_seleccionada=='p26':
         if criterio_seleccionado=='c1':
@@ -1898,8 +2351,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #unidades de innovación
     elif pregunta_seleccionada=='p27':
         if criterio_seleccionado=='c1':
@@ -1910,11 +2366,15 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
-        if criterio_seleccionado=='c1':
+
+        if criterio_seleccionado=='c4':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
             salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
 
@@ -1922,30 +2382,32 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
+
+        elif criterio_seleccionado=='c5':
+            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
+            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
+
+            try:
+                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
+            except:
+                salida_criterios_bucle_seleccionado='N/A'
+
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
 
     #funcionarios formados
     elif pregunta_seleccionada=='p29':
         pass
         
-
     #contratistas formados
     elif pregunta_seleccionada=='p30':
         pass
         
-
     #acuerdos o actos en gestión del conocimiento
     elif pregunta_seleccionada=='p31':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
+        pass
         
-
     #proyectos o lineas en gestión del conocimiento
     elif pregunta_seleccionada=='p32':
         if criterio_seleccionado=='c2':
@@ -1956,8 +2418,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #sistematización de retos ciudadanos
     elif pregunta_seleccionada=='p33':
         if criterio_seleccionado=='c2':
@@ -1968,8 +2433,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #sistematización de retos de funcionarios contratistas
     elif pregunta_seleccionada=='p34':
         if criterio_seleccionado=='c2':
@@ -1980,8 +2448,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #sistematización ideas de ciudadanos
     elif pregunta_seleccionada=='p35':
         if criterio_seleccionado=='c2':
@@ -1992,8 +2463,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #sistematización ideas de funcionarios contratistas
     elif pregunta_seleccionada=='p36':
         if criterio_seleccionado=='c2':
@@ -2004,8 +2478,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #buenas prácticas y lecciones aprendidas en innovación
     elif pregunta_seleccionada=='p37':
         if criterio_seleccionado=='c2':
@@ -2016,8 +2493,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #buenas prácticas y lecciones aprendidas generales
     elif pregunta_seleccionada=='p38':
         if criterio_seleccionado=='c2':
@@ -2028,8 +2508,11 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #Monitoreo y seguimiento a innovaciones
     elif pregunta_seleccionada=='p39':
         if criterio_seleccionado=='c2':
@@ -2040,14 +2523,16 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
                 salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
             except:
                 salida_criterios_bucle_seleccionado='N/A'
-        
 
+        else:
+            salida_criterios_bucle=[]
+            salida_criterios_bucle_seleccionado='N/A'
+        
     #Cualquier caso no definido
     else:
         salida_criterios_bucle=[]
         salida_criterios_bucle_seleccionado='N/A'
     
-
     return salida_criterios_bucle,salida_criterios_bucle_seleccionado
 
 #Callback calificar iniciativa seleccionada
@@ -2092,14 +2577,16 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p2_df['l1']= p2_df[criterios_disponibles_bucle].mean(axis=1)
-                p2_df['nota_iniciativa']=p2_df['l1']
                 p2_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             else:
                 pass
 
-            nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p2_df['nota_iniciativa']=p2_df['l1']
+            p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
         
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2109,18 +2596,8 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
         #Presupuesto general
         elif pregunta_seleccionada=='p3':
-            
-            if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 1
-            else:
-                pass
 
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            pass
 
         #Presupuesto general innovación
         elif pregunta_seleccionada=='p4':
@@ -2144,17 +2621,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #Presupuesto inversión general
         elif pregunta_seleccionada=='p5':
             
-            if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 1
-            else:
-                pass
-
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+            pass
 
         #Presupuesto inversión innovación
         elif pregunta_seleccionada=='p6':
@@ -2178,18 +2645,8 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #Funcionarios total
         elif pregunta_seleccionada=='p7':
 
-            if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 2
-            else:
-                pass
+            pass
 
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
         #Funcionarios manual en innovación 
         elif pregunta_seleccionada=='p8':
 
@@ -2211,23 +2668,14 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             
         #Funcionarios ocasionales
         elif pregunta_seleccionada=='p9':
+
             pass
-            
+
         #Contratistas total
         elif pregunta_seleccionada=='p10':
 
-            if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = 2
-            else:
-                pass
+            pass
 
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
         #Contratistas en innovación 
         elif pregunta_seleccionada=='p11':
 
@@ -2246,11 +2694,12 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #Contratistas ocasionales
         elif pregunta_seleccionada=='p12':
+
             pass
-            
+
         # Recursos digitales
         elif pregunta_seleccionada=='p13':
             
@@ -2264,23 +2713,24 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p13_df.loc[p13_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p13_df['l1']= p13_df[criterios_disponibles_bucle].mean(axis=1)
+                p13_df['l1'] = p13_df[criterios_disponibles_bucle].mean(axis=1)
+                p13_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['l1'].mean()
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             else:
                 pass
 
             p13_df['nota_iniciativa']=p13_df['l1']
-            p13_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #retos SDQS
         elif pregunta_seleccionada=='p14':
 
@@ -2291,6 +2741,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p14_df['l1']= p14_df[criterios_disponibles_bucle].sum(axis=1)
+                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2299,17 +2753,14 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p14_df['nota_iniciativa']=p14_df['l1']
-            p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                
-            nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #retos otros para ciudadanos
         elif pregunta_seleccionada=='p15':
 
@@ -2320,6 +2771,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p15_df['l1']= p15_df[criterios_disponibles_bucle].sum(axis=1)
+                p15_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2328,10 +2783,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p15_df['nota_iniciativa']=p15_df['l1']
-            p15_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-        
-            nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2339,7 +2791,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #retos por funcionarios/contratistas
         elif pregunta_seleccionada=='p16':
 
@@ -2350,6 +2802,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p16_df['l1']= p16_df[criterios_disponibles_bucle].sum(axis=1)
+                p16_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2358,10 +2814,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p16_df['nota_iniciativa']=p16_df['l1']
-            p16_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2369,7 +2822,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #canales retos
         elif pregunta_seleccionada=='p17':
 
@@ -2380,6 +2833,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p17_df['l1']= p17_df[criterios_disponibles_bucle].sum(axis=1)
+                p17_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2388,10 +2845,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p17_df['nota_iniciativa']=p17_df['l1']
-            p17_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2399,7 +2853,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #actividades retos
         elif pregunta_seleccionada=='p18':
 
@@ -2410,6 +2864,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p18_df['l1']= p18_df[criterios_disponibles_bucle].sum(axis=1)
+                p18_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2418,10 +2876,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p18_df['nota_iniciativa']=p18_df['l1']
-            p18_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2429,7 +2884,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #ideas ciudadanos
         elif pregunta_seleccionada=='p19':
 
@@ -2440,6 +2895,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p19_df['l1']= p19_df[criterios_disponibles_bucle].sum(axis=1)
+                p19_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2448,10 +2907,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p19_df['nota_iniciativa']=p19_df['l1']
-            p19_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2459,7 +2915,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #ideas funcionarios
         elif pregunta_seleccionada=='p20':
 
@@ -2470,6 +2926,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p20_df['l1']= p20_df[criterios_disponibles_bucle].sum(axis=1)
+                p20_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2478,10 +2938,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p20_df['nota_iniciativa']=p20_df['l1']
-            p20_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2489,7 +2946,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #canales ideas
         elif pregunta_seleccionada=='p21':
 
@@ -2500,6 +2957,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p21_df['l1']= p21_df[criterios_disponibles_bucle].sum(axis=1)
+                p21_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2508,10 +2969,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p21_df['nota_iniciativa']=p21_df['l1']
-            p21_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2519,17 +2977,21 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #actividades ideas
         elif pregunta_seleccionada=='p22':
 
             if criterio_seleccionado=='c1':
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p22_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+                p22_df.loc[p22_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p22_df['l1']= p22_df[criterios_disponibles_bucle].sum(axis=1)
+                p22_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+        
+                nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2538,10 +3000,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 pass
 
             p22_df['nota_iniciativa']=p22_df['l1']
-            p22_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+            p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2549,7 +3008,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
         #innovaciones diseñadas
         elif pregunta_seleccionada=='p23':
 
@@ -2560,6 +3019,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l1']= p23_df[criterios_disponibles_bucle].mean(axis=1)
+                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
            
             elif criterio_seleccionado=='c2':
 
@@ -2568,6 +3031,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l2']= p23_df[criterios_disponibles_bucle].sum(axis=1)
+                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
 
             elif criterio_seleccionado=='c3':
 
@@ -2576,6 +3043,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l3']= p23_df[criterios_disponibles_bucle].mean(axis=1)
+                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l3'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
 
             elif criterio_seleccionado=='c4':
 
@@ -2583,17 +3054,18 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p23_df['l4']= p23_df[criterios_disponibles_bucle].sum(axis=1)
+                p23_df['l4']= p23_df[criterios_disponibles_bucle].mean(axis=1)
+                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l4'].mean(),4)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
             
             else:
                 pass
 
             p23_df['nota_iniciativa']=p23_df['l1']+p23_df['l2']+p23_df['l3']+p23_df['l4']
-            p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
+            p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+            
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2602,7 +3074,63 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
         #innovaciones diseñadas
         elif pregunta_seleccionada=='p24':
-            pass
+
+            if criterio_seleccionado=='p24_1':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p24_1_df['nota_iniciativa']= p24_1_df[criterios_disponibles_bucle].mean(axis=1)
+                p24_1_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
+
+                nota_entidad = round(p24_1_df.loc[p24_1_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1'] = nota_entidad
+           
+            elif criterio_seleccionado=='p24_2':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p24_2_df.loc[p24_2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p24_2_df['nota_iniciativa']= p24_2_df[criterios_disponibles_bucle].sum(axis=1)
+                p24_2_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
+
+                nota_entidad = round(p24_2_df.loc[p24_2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_2'] = nota_entidad
+
+            elif criterio_seleccionado=='p24_3':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p24_3_df.loc[p24_3_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p24_3_df['nota_iniciativa']= p24_3_df[criterios_disponibles_bucle].mean(axis=1)
+                p24_3_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
+
+                nota_entidad = round(p24_3_df.loc[p24_3_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_3'] = nota_entidad
+
+            elif criterio_seleccionado=='p24_4':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p24_4_df.loc[p24_4_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p24_4_df['nota_iniciativa']= p24_4_df[criterios_disponibles_bucle].mean(axis=1)
+                p24_4_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
+
+                nota_entidad = round(p24_4_df.loc[p24_4_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),4)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_4'] = nota_entidad
+            
+            else:
+                pass
+            
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1':f'cri_{pregunta_seleccionada}_p24_4'].sum().sum(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
         #promoción de una cultura de innovación
         elif pregunta_seleccionada=='p25':
@@ -2613,21 +3141,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p25_df.loc[p25_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p25_df['nota_iniciativa']= p25_df[criterios_disponibles_bucle].sum(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p25_df['l1']= p25_df[criterios_disponibles_bucle].mean(axis=1)
                 p25_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
-                
+
             else:
                 pass
+
+            p25_df['nota_iniciativa']=p25_df['l1']
+            p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2635,7 +3162,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #espacios de experimentación
         elif pregunta_seleccionada=='p26':
@@ -2646,15 +3172,11 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p26_df.loc[p26_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p26_df['nota_iniciativa']= p26_df[criterios_disponibles_bucle].sum(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p26_df['l1']= p26_df[criterios_disponibles_bucle].sum(axis=1)
                 p26_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
@@ -2662,13 +3184,15 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
+            p26_df['nota_iniciativa']=p26_df['l1']
+            p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #unidades de innovación
         elif pregunta_seleccionada=='p27':
@@ -2679,18 +3203,17 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p27_df.loc[p27_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p27_df['nota_iniciativa']= p27_df[criterios_disponibles_bucle].sum(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p27_df['l1']= p27_df[criterios_disponibles_bucle].sum(axis=1)
                 p27_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
             else:
                 pass
+
+            p27_df['nota_iniciativa']=p27_df['l1']
+            p27_df.to_excel(f'./files/separadas/repeat_p27.xlsx',index=False)
 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
@@ -2698,7 +3221,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #implementación de innovaciones
         elif pregunta_seleccionada=='p28':
@@ -2712,19 +3234,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c3':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p28_df.loc[p28_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p28_df['nota_iniciativa']= p28_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
-                p28_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c4':
@@ -2733,24 +3243,51 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p28_df.loc[p28_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p28_df['nota_iniciativa']= p28_df[criterios_disponibles_bucle].mean(axis=1)
+                p28_df['l1']= p28_df[criterios_disponibles_bucle].sum(axis=1)
+                p28_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
 
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+                nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
 
-                #GUARDADO ARCHIVOS
+            elif criterio_seleccionado=='c5':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p28_df.loc[p28_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p28_df['l2']= p28_df[criterios_disponibles_bucle].mean(axis=1)
                 p28_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
+
+            p28_df['nota_iniciativa']=p28_df['l1']+p28_df['l2']
+            p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
+
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c5'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+
+
+
+
+
+            if criterio_seleccionado=='c1':
+
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
+
+                #CALCULO PROMEDIO INICIATIVA
+                p23_df['l1']= p23_df[criterios_disponibles_bucle].mean(axis=1)
+                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+
+                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
         #funcionarios formados
         elif pregunta_seleccionada=='p29':
@@ -2770,7 +3307,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #contratistas formados
         elif pregunta_seleccionada=='p30':
@@ -2790,39 +3326,11 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #acuerdos o actos en gestión del conocimiento
         elif pregunta_seleccionada=='p31':
 
-            if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-           
-            elif criterio_seleccionado=='c2':
-                
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p31_df.loc[p31_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p31_df['nota_iniciativa']= p31_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p31_df.loc[p31_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
-                p31_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            
-            else:
-                pass
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-            resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-            respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-            resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
+            pass
 
         #proyectos o lineas en gestión del conocimiento
         elif pregunta_seleccionada=='p32':
@@ -2837,24 +3345,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p32_df.loc[p32_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p32_df['nota_iniciativa']= p32_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p32_df['l1']= p32_df[criterios_disponibles_bucle].mean(axis=1)
                 p32_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p32_df['nota_iniciativa'] = p32_df['l1']
+            p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #sistematización de retos ciudadanos
         elif pregunta_seleccionada=='p33':
@@ -2869,24 +3376,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p33_df.loc[p33_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p33_df['nota_iniciativa']= p33_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p33_df['l1']= p33_df[criterios_disponibles_bucle].mean(axis=1)
                 p33_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p33_df['nota_iniciativa'] = p33_df['l1']
+            p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #sistematización de retos de funcionarios contratistas
         elif pregunta_seleccionada=='p34':
@@ -2901,24 +3407,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p34_df.loc[p34_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p34_df['nota_iniciativa']= p34_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p34_df['l1']= p34_df[criterios_disponibles_bucle].mean(axis=1)
                 p34_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p34_df['nota_iniciativa'] = p34_df['l1']
+            p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #sistematización ideas de ciudadanos
         elif pregunta_seleccionada=='p35':
@@ -2933,24 +3438,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p35_df.loc[p35_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p35_df['nota_iniciativa']= p35_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p35_df['l1']= p35_df[criterios_disponibles_bucle].mean(axis=1)
                 p35_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p35_df['nota_iniciativa'] = p35_df['l1']
+            p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #sistematización ideas de funcionarios contratistas
         elif pregunta_seleccionada=='p36':
@@ -2965,24 +3469,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p36_df.loc[p36_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p36_df['nota_iniciativa']= p36_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p36_df['l1']= p36_df[criterios_disponibles_bucle].mean(axis=1)
                 p36_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p36_df['nota_iniciativa'] = p36_df['l1']
+            p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #buenas prácticas y lecciones aprendidas en innovación
         elif pregunta_seleccionada=='p37':
@@ -2997,24 +3500,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p37_df.loc[p37_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p37_df['nota_iniciativa']= p37_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p37_df['l1']= p37_df[criterios_disponibles_bucle].mean(axis=1)
                 p37_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p37_df['nota_iniciativa'] = p37_df['l1']
+            p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #buenas prácticas y lecciones aprendidas generales
         elif pregunta_seleccionada=='p38':
@@ -3029,24 +3531,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p38_df.loc[p38_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p38_df['nota_iniciativa']= p38_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p38_df['l1']= p38_df[criterios_disponibles_bucle].mean(axis=1)
                 p38_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p38_df['nota_iniciativa'] = p38_df['l1']
+            p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #Monitoreo y seguimiento a innovaciones
         elif pregunta_seleccionada=='p39':
@@ -3061,24 +3562,23 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p39_df.loc[p39_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p39_df['nota_iniciativa']= p39_df[criterios_disponibles_bucle].mean(axis=1)
-
-                #CALCULO NOTA GENERAL ENTIDAD
-                nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
-
-                #GUARDADO ARCHIVOS
+                p39_df['l1']= p39_df[criterios_disponibles_bucle].mean(axis=1)
                 p39_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
+                nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
             
             else:
                 pass
+
+            p39_df['nota_iniciativa'] = p39_df['l1']
+            p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
+
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-            
 
         #Cualquier caso no definido
         else:
@@ -4866,6 +5366,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     html.H5('Otras actividades de esa entidad'),
                     html.Div(children=cards5,style=estilo),
                 ])
+            
             salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         elif list(respuesta_2023)[0] == 'No':
             salida_respuesta_2023 = html.Div([dbc.Alert(
@@ -5809,71 +6310,210 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     if pregunta_seleccionada == 'p3':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p4':
         salida_iniciativas=[]
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
 
     elif pregunta_seleccionada == 'p5':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p6':
         salida_iniciativas=[]
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
 
     elif pregunta_seleccionada == 'p7':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p8':
         salida_iniciativas=[]
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
     
     elif pregunta_seleccionada == 'p9':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p10':
         salida_iniciativas=[]
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
 
     elif pregunta_seleccionada == 'p11':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p12':
         salida_iniciativas=[]
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
+    elif pregunta_seleccionada == 'p24':
+        salida_iniciativas=list(itertools.chain(p24_1_indices_carousel,p24_2_indices_carousel,p24_3_indices_carousel,p24_4_indices_carousel))
+
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
 
     elif pregunta_seleccionada == 'p29':
         salida_iniciativas=[]
 
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     elif pregunta_seleccionada == 'p30':
         salida_iniciativas=[]
 
-    elif pregunta_seleccionada == 'p24':
-        salida_iniciativas=[list(p24_1_indices_carousel),list(p24_2_indices_carousel),list(p24_3_indices_carousel),list(p24_4_indices_carousel),list(p24_5_indices_carousel)][0]
-    
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
+
+
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
+
     else:
         salida_iniciativas=list(indices_carousel)
         
+        try:
+            salida_iniciativa_seleccionada=str(salida_iniciativas[0])
+        except:
+            salida_iniciativa_seleccionada='N/A'
 
 
-    try:
-        salida_iniciativa_seleccionada=str(salida_iniciativas[0])
-    except:
-        salida_iniciativa_seleccionada='N/A'
-
-
-    try:
-        salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
-    except:
-        salida_criterios_entidad_seleccionado='N/A'
-
-
+        try:
+            salida_criterios_entidad_seleccionado=str(salida_criterios_entidad[0])
+        except:
+            salida_criterios_entidad_seleccionado='N/A'
 
     return pregunta,salida_criterio,salida_respuesta_2021,salida_nota_2021,salida_max_2021,salida_respuesta_2023,salida_iniciativas,salida_iniciativa_seleccionada,salida_criterios_entidad,salida_criterios_entidad_seleccionado
 
-#Callback descarga individuales
+#Callback descarga respuestas 2023
 @dash.callback(
-    Output("download_repeats", "data"),
-    Input("btn-download_repeats", "n_clicks"),
+    Output("download_respuestas_2023", "data"),
+    Input("btn_download_respuestas_2023", "n_clicks"),
     prevent_initial_call=True,
 )
-def descargar_individuales(n_clicks):
-    path =f'./files/separadas/'
-    loczip ='./files/exports/bucles.zip'
+def descargar_2023(n_clicks):
+    path =f'./files/respuestas/2023/'
+    loczip ='./files/exports/respuestas_2023.zip'
 
     zf = zipfile.ZipFile(loczip, "w")
     for dirname, subdirs, files in os.walk(path):
@@ -5886,13 +6526,32 @@ def descargar_individuales(n_clicks):
 
 #Callback descarga resultados 2023
 @dash.callback(
-    Output("download_2023", "data"),
-    Input("btn-download_2023", "n_clicks"),
+    Output("download_resultados_2023", "data"),
+    Input("btn_download_resultados_2023", "n_clicks"),
     prevent_initial_call=True,
 )
 def descargar_2023(n_clicks):
     path =f'./files/resultados/2023/'
     loczip ='./files/exports/resultados_2023.zip'
+
+    zf = zipfile.ZipFile(loczip, "w")
+    for dirname, subdirs, files in os.walk(path):
+        zf.write(dirname)
+        for filename in files:
+            zf.write(os.path.join(dirname, filename))
+    zf.close()
+
+    return dcc.send_file(loczip)
+
+#Callback descarga individuales
+@dash.callback(
+    Output("download_repeats", "data"),
+    Input("btn_download_repeats", "n_clicks"),
+    prevent_initial_call=True,
+)
+def descargar_individuales(n_clicks):
+    path =f'./files/separadas/'
+    loczip ='./files/exports/bucles.zip'
 
     zf = zipfile.ZipFile(loczip, "w")
     for dirname, subdirs, files in os.walk(path):
