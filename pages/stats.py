@@ -2531,7 +2531,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p2_df['l1']= p2_df[criterios_disponibles_bucle].mean(axis=1)
-                p2_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
 
                 nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2668,7 +2668,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p13_df['l1'] = p13_df[criterios_disponibles_bucle].sum(axis=1)
-                p13_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
 
                 nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['l1'].mean()
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2695,7 +2695,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p14_df['l1']= p14_df[criterios_disponibles_bucle].sum(axis=1)
-                p14_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
 
                 nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2725,7 +2725,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p15_df['l1']= p15_df[criterios_disponibles_bucle].sum(axis=1)
-                p15_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
         
                 nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2756,7 +2756,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p16_df['l1']= p16_df[criterios_disponibles_bucle].sum(axis=1)
-                p16_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
         
                 nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2787,7 +2787,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p17_df['l1']= p17_df[criterios_disponibles_bucle].sum(axis=1)
-                p17_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
         
                 nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2818,7 +2818,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p18_df['l1']= p18_df[criterios_disponibles_bucle].sum(axis=1)
-                p18_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
         
                 nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2849,7 +2849,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p19_df['l1']= p19_df[criterios_disponibles_bucle].sum(axis=1)
-                p19_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
         
                 nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2880,7 +2880,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p20_df['l1']= p20_df[criterios_disponibles_bucle].sum(axis=1)
-                p20_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
         
                 nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2911,7 +2911,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p21_df['l1']= p21_df[criterios_disponibles_bucle].sum(axis=1)
-                p21_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
         
                 nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2942,7 +2942,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p22_df['l1']= p22_df[criterios_disponibles_bucle].sum(axis=1)
-                p22_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
         
                 nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -2973,7 +2973,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l1']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
@@ -2985,7 +2985,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l2']= p23_df[criterios_disponibles_bucle].sum(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
@@ -2997,7 +2997,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l3']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l3'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
@@ -3009,7 +3009,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l4']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l4'].mean(),4)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
@@ -3220,7 +3220,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p28_df['l1']= p28_df[criterios_disponibles_bucle].sum(axis=1)
-                p28_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3232,7 +3232,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p28_df['l2']= p28_df[criterios_disponibles_bucle].mean(axis=1)
-                p28_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3316,7 +3316,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p32_df['l1']= p32_df[criterios_disponibles_bucle].mean(axis=1)
-                p32_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
 
                 nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3347,7 +3347,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p33_df['l1']= p33_df[criterios_disponibles_bucle].mean(axis=1)
-                p33_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
 
                 nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3378,7 +3378,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p34_df['l1']= p34_df[criterios_disponibles_bucle].mean(axis=1)
-                p34_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
 
                 nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3409,7 +3409,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p35_df['l1']= p35_df[criterios_disponibles_bucle].mean(axis=1)
-                p35_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
 
                 nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3440,7 +3440,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p36_df['l1']= p36_df[criterios_disponibles_bucle].mean(axis=1)
-                p36_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
 
                 nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3471,7 +3471,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p37_df['l1']= p37_df[criterios_disponibles_bucle].mean(axis=1)
-                p37_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
 
                 nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3502,7 +3502,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p38_df['l1']= p38_df[criterios_disponibles_bucle].mean(axis=1)
-                p38_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
 
                 nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
@@ -3533,7 +3533,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p39_df['l1']= p39_df[criterios_disponibles_bucle].mean(axis=1)
-                p39_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
 
                 nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
