@@ -951,18 +951,6 @@ def diagrama_velas(pregunta_seleccionada):
         mean_bottom_2023 = p39_df['nota_iniciativa'].median() - p39_df['nota_iniciativa'].std()
         outliers_bottom_2023 = p39_df['nota_iniciativa'].min()
 
-    #""" 
-    #El problema son las "notas de las iniciativas"
-    #Arreglar cuando cambiemos columnas
-
-
-    """
-    outliers_top_2023=outliers_top_2021
-    mean_top_2023=mean_top_2021
-    mean_bottom_2023=mean_bottom_2021
-    outliers_bottom_2023=outliers_bottom_2021
-    #"""
-
     outliers_top.append(outliers_top_2021)
     outliers_top.append(outliers_top_2023)
 
@@ -1842,10 +1830,10 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c4']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada-1,'c1']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada-1,'c2']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada-1,'c3']),
+                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada-1,'c4']),
                     ],
                     ),
                 ])
@@ -6958,7 +6946,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     Input("btn_download_respuestas_2023", "n_clicks"),
     prevent_initial_call=True,
 )
-def descargar_2023(n_clicks):
+def descargar_respuestas_2023(n_clicks):
     path =f'./files/respuestas/2023/respuestas_2023.xlsx'
 
     return dcc.send_file(path)
@@ -6969,7 +6957,7 @@ def descargar_2023(n_clicks):
     Input("btn_download_resultados_2023", "n_clicks"),
     prevent_initial_call=True,
 )
-def descargar_2023(n_clicks):
+def descargar_resultados_2023(n_clicks):
     path =f'./files/resultados/2023/resultados_2023.xlsx'
 
     return dcc.send_file(path)
