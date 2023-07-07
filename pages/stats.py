@@ -2768,12 +2768,12 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p2':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
@@ -2787,7 +2787,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
 
                 nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
 
             else:
                 pass
@@ -2810,10 +2810,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p4':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -2834,10 +2834,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p6':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -2858,10 +2858,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p8':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -2887,10 +2887,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p11':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -2911,7 +2911,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p13':
             
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -2924,7 +2924,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
 
                 nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['l1'].mean()
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
 
             else:
                 pass
@@ -2951,10 +2951,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
 
                 nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
 
             else:
                 pass
@@ -2981,10 +2981,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
         
                 nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3012,10 +3012,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
         
                 nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3043,10 +3043,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
         
                 nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3074,10 +3074,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
         
                 nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3105,10 +3105,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
         
                 nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3136,10 +3136,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
         
                 nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3167,10 +3167,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
         
                 nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3198,10 +3198,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
         
                 nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3284,19 +3284,19 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             if criterio_seleccionado=='c1':
 
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
            
             elif criterio_seleccionado=='c2':
 
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
 
             elif criterio_seleccionado=='c3':
 
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
 
             elif criterio_seleccionado=='c4':
 
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota
 
             else:
                 pass
@@ -3320,10 +3320,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p25_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
 
                 nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
 
             else:
                 pass
@@ -3351,10 +3351,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p26_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
 
                 nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 
             else:
                 pass
@@ -3382,7 +3382,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p27_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
 
                 nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
             else:
                 pass
@@ -3401,15 +3401,15 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p28':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c3':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c4':
@@ -3422,7 +3422,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
 
             elif criterio_seleccionado=='c5':
 
@@ -3434,7 +3434,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'] = nota_entidad
             
             else:
                 pass
@@ -3452,7 +3452,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p29':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 
             else:
                 pass
@@ -3468,7 +3468,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p30':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 
             else:
                 pass
@@ -3489,7 +3489,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p32':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3502,7 +3502,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
 
                 nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3520,7 +3520,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p33':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3533,7 +3533,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
 
                 nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3551,7 +3551,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p34':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3564,7 +3564,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
 
                 nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3582,7 +3582,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p35':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3595,7 +3595,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
 
                 nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3613,7 +3613,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p36':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3626,7 +3626,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
 
                 nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3644,7 +3644,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p37':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3657,7 +3657,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
 
                 nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3675,7 +3675,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p38':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3688,7 +3688,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
 
                 nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
@@ -3706,7 +3706,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p39':
 
             if criterio_seleccionado=='c1':
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
@@ -3719,7 +3719,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
 
                 nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota_entidad
+                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
             
             else:
                 pass
