@@ -16,7 +16,6 @@ tarjeta_resumen_2021 = dbc.Card(
                 
                 html.H3(children='Posición 2021: ', className="card-title me-2",style={'display':'inline-block'}),
                 html.H3(id='posicion_2021',children='', className="card-title",style={'display':'inline-block','font-weight':'bold'}),
-                html.H5(children="Componentes: ", className="card-title",style={'line-height':'2.5rem'}),
 
                 
                 
@@ -64,6 +63,136 @@ tarjeta_resumen_2021 = dbc.Card(
                     [
                         html.P(children='C4: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
                         dbc.Progress(id='sc4',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+            ]
+        ),
+    ],
+)
+
+tarjeta_resumen_2023 = dbc.Card(
+    [
+        
+        dbc.CardBody(
+            [
+                
+                html.H3(children='Posición 2023: ', className="card-title me-2",style={'display':'inline-block'}),
+                html.H3(id='posicion_2023',children='', className="card-title",style={'display':'inline-block','font-weight':'bold'}),
+
+                
+                
+                html.Div(
+                    [
+                        html.P(children='Total: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='st_2023',value=0,label='',style={"height": f"{progress_thickness}"},color="success"),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C1: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc1_2023',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C2: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc2_2023',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C3: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc3_2023',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C4: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc4_2023',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+            ]
+        ),
+    ],
+)
+
+tarjeta_total_2023 = dbc.Card(
+    [
+        
+        dbc.CardBody(
+            [
+                
+                html.H3(children='Total IIP 2023: ', className="card-title me-2",style={'display':'inline-block'}),
+                html.H3(id='posicion_total',children='', className="card-title",style={'display':'inline-block','font-weight':'bold'}),
+
+                
+                
+                html.Div(
+                    [
+                        html.P(children='Total: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='stotal',value=0,label='',style={"height": f"{progress_thickness}"},color="success"),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C1: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc1total',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C2: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc2total',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C3: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc3total',value=0,label='',style={"height": f"{progress_thickness}"}),
+                        html.Br()
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
+
+                html.Div(
+                    [
+                        html.P(children='C4: ', className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
+                        dbc.Progress(id='sc4total',value=0,label='',style={"height": f"{progress_thickness}"}),
                         html.Br()
                     ],
                     className="card-text",
@@ -287,11 +416,15 @@ layout = dbc.Container([
         dbc.Col([
             tarjeta_resumen_2021,
             html.Br(),
-            zona_velas,
+            tarjeta_resumen_2023,
+            html.Br(),
+            tarjeta_total_2023,
             html.Br(),
             zona_de_peligro,
             html.Br(),
             zona_de_notas,
+            html.Br(),
+            zona_velas,
             html.Br(),
             zona_descarga
 
@@ -398,6 +531,126 @@ def tabla_resumen_2021(entidad):
         sc4 = 0
 
     return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+
+#Callback resumen 2023 lateral
+@dash.callback(
+    Output('posicion_2023', 'children'),
+    Output('st_2023', 'label'),
+    Output('sc1_2023', 'label'),
+    Output('sc2_2023', 'label'),
+    Output('sc3_2023', 'label'),
+    Output('sc4_2023', 'label'),
+    Output('st_2023', 'value'),
+    Output('sc1_2023', 'value'),
+    Output('sc2_2023', 'value'),
+    Output('sc3_2023', 'value'),
+    Output('sc4_2023', 'value'),
+    Input('entidad_seleccionada', 'data'),
+    Input('pregunta_seleccionada', 'data'),
+    Input('iniciativa_seleccionada', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
+)
+def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+    
+    pos = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['pos']
+    if pos.empty == False:
+        pos_2021 = pos
+    else:
+        pos_2021 = 'N/A'
+
+    total = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['total'].round(2)
+    if total.empty == False:
+        res_total  = total
+        st = total
+    else:
+        res_total = 'N/A'
+        st = 0
+
+    c1 = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c1'].round(2)
+    if c1.empty == False:
+        res_c1 = c1
+        sc1 = c1
+    else:
+        res_c1 = 'N/A'
+        sc1 = 0
+
+    c2 = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c2'].round(2)
+    if c2.empty == False:
+        res_c2 = c2
+        sc2 = c2
+    else:
+        res_c2 = 'N/A'
+        sc2 = 0
+
+    c3 = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c3'].round(2)
+    if c3.empty == False:
+        res_c3 = c3
+        sc3 = c3
+    else:
+        res_c3 = 'N/A'
+        sc3 = 0
+
+    c4 = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c4'].round(2)
+    if c4.empty == False:
+        res_c4 = c4
+        sc4 = c4
+    else:
+        res_c4 = 'N/A'
+        sc4 = 0
+
+    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+
+#Callback resumen iip lateral
+@dash.callback(
+    Output('posicion_total', 'children'),
+    Output('stotal', 'label'),
+    Output('sc1total', 'label'),
+    Output('sc2total', 'label'),
+    Output('sc3total', 'label'),
+    Output('sc4total', 'label'),
+    Output('stotal', 'value'),
+    Output('sc1total', 'value'),
+    Output('sc2total', 'value'),
+    Output('sc3total', 'value'),
+    Output('sc4total', 'value'),
+    Input('entidad_seleccionada', 'data'),
+    Input('pregunta_seleccionada', 'data'),
+    Input('iniciativa_seleccionada', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
+)
+def tabla_resumen_total(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+    
+
+        total = round(resultados_2023_df.loc[:,'total'].mean(),2)
+
+        c1 = round(resultados_2023_df.loc[:,'res_c1'].mean(),2)
+
+        c2 = round(resultados_2023_df.loc[:,'res_c2'].mean(),2)
+
+        c3 = round(resultados_2023_df.loc[:,'res_c3'].mean(),2)
+
+        c4 = round(resultados_2023_df.loc[:,'res_c4'].mean(),2)
+
+        pos_2021 = total
+
+        res_total = total
+        st = total
+
+        res_c1 = c1
+        sc1 = c1
+
+        res_c2 = c2
+        sc2 = c2
+
+        res_c3 = c3
+        sc3 = c3
+
+        res_c4 = c4
+        sc4 = c4
+
+        return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
 
 #Callback velas
 @dash.callback(
@@ -1397,20 +1650,20 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'p24_1'),
-                        html.Th(f'p24_2'),
-                        html.Th(f'p24_3'),
-                        html.Th(f'p24_4'),
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                        html.Th(f'c4'),
                     ],
                     )                  
                 ]),
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_2'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_3'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_4'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
                         
                     ],
                     ),
@@ -1577,7 +1830,7 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                 html.Tbody([
                     html.Tr([
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),rowSpan=2),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2),colSpan=4),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'],2)),
@@ -3029,80 +3282,26 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #innovaciones diseñadas
         elif pregunta_seleccionada=='p24':
 
-            if criterio_seleccionado=='p24_1':
+            if criterio_seleccionado=='c1':
 
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
            
-            elif criterio_seleccionado=='p24_2':
+            elif criterio_seleccionado=='c2':
 
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
-            elif criterio_seleccionado=='p24_3':
+            elif criterio_seleccionado=='c3':
 
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
-            elif criterio_seleccionado=='p24_4':
+            elif criterio_seleccionado=='c4':
 
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_{criterio_seleccionado}'] = nota
 
             else:
                 pass
-
             
-            """
-            if criterio_seleccionado=='p24_1':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p24_1_df.loc[p24_1_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p24_1_df['nota_iniciativa']= p24_1_df[criterios_disponibles_bucle].mean(axis=1)
-                p24_1_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
-
-                nota_entidad = round(p24_1_df.loc[p24_1_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1'] = nota_entidad
-           
-            elif criterio_seleccionado=='p24_2':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p24_2_df.loc[p24_2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p24_2_df['nota_iniciativa']= p24_2_df[criterios_disponibles_bucle].sum(axis=1)
-                p24_2_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
-
-                nota_entidad = round(p24_2_df.loc[p24_2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_2'] = nota_entidad
-
-            elif criterio_seleccionado=='p24_3':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p24_3_df.loc[p24_3_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p24_3_df['nota_iniciativa']= p24_3_df[criterios_disponibles_bucle].mean(axis=1)
-                p24_3_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
-
-                nota_entidad = round(p24_3_df.loc[p24_3_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_3'] = nota_entidad
-
-            elif criterio_seleccionado=='p24_4':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p24_4_df.loc[p24_4_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p24_4_df['nota_iniciativa']= p24_4_df[criterios_disponibles_bucle].mean(axis=1)
-                p24_4_df.to_excel(f'./files/separadas/repeat_{criterio_seleccionado}.xlsx',index=False)
-
-                nota_entidad = round(p24_4_df.loc[p24_4_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),4)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_4'] = nota_entidad
-            
-            else:
-                pass
-            """
-            
-            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_p24_1':f'cri_{pregunta_seleccionada}_p24_4'].sum().sum(),2)
+            nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
@@ -3248,22 +3447,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-
-
-
-
-            if criterio_seleccionado=='c1':
-
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-                p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p23_df['l1']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
-                nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
-                respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
         #funcionarios formados
         elif pregunta_seleccionada=='p29':
@@ -3553,6 +3736,21 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         #Cualquier caso no definido
         else:
             pass
+
+        nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
+
+        nota_componente_2=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
+
+        nota_componente_3=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
+
+        nota_componente_4=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
+
+        total_iip_entidad=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
 
 #Callback ver respuestas
 @dash.callback(
@@ -6443,17 +6641,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     prevent_initial_call=True,
 )
 def descargar_2023(n_clicks):
-    path =f'./files/respuestas/2023/'
-    loczip ='./files/exports/respuestas_2023.zip'
+    path =f'./files/respuestas/2023/respuestas_2023.xlsx'
 
-    zf = zipfile.ZipFile(loczip, "w")
-    for dirname, subdirs, files in os.walk(path):
-        zf.write(dirname)
-        for filename in files:
-            zf.write(os.path.join(dirname, filename))
-    zf.close()
-
-    return dcc.send_file(loczip)
+    return dcc.send_file(path)
 
 #Callback descarga resultados 2023
 @dash.callback(
@@ -6462,17 +6652,9 @@ def descargar_2023(n_clicks):
     prevent_initial_call=True,
 )
 def descargar_2023(n_clicks):
-    path =f'./files/resultados/2023/'
-    loczip ='./files/exports/resultados_2023.zip'
+    path =f'./files/resultados/2023/resultados_2023.xlsx'
 
-    zf = zipfile.ZipFile(loczip, "w")
-    for dirname, subdirs, files in os.walk(path):
-        zf.write(dirname)
-        for filename in files:
-            zf.write(os.path.join(dirname, filename))
-    zf.close()
-
-    return dcc.send_file(loczip)
+    return dcc.send_file(path)
 
 #Callback descarga individuales
 @dash.callback(
