@@ -1534,7 +1534,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
 
     elif pregunta_seleccionada=='p28':
         tabla_criterios=html.Div(children=[
-            html.H5('P23'),
             dbc.Table(
                 children=[
                 html.Thead(children=[
@@ -1549,14 +1548,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
                         html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
                         html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
                         html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
@@ -1570,7 +1561,6 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
             responsive=True,
             striped=True,                               
             ),
-            html.H5('P28'),
             dbc.Table(
                 children=[
                 html.Thead(children=[
@@ -1587,11 +1577,10 @@ def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_selecc
                 html.Tbody([
                     html.Tr([
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),rowSpan=2),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2),colSpan=4),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'],2)),
-                        
                     ],
                     ),
                     html.Tr([
