@@ -1151,7 +1151,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1'),
+                        html.Th(f'a1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -4502,14 +4502,14 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         try:
             res_dis = rel_dist_cos*100/rel_dist_pre
         except:
-            res_dis =0
+            res_dis = 0
 
         rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
         rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
         try:
-            res_ent=rel_enti_cos*100/rel_enti_pre
+            res_ent = rel_enti_cos*100/rel_enti_pre
         except:
-            res_ent =0
+            res_ent = 0
             
         card_2023=card_p3_p4_p5_p6(
             tip_preg=tipo_pregunta[0],
