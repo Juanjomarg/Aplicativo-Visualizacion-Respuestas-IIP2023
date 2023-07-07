@@ -216,6 +216,7 @@ def criterio_4():
                     ]),
                     html.Tr([
                         html.Td(2.5,rowSpan=5),
+                        html.Td(f'Categoría en la que entra',rowSpan=5),
                         html.Td(2.5),
                         html.Td(f'3% en adelante'),
                     ]),
@@ -318,6 +319,7 @@ def criterio_6():
                     ]),
                     html.Tr([
                         html.Td(2.35,rowSpan=5),
+                        html.Td(f'Categoría en la que entra',rowSpan=5),
                         html.Td(2.35),
                         html.Td(f'3% en adelante'),
                     ]),
