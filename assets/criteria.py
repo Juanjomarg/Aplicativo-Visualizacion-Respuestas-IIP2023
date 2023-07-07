@@ -82,6 +82,64 @@ def criterio_2():
             responsive=True,
             striped=True,
             ),
+
+        dbc.Table(
+            children=[
+                html.Thead(children=[
+
+                    html.Tr([
+                        html.Th("Tipo",colSpan=1),
+                        html.Th("Nota",colSpan=1),
+                    ],
+                    ),
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(1.6,rowSpan=7),
+                        html.Td(1.3),
+                        html.Td('Resolución'),
+                    ]),
+                    html.Tr([
+                        html.Td(1.6),
+                        html.Td('Acuerdo concejo'),
+                    ]),
+                    html.Tr([
+                        html.Td('1.3/1.6'),
+                        html.Td('Proyecto de inversión'),
+                    ]),
+                    html.Tr([
+                        html.Td('1/1.4'),
+                        html.Td('Plan estratégico'),
+                    ]),
+                    html.Tr([
+                        html.Td('1/1.4'),
+                        html.Td('Plan institucional'),
+                    ]),
+                    html.Tr([
+                        html.Td(.8),
+                        html.Td('Enfoque'),
+                    ]),
+                    html.Tr([
+                        html.Td(.8),
+                        html.Td('Linea'),
+                    ]),
+                    html.Tr([
+                        html.Td(.4),
+                        html.Td('Circular'),
+                    ]),
+                    html.Tr([
+                        html.Td(.4),
+                        html.Td('Oficios'),
+                    ]),
+
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,
+            ),
         ],
     style={'width': '100%'})
     return salida_criterio
@@ -1670,7 +1728,7 @@ def criterio_28():
                         html.Td('Mismo nivel de innovacion'),
                     ]),
                     html.Tr([
-                        html.Td(5),
+                        html.Td(0),
                         html.Td('Menos'),
                     ]),
                     html.Tr([
@@ -1752,7 +1810,7 @@ def criterio_28():
                         html.Td(4.5),
                         html.Td(5),
                         html.Td(5.5),
-                        html.Td(6.5),
+                        html.Td(6),
                     ]),
                 ]),
             ],
