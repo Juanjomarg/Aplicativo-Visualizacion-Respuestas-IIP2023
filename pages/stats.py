@@ -2848,7 +2848,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
             p2_df['nota_iniciativa']=p2_df['l1']
-            p2_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
+            p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
         
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
@@ -3518,7 +3518,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
-                p25_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
@@ -3558,7 +3558,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
-                p26_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
@@ -3598,7 +3598,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
-                p27_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                p27_df.to_excel(f'./files/separadas/repeat_p27.xlsx',index=False)
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             else:
