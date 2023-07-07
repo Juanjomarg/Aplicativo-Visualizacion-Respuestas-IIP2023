@@ -1039,13 +1039,14 @@ def llamar_numero(valor):
 @dash.callback(
     Output('tabla_criterios', 'children'),
 
+    Input('enviar_nota', 'n_clicks'),
     Input('entidad_seleccionada', 'data'),
     Input('pregunta_seleccionada', 'data'),
     Input('iniciativa_seleccionada', 'data'),
     Input('criterio_seleccionado_entidad', 'data'),
     Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabla_criterios(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
+def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
