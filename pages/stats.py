@@ -4280,11 +4280,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
         rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
-        res_dis = rel_dist_cos*100/rel_dist_pre
+        try:
+            res_dis = rel_dist_cos*100/rel_dist_pre
+        except:
+            res_dis=0
 
         rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
         rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
-        res_ent=rel_enti_cos*100/rel_enti_pre
+        try:
+            res_ent=rel_enti_cos*100/rel_enti_pre
+        except:
+            res_ent=0
             
         card_2023=card_p3_p4_p5_p6(
             tip_preg=tipo_pregunta[0],
@@ -4347,12 +4353,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
         rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
-        res_dis = rel_dist_cos*100/rel_dist_pre
+        try:
+            res_dis = rel_dist_cos*100/rel_dist_pre
+        except:
+            res_dis = 0
 
         rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
         rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
-        res_ent=rel_enti_cos*100/rel_enti_pre
-            
+        try:
+            res_ent=rel_enti_cos*100/rel_enti_pre
+        except:
+            res_ent=0
+
         card_2023=card_p3_p4_p5_p6(
             tip_preg=tipo_pregunta[0],
 
@@ -4414,11 +4426,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
         rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
-        res_dis = rel_dist_cos*100/rel_dist_pre
+        try:
+            res_dis = rel_dist_cos*100/rel_dist_pre
+        except:
+            res_dis =0
 
         rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
         rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
-        res_ent=rel_enti_cos*100/rel_enti_pre
+        try:
+            res_ent=rel_enti_cos*100/rel_enti_pre
+        except:
+            res_ent =0
             
         card_2023=card_p3_p4_p5_p6(
             tip_preg=tipo_pregunta[0],
@@ -4481,11 +4499,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_pre = statistics.mean([float(presupuesto_2021_dis), float(presupuesto_2022_dis)])
         rel_dist_cos = statistics.mean([float(costo_2021_dis), float(costo_2022_dis)])
-        res_dis = rel_dist_cos*100/rel_dist_pre
+        try:
+            res_dis = rel_dist_cos*100/rel_dist_pre
+        except:
+            res_dis =0
 
         rel_enti_pre = statistics.mean([float(presupuesto_2021_ent.iloc[0]), float(presupuesto_2022_ent.iloc[0])])
         rel_enti_cos = statistics.mean([float(costo_2021_ent.iloc[0]), float(costo_2022_ent.iloc[0])])
-        res_ent=rel_enti_cos*100/rel_enti_pre
+        try:
+            res_ent=rel_enti_cos*100/rel_enti_pre
+        except:
+            res_ent =0
             
         card_2023=card_p3_p4_p5_p6(
             tip_preg=tipo_pregunta[0],
@@ -4553,12 +4577,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis = 0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[0],
@@ -4632,12 +4662,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[0],
@@ -4711,12 +4747,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[0],
@@ -4790,12 +4832,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[1],
@@ -4869,12 +4917,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[1],
@@ -4948,12 +5002,18 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         rel_dist_tot = statistics.mean([float(cantidad_2021_dis), float(cantidad_2022_dis)])
         rel_dist_man = statistics.mean([float(manual_2021_dis), float(manual_2022_dis)])
         rel_dist_oca = statistics.mean([float(ocasionales_2021_dis), float(ocasionales_2022_dis)])
-        res_dis = rel_dist_man*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_man*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(cantidad_2021_ent.iloc[0]), float(cantidad_2022_ent.iloc[0])])
         rel_enti_man = statistics.mean([float(manual_2021_ent.iloc[0]), float(manual_2022_ent.iloc[0])])
         rel_enti_oca = statistics.mean([float(ocasionales_2021_ent.iloc[0]), float(ocasionales_2022_ent.iloc[0])])
-        res_ent = rel_enti_man*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_man*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p7_p8_p9_p10_p11_p12(
             tip_preg=tipo_pregunta[1],
@@ -6114,11 +6174,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_tot = statistics.mean([float(total_2021_dis), float(total_2022_dis)])
         rel_dist_for = statistics.mean([float(formados_2021_dis), float(formados_2022_dis)])
-        res_dis = rel_dist_for*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_for*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(total_2021_ent.iloc[0]), float(total_2022_ent.iloc[0])])
         rel_enti_for = statistics.mean([float(formados_2021_ent.iloc[0]), float(formados_2022_ent.iloc[0])])
-        res_ent = rel_enti_for*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_for*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p29_p30(
             tip_preg=tipo_pregunta[0],
@@ -6177,11 +6243,17 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         rel_dist_tot = statistics.mean([float(total_2021_dis), float(total_2022_dis)])
         rel_dist_for = statistics.mean([float(formados_2021_dis), float(formados_2022_dis)])
-        res_dis = rel_dist_for*100/rel_dist_tot
+        try:
+            res_dis = rel_dist_for*100/rel_dist_tot
+        except:
+            res_dis=0
 
         rel_enti_tot = statistics.mean([float(total_2021_ent.iloc[0]), float(total_2022_ent.iloc[0])])
         rel_enti_for = statistics.mean([float(formados_2021_ent.iloc[0]), float(formados_2022_ent.iloc[0])])
-        res_ent = rel_enti_for*100/rel_enti_tot
+        try:
+            res_ent = rel_enti_for*100/rel_enti_tot
+        except:
+            res_ent=0
             
         card_2023=card_p29_p30(
             tip_preg=tipo_pregunta[1],
