@@ -2784,6 +2784,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #CALCULO PROMEDIO INICIATIVA
                 p2_df['l1']= p2_df[criterios_disponibles_bucle].mean(axis=1)
+                p2_df['nota_iniciativa']=p2_df['l1']
                 p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
 
                 nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
@@ -2791,9 +2792,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             else:
                 pass
-
-            p2_df['nota_iniciativa']=p2_df['l1']
-            p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
         
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
