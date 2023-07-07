@@ -97,7 +97,7 @@ def criterio_2():
                 html.Tbody([
                     html.Tr([
                         html.Td(1.6,rowSpan=9),
-                        html.Td(1.3),
+                        html.Td(1.6),
                         html.Td('Resolución'),
                     ]),
                     html.Tr([
