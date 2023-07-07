@@ -1078,6 +1078,10 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p2':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c3'])
+
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
+
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2783,7 +2787,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             elif criterio_seleccionado=='c3':
                 p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
                 respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-                
+
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO
                 p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
