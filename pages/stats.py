@@ -2766,20 +2766,22 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
         #Enfoques, lineas o proyectos
         elif pregunta_seleccionada=='p2':
-            
+
             if criterio_seleccionado=='c1':
+                p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
             elif criterio_seleccionado=='c2':
+                p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             
             elif criterio_seleccionado=='c3':
-                
-                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+                p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
+                #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO
                 p2_df.loc[p2_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
