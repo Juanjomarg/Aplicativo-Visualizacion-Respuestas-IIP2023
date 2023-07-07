@@ -1151,7 +1151,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'a1'),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
