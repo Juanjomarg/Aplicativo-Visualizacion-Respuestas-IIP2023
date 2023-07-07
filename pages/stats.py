@@ -1123,6 +1123,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p4':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1156,6 +1157,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         
     elif pregunta_seleccionada=='p6':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1189,6 +1191,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p8':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1225,6 +1228,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p11':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1258,6 +1262,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p13':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1294,6 +1300,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p14':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1330,6 +1338,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p15':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1366,6 +1376,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p16':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1402,6 +1414,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p17':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1436,6 +1450,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p18':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1470,6 +1486,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p19':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1506,6 +1524,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p20':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1542,6 +1562,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p21':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1576,6 +1598,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p22':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1609,6 +1633,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p23':
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1650,6 +1676,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p24':
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1685,6 +1712,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p25':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1722,6 +1751,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p26':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1759,6 +1790,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p27':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1791,6 +1824,9 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p28':
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+        p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1864,6 +1900,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p29':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1893,6 +1930,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p30':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1925,6 +1963,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p32':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1960,6 +2000,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p33':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1995,6 +2037,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p34':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2030,6 +2074,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p35':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2065,6 +2111,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p36':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2100,6 +2148,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p37':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2135,6 +2185,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p38':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2170,6 +2222,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
     elif pregunta_seleccionada=='p39':
         crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2803,8 +2857,13 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             else:
                 pass
+
+            p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
+            p2_df['nota_iniciativa']=p2_df['l1']
+            p2_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
         
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2820,14 +2879,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p4':
             
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2844,14 +2909,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p6':
             
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2868,14 +2939,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p8':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2897,14 +2974,20 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p11':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2921,27 +3004,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p13':
             
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p13_df.loc[p13_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p13_df['l1'] = p13_df[criterios_disponibles_bucle].sum(axis=1)
-                p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
 
                 nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['l1'].mean()
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
 
+                p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             else:
                 pass
 
+            p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
             p13_df['nota_iniciativa']=p13_df['l1']
             p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2952,26 +3043,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p14':
 
             if criterio_seleccionado=='c1':
+                p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p14_df['l1']= p14_df[criterios_disponibles_bucle].sum(axis=1)
-                p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
 
                 nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             else:
                 pass
 
+            p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
             p14_df['nota_iniciativa']=p14_df['l1']
             p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -2982,26 +3082,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p15':
 
             if criterio_seleccionado=='c1':
+                p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p15_df.loc[p15_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p15_df['l1']= p15_df[criterios_disponibles_bucle].sum(axis=1)
-                p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
-        
+                
                 nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
             p15_df['nota_iniciativa']=p15_df['l1']
             p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3013,26 +3122,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p16':
 
             if criterio_seleccionado=='c1':
+                p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p16_df.loc[p16_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p16_df['l1']= p16_df[criterios_disponibles_bucle].sum(axis=1)
-                p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
         
                 nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-                
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             else:
                 pass
 
+            p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
             p16_df['nota_iniciativa']=p16_df['l1']
             p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3044,26 +3162,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p17':
 
             if criterio_seleccionado=='c1':
+                p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p17_df.loc[p17_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p17_df['l1']= p17_df[criterios_disponibles_bucle].sum(axis=1)
-                p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
         
                 nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
-
+            
+            p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
             p17_df['nota_iniciativa']=p17_df['l1']
             p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3075,26 +3202,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p18':
 
             if criterio_seleccionado=='c1':
+                p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p18_df.loc[p18_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p18_df['l1']= p18_df[criterios_disponibles_bucle].sum(axis=1)
-                p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
         
                 nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
             p18_df['nota_iniciativa']=p18_df['l1']
             p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3106,26 +3242,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p19':
 
             if criterio_seleccionado=='c1':
+                p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p19_df.loc[p19_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p19_df['l1']= p19_df[criterios_disponibles_bucle].sum(axis=1)
-                p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
         
                 nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
             p19_df['nota_iniciativa']=p19_df['l1']
             p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3137,26 +3282,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p20':
 
             if criterio_seleccionado=='c1':
+                p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p20_df.loc[p20_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p20_df['l1']= p20_df[criterios_disponibles_bucle].sum(axis=1)
-                p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
         
                 nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
             p20_df['nota_iniciativa']=p20_df['l1']
             p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3168,26 +3322,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p21':
 
             if criterio_seleccionado=='c1':
+                p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p21_df.loc[p21_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p21_df['l1']= p21_df[criterios_disponibles_bucle].sum(axis=1)
-                p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
         
                 nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
             p21_df['nota_iniciativa']=p21_df['l1']
             p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3199,26 +3362,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p22':
 
             if criterio_seleccionado=='c1':
+                p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p22_df.loc[p22_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p22_df['l1']= p22_df[criterios_disponibles_bucle].sum(axis=1)
-                p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
         
                 nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
             p22_df['nota_iniciativa']=p22_df['l1']
             p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3230,59 +3402,78 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p23':
 
             if criterio_seleccionado=='c1':
+                p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l1']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l2']= p23_df[criterios_disponibles_bucle].sum(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
 
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c3':
+                p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l3']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l3'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
 
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c4':
+                p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p23_df.loc[p23_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p23_df['l4']= p23_df[criterios_disponibles_bucle].mean(axis=1)
-                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
 
                 nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['l4'].mean(),4)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
+
+                p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
             p23_df['nota_iniciativa']=p23_df['l1']+p23_df['l2']+p23_df['l3']+p23_df['l4']
             p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
-            
+
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')            
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3293,24 +3484,30 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p24':
 
             if criterio_seleccionado=='c1':
-
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
-
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c3':
-
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c4':
-
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             else:
                 pass
-            
+
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3321,26 +3518,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p25':
 
             if criterio_seleccionado=='c1':
+                p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p25_df.loc[p25_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p25_df['l1']= p25_df[criterios_disponibles_bucle].mean(axis=1)
-                p25_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
+                
                 nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p25_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             else:
                 pass
 
+            p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
             p25_df['nota_iniciativa']=p25_df['l1']
             p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3352,26 +3558,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p26':
 
             if criterio_seleccionado=='c1':
+                p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p26_df.loc[p26_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p26_df['l1']= p26_df[criterios_disponibles_bucle].mean(axis=1)
-                p26_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
 
                 nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
+                p26_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
             p26_df['nota_iniciativa']=p26_df['l1']
             p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3383,23 +3598,30 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p27':
 
             if criterio_seleccionado=='c1':
+                p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p27_df.loc[p27_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p27_df['l1']= p27_df[criterios_disponibles_bucle].sum(axis=1)
-                p27_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
-
+                
                 nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+                p27_df.to_excel(f'./files/separadas/repeat_{pregunta_seleccionada}.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             else:
                 pass
 
+            p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
             p27_df['nota_iniciativa']=p27_df['l1']
             p27_df.to_excel(f'./files/separadas/repeat_p27.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3411,47 +3633,61 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p28':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c2':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c3':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
 
             elif criterio_seleccionado=='c4':
+                p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p28_df.loc[p28_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p28_df['l1']= p28_df[criterios_disponibles_bucle].sum(axis=1)
-                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
 
+                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+
             elif criterio_seleccionado=='c5':
+                p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p28_df.loc[p28_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p28_df['l2']= p28_df[criterios_disponibles_bucle].mean(axis=1)
-                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['l2'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'] = nota_entidad
+
+                p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
             p28_df['nota_iniciativa']=p28_df['l1']+p28_df['l2']
             p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c5'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3462,11 +3698,15 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p29':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3478,11 +3718,15 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p30':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
                 
             else:
                 pass
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3499,27 +3743,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p32':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p32_df.loc[p32_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p32_df['l1']= p32_df[criterios_disponibles_bucle].mean(axis=1)
-                p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
 
                 nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
             p32_df['nota_iniciativa'] = p32_df['l1']
             p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3530,27 +3782,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p33':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p33_df.loc[p33_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p33_df['l1']= p33_df[criterios_disponibles_bucle].mean(axis=1)
-                p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
 
                 nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
             p33_df['nota_iniciativa'] = p33_df['l1']
             p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3561,27 +3821,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p34':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p34_df.loc[p34_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p34_df['l1']= p34_df[criterios_disponibles_bucle].mean(axis=1)
-                p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
 
                 nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
             p34_df['nota_iniciativa'] = p34_df['l1']
             p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3592,27 +3860,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p35':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p35_df.loc[p35_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p35_df['l1']= p35_df[criterios_disponibles_bucle].mean(axis=1)
-                p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
 
                 nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
             p35_df['nota_iniciativa'] = p35_df['l1']
             p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3623,27 +3899,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p36':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p36_df.loc[p36_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p36_df['l1']= p36_df[criterios_disponibles_bucle].mean(axis=1)
-                p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
 
                 nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
             p36_df['nota_iniciativa'] = p36_df['l1']
             p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3654,27 +3938,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p37':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p37_df.loc[p37_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p37_df['l1']= p37_df[criterios_disponibles_bucle].mean(axis=1)
-                p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
-
+                
                 nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
             p37_df['nota_iniciativa'] = p37_df['l1']
             p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3685,27 +3977,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p38':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p38_df.loc[p38_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p38_df['l1']= p38_df[criterios_disponibles_bucle].mean(axis=1)
-                p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
 
                 nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
             p38_df['nota_iniciativa'] = p38_df['l1']
             p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
@@ -3716,27 +4016,35 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         elif pregunta_seleccionada=='p39':
 
             if criterio_seleccionado=='c1':
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
                 respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
            
             elif criterio_seleccionado=='c2':
+                p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
+                respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
                 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p39_df.loc[p39_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
                 p39_df['l1']= p39_df[criterios_disponibles_bucle].mean(axis=1)
-                p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
-
+                
                 nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+                p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
+                respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             
             else:
                 pass
 
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
             p39_df['nota_iniciativa'] = p39_df['l1']
             p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
 
+            resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
