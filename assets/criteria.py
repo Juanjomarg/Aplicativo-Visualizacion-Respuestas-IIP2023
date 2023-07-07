@@ -1314,7 +1314,7 @@ def criterio_22():
                         html.Td('Sólo Ciudadanos'),
                     ]),
                     html.Tr([
-                        html.Td(.6),
+                        html.Td(.5),
                         html.Td('Funcionarios y ciudadanos'),
                     ]),
 
