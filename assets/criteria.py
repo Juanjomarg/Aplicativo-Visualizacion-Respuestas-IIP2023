@@ -105,15 +105,15 @@ def criterio_2():
                         html.Td('Acuerdo concejo'),
                     ]),
                     html.Tr([
-                        html.Td('1.3/1.6'),
+                        html.Td('1.3 - 1.6'),
                         html.Td('Proyecto de inversión'),
                     ]),
                     html.Tr([
-                        html.Td('1/1.4'),
+                        html.Td('1 - 1.4'),
                         html.Td('Plan estratégico'),
                     ]),
                     html.Tr([
-                        html.Td('1/1.4'),
+                        html.Td('1 - 1.4'),
                         html.Td('Plan institucional'),
                     ]),
                     html.Tr([
