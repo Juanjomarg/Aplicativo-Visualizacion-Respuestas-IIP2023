@@ -493,7 +493,7 @@ def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_selecc
 
     resultados_2023_df.loc[:,'total'] = round(resultados_2023_df.loc[:,'res_c1':'res_c4'].sum().sum(),2)
     
-    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx')
+    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
 #Callback resumen 2021 lateral
 @dash.callback(
