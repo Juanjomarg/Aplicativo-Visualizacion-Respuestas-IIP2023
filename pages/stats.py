@@ -263,6 +263,7 @@ zona_de_peligro = dbc.Card(
                 dbc.Input(id='entrada_nota', value=1.6, placeholder="Ingrese la nota: ", type="number"),
                 html.Br(),
                 html.Div(id='empty'),
+                html.Div(id='empty_2'),
                 dbc.Button(id='enviar_nota',children='Enviar nota a excel', style={'width':'100%'}),
             ]
             ),
@@ -467,6 +468,30 @@ def mision_vision_entidad_f(value):
 
     return nom_ent,mis_ent,vis_ent
 
+#Callback para actualizar notas por componente
+@dash.callback(
+    Output('empty_2', 'children'),
+    Input('entidad_seleccionada', 'data')
+)
+def actualizar_ponderados_componentes(entidad_seleccionada):
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+
+    nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
+
+    nota_componente_2=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
+
+    nota_componente_3=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
+
+    nota_componente_4=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
+
+    total_iip_entidad=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
+    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx')
+
 #Callback resumen 2021 lateral
 @dash.callback(
     Output('posicion_2021', 'children'),
@@ -546,34 +571,15 @@ def tabla_resumen_2021(entidad):
     Output('sc3_2023', 'value'),
     Output('sc4_2023', 'value'),
     Input('entidad_seleccionada', 'data'),
-    Input('pregunta_seleccionada', 'data'),
-    Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabla_resumen_2023(entidad_seleccionada,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+def tabla_resumen_2023(entidad_seleccionada):
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
-    nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
-
-    nota_componente_2=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
-
-    nota_componente_3=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
-
-    nota_componente_4=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
-
-    total_iip_entidad=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
-
-    total = round(total_iip_entidad,2)
-
-    c1 = round(nota_componente_1*100/25,2)
-    c2 = round(nota_componente_2*100/35,2)
-    c3 = round(nota_componente_3*100/25,2)
-    c4 = round(nota_componente_4*100/15,2)
+    total = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'],2)
+    c1 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1']*100)/25,2)
+    c2 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2']*100)/35,2)
+    c3 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3']*100)/25,2)
+    c4 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4']*100)/15,2)
 
     pos_2021 = total
 
@@ -608,41 +614,34 @@ def tabla_resumen_2023(entidad_seleccionada,pregunta,iniciativa,criterio_entidad
     Output('sc3total', 'value'),
     Output('sc4total', 'value'),
     Input('entidad_seleccionada', 'data'),
-    Input('pregunta_seleccionada', 'data'),
-    Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabla_resumen_total(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+def tabla_resumen_total(entidad_seleccionada):
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
     
-        total = resultados_2023_df.loc[:,'total'].mean()
+    total = round(resultados_2023_df.loc[:,'total'].mean(),2)
+    c1 = round((resultados_2023_df.loc[:,'res_c1'].mean()*100)/25,2)
+    c2 = round((resultados_2023_df.loc[:,'res_c2'].mean()*100)/35,2)
+    c3 = round((resultados_2023_df.loc[:,'res_c3'].mean()*100)/25,2)
+    c4 = round((resultados_2023_df.loc[:,'res_c4'].mean()*100)/15,2)
 
-        c1 = resultados_2023_df.loc[:,'res_c1'].mean()
+    pos_2021 = total
 
-        c2 = resultados_2023_df.loc[:,'res_c2'].mean()
+    res_total = total
+    st = total
 
-        c3 = resultados_2023_df.loc[:,'res_c3'].mean()
+    res_c1 = c1
+    sc1 = c1
 
-        c4 = resultados_2023_df.loc[:,'res_c4'].mean()
+    res_c2 = c2
+    sc2 = c2
 
-        pos_2021 = round(total,2)
+    res_c3 = c3
+    sc3 = c3
 
-        res_total = round(total,2)
-        st = round(total,2)
+    res_c4 = c4
+    sc4 = c4
 
-        res_c1 = round(c1*100/25,2)
-        sc1 = round(c1*100/25,2)
-
-        res_c2 = round(c2*100/35,2)
-        sc2 = round(c2*100/35,2)
-
-        res_c3 = round(c3*100/25,2)
-        sc3 = round(c3*100/25,2)
-
-        res_c4 = round(c4*100/15,2)
-        sc4 = round(c4*100/15,2)
-
-        return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
 
 #Callback velas
 @dash.callback(
