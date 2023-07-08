@@ -478,7 +478,6 @@ def mision_vision_entidad_f(value):
     Input('iniciativa_seleccionada', 'data'),
     Input('criterio_seleccionado_entidad', 'data'),
     Input('criterio_seleccionado_bucle', 'data'),
-    Input('criterios_disponibles_bucle', 'data'),
 )
 def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
