@@ -622,16 +622,15 @@ def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_buc
 )
 def tabla_resumen_total(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
     
-
         total = round(resultados_2023_df.loc[:,'total'].mean(),2)
 
-        c1 = round(resultados_2023_df.loc[:,'res_c1'].mean(),2)
+        c1 = round((resultados_2023_df.loc[:,'res_c1'].mean()*100)/25,2)
 
-        c2 = round(resultados_2023_df.loc[:,'res_c2'].mean(),2)
+        c2 = round((resultados_2023_df.loc[:,'res_c2'].mean()*100)/35,2)
 
-        c3 = round(resultados_2023_df.loc[:,'res_c3'].mean(),2)
+        c3 = round((resultados_2023_df.loc[:,'res_c3'].mean()*100)/25,2)
 
-        c4 = round(resultados_2023_df.loc[:,'res_c4'].mean(),2)
+        c4 = round((resultados_2023_df.loc[:,'res_c4'].mean()*100)/15,2)
 
         pos_2021 = total
 
@@ -1697,7 +1696,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1705,15 +1704,13 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                         
                     ],
                     ),
                     html.Tr([
                         html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1736,7 +1733,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1744,15 +1741,13 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                         
                     ],
                     ),
                     html.Tr([
                         html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -3402,9 +3397,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p25_df.loc[p25_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p25_df['l1']= p25_df[criterios_disponibles_bucle].mean(axis=1)
+                p25_df['nota_iniciativa']= p25_df[criterios_disponibles_bucle].mean(axis=1)
                 
-                nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
@@ -3417,10 +3412,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             else:
                 pass
-
-            p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
-            p25_df['nota_iniciativa']=p25_df['l1']
-            p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
 
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
@@ -3441,9 +3432,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p26_df.loc[p26_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p26_df['l1']= p26_df[criterios_disponibles_bucle].mean(axis=1)
+                p26_df['nota_iniciativa']= p26_df[criterios_disponibles_bucle].mean(axis=1)
 
-                nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
@@ -3456,10 +3447,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 
             else:
                 pass
-
-            p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
-            p26_df['nota_iniciativa']=p26_df['l1']
-            p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
 
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
