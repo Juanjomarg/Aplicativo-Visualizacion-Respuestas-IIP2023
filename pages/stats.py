@@ -551,16 +551,31 @@ def tabla_resumen_2021(entidad):
     Input('criterio_seleccionado_entidad', 'data'),
     Input('criterio_seleccionado_bucle', 'data'),
 )
-def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
-    print(entidad)
-    
-    pos = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['pos']
+def tabla_resumen_2023(entidad_seleccionada,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+
+    nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
+
+    nota_componente_2=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
+
+    nota_componente_3=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
+
+    nota_componente_4=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
+
+    total_iip_entidad=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
+
+    pos = resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['pos']
     if pos.empty == False:
         pos_2021 = pos
     else:
         pos_2021 = 'N/A'
 
-    total = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['total']
+    total = resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['total']
+    print(total)
     if total.empty == False:
         res_total  = total
         st = total
@@ -568,7 +583,7 @@ def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_buc
         res_total = 'N/A'
         st = 0
 
-    c1 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c1']*100)/25,2)
+    c1 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['res_c1']*100)/25,2)
     if c1.empty == False:
         res_c1 = c1
         sc1 = c1
@@ -576,7 +591,7 @@ def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_buc
         res_c1 = 'N/A'
         sc1 = 0
 
-    c2 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c2']*100)/25,2)
+    c2 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['res_c2']*100)/25,2)
     if c2.empty == False:
         res_c2 = c2
         sc2 = c2
@@ -584,7 +599,7 @@ def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_buc
         res_c2 = 'N/A'
         sc2 = 0
 
-    c3 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c3']*100)/25,2)
+    c3 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['res_c3']*100)/25,2)
     if c3.empty == False:
         res_c3 = c3
         sc3 = c3
@@ -592,7 +607,7 @@ def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_buc
         res_c3 = 'N/A'
         sc3 = 0
 
-    c4 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['res_c4']*100)/25,2)
+    c4 = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad_seleccionada]['res_c4']*100)/25,2)
     if c4.empty == False:
         res_c4 = c4
         sc4 = c4
@@ -3904,21 +3919,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
         else:
             pass
-
-        nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
-
-        nota_componente_2=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
-
-        nota_componente_3=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
-
-        nota_componente_4=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
-
-        total_iip_entidad=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
 
 #Callback ver respuestas
 @dash.callback(
