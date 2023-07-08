@@ -52,25 +52,6 @@ p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
 p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
 p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
 
-def import_one(name):
-    posibles=['p1','p2','p13','p14','p15','p16','p17','p18','p19','p20','p21','p22','p23','p24_1','p24_2','p24_3','p24_4','p24_5','p25','p26','p27','p28','p31','p32','p33','p34','p35','p36','p37','p38','p39']
-    if name in posibles:
-        one=pd.read_excel(f'./files/separadas/repeat_{name}.xlsx')
-    else:
-        print('File not in list "posibles"')
-        one=pd.read_excel(f'./files/separadas/repeat_error.xlsx')
-
-    respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-
-    return respuestas_2023_df, resultados_2023_df, one
-
-
-
-
-
-
-
 entidades_2023=list(respuestas_2023_df['entidad'].sort_values())
 
 CRITS_PREGUNTAS_BASE={
