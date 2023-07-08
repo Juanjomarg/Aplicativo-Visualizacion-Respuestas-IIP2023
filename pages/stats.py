@@ -2053,7 +2053,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 )
 def actualizar_tabla(entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,criterios_disponibles_bucle):
 
-    time.sleep(0.5)
+    time.sleep(0.3)
 
     respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
     p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
@@ -2080,6 +2080,8 @@ def actualizar_tabla(entidad_seleccionada,pregunta_seleccionada,iniciativa_selec
     p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
     p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
     p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
+
+    time.sleep(0.2)
 
     if pregunta_seleccionada=='p1':
         tabla_criterios=html.Div(children=[
