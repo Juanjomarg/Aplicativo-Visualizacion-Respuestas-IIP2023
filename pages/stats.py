@@ -554,13 +554,13 @@ def tabla_resumen_2021(entidad):
 def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
     print(entidad)
     
-    pos = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['pos']*100)/25,2)
+    pos = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['pos']
     if pos.empty == False:
         pos_2021 = pos
     else:
         pos_2021 = 'N/A'
 
-    total = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['total']*100)/25,2)
+    total = resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['total']
     if total.empty == False:
         res_total  = total
         st = total
