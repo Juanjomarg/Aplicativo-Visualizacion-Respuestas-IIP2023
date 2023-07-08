@@ -1295,7 +1295,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1303,14 +1303,12 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                     ],
                     ),
                     html.Tr([
                         html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1341,14 +1339,12 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                     ],
                     ),
                     html.Tr([
                         html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1379,14 +1375,12 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                     ],
                     ),
                     html.Tr([
                         html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1489,14 +1483,12 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                     ],
                     ),
                     html.Tr([
                         html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -1527,14 +1519,12 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
 
                 html.Tbody([
                     html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
                     ],
                     ),
                     html.Tr([
                         html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,crits[2]]),
                     ],
                     ),
                 ])
@@ -2287,11 +2277,9 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     salida_criterios_bucle_seleccionado='N/A'
     unwanted=['l1','l2','l3','l4']
     
-    #Acuerdos y/o actos administrativos
     if pregunta_seleccionada=='p1':
         pass
         
-    #Enfoques, lineas o proyectos
     elif pregunta_seleccionada=='p2':
         if criterio_seleccionado=='c3':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2306,47 +2294,36 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
 
-    #Presupuesto general
     elif pregunta_seleccionada=='p3':
         pass
         
-    #Presupuesto general innovación
     elif pregunta_seleccionada=='p4':
         pass
         
-    #Presupuesto inversión general
     elif pregunta_seleccionada=='p5':
         pass
         
-    #Presupuesto inversión innovación
     elif pregunta_seleccionada=='p6':
         pass
         
-    #Funcionarios total
     elif pregunta_seleccionada=='p7':
         pass
         
-    #Funcionarios manual en innovación 
     elif pregunta_seleccionada=='p8':
         pass
         
-    #Funcionarios ocasionales
     elif pregunta_seleccionada=='p9':
         pass
         
-    #Contratistas total
     elif pregunta_seleccionada=='p10':
         pass
         
-    #Contratistas en innovación 
     elif pregunta_seleccionada=='p11':
         pass
         
-    #Contratistas ocasionales
     elif pregunta_seleccionada=='p12':
         pass
         
-    # Recursos digitales
     elif pregunta_seleccionada=='p13':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2361,7 +2338,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #retos SDQS
     elif pregunta_seleccionada=='p14':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2376,7 +2352,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2391,7 +2366,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2406,7 +2380,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
 
-    #canales retos
     elif pregunta_seleccionada=='p17':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2421,7 +2394,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #actividades retos
     elif pregunta_seleccionada=='p18':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2437,7 +2409,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2452,7 +2423,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #ideas funcionarios
     elif pregunta_seleccionada=='p20':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2467,7 +2437,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #canales ideas
     elif pregunta_seleccionada=='p21':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2482,7 +2451,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #actividades ideas
     elif pregunta_seleccionada=='p22':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2497,7 +2465,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2539,7 +2506,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
 
-    #innovaciones diseñadas
     elif pregunta_seleccionada=='p24':
         if criterio_seleccionado=='p24_1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2580,7 +2546,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
 
-    #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2595,7 +2560,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #espacios de experimentación
     elif pregunta_seleccionada=='p26':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2610,7 +2574,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #unidades de innovación
     elif pregunta_seleccionada=='p27':
         if criterio_seleccionado=='c1':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2625,7 +2588,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
 
         if criterio_seleccionado=='c4':
@@ -2650,19 +2612,15 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
 
-    #funcionarios formados
     elif pregunta_seleccionada=='p29':
         pass
         
-    #contratistas formados
     elif pregunta_seleccionada=='p30':
         pass
         
-    #acuerdos o actos en gestión del conocimiento
     elif pregunta_seleccionada=='p31':
         pass
         
-    #proyectos o lineas en gestión del conocimiento
     elif pregunta_seleccionada=='p32':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2677,7 +2635,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #sistematización de retos ciudadanos
     elif pregunta_seleccionada=='p33':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2692,7 +2649,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #sistematización de retos de funcionarios contratistas
     elif pregunta_seleccionada=='p34':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2707,7 +2663,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #sistematización ideas de ciudadanos
     elif pregunta_seleccionada=='p35':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2722,7 +2677,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #sistematización ideas de funcionarios contratistas
     elif pregunta_seleccionada=='p36':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2737,7 +2691,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #buenas prácticas y lecciones aprendidas en innovación
     elif pregunta_seleccionada=='p37':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2752,7 +2705,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #buenas prácticas y lecciones aprendidas generales
     elif pregunta_seleccionada=='p38':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2767,7 +2719,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #Monitoreo y seguimiento a innovaciones
     elif pregunta_seleccionada=='p39':
         if criterio_seleccionado=='c2':
             salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
@@ -2782,7 +2733,6 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle=[]
             salida_criterios_bucle_seleccionado='N/A'
         
-    #Cualquier caso no definido
     else:
         salida_criterios_bucle=[]
         salida_criterios_bucle_seleccionado='N/A'
@@ -2807,11 +2757,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
     
     if clicks is not None:
 
-        #Acuerdos y/o actos administrativos
         if pregunta_seleccionada=='p1':
             pass
 
-        #Enfoques, lineas o proyectos
         elif pregunta_seleccionada=='p2':
 
             if criterio_seleccionado=='c1':
@@ -2858,12 +2806,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Presupuesto general
         elif pregunta_seleccionada=='p3':
 
             pass
 
-        #Presupuesto general innovación
         elif pregunta_seleccionada=='p4':
             
             if criterio_seleccionado=='c1':
@@ -2888,12 +2834,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Presupuesto inversión general
         elif pregunta_seleccionada=='p5':
             
             pass
 
-        #Presupuesto inversión innovación
         elif pregunta_seleccionada=='p6':
             
             if criterio_seleccionado=='c1':
@@ -2918,12 +2862,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Funcionarios total
         elif pregunta_seleccionada=='p7':
 
             pass
 
-        #Funcionarios manual en innovación 
         elif pregunta_seleccionada=='p8':
 
             if criterio_seleccionado=='c1':
@@ -2948,17 +2890,14 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
             
-        #Funcionarios ocasionales
         elif pregunta_seleccionada=='p9':
 
             pass
 
-        #Contratistas total
         elif pregunta_seleccionada=='p10':
 
             pass
 
-        #Contratistas en innovación 
         elif pregunta_seleccionada=='p11':
 
             if criterio_seleccionado=='c1':
@@ -2983,12 +2922,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Contratistas ocasionales
         elif pregunta_seleccionada=='p12':
 
             pass
 
-        # Recursos digitales
         elif pregunta_seleccionada=='p13':
             
             if criterio_seleccionado=='c1':
@@ -3027,7 +2964,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #retos SDQS
         elif pregunta_seleccionada=='p14':
 
             if criterio_seleccionado=='c1':
@@ -3038,9 +2974,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p14_df.loc[p14_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p14_df['l1']= p14_df[criterios_disponibles_bucle].sum(axis=1)
+                p14_df['nota_iniciativa']= p14_df[criterios_disponibles_bucle].sum(axis=1)
 
-                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
@@ -3054,10 +2990,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
-            p14_df['nota_iniciativa']=p14_df['l1']
-            p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3066,7 +2998,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #retos otros para ciudadanos
         elif pregunta_seleccionada=='p15':
 
             if criterio_seleccionado=='c1':
@@ -3077,9 +3008,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p15_df.loc[p15_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p15_df['l1']= p15_df[criterios_disponibles_bucle].sum(axis=1)
+                p15_df['nota_iniciativa']= p15_df[criterios_disponibles_bucle].sum(axis=1)
                 
-                nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
@@ -3093,10 +3024,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
-            p15_df['nota_iniciativa']=p15_df['l1']
-            p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3106,7 +3033,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #retos por funcionarios/contratistas
         elif pregunta_seleccionada=='p16':
 
             if criterio_seleccionado=='c1':
@@ -3117,9 +3043,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p16_df.loc[p16_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p16_df['l1']= p16_df[criterios_disponibles_bucle].sum(axis=1)
+                p16_df['nota_iniciativa']= p16_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
@@ -3133,10 +3059,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
-            p16_df['nota_iniciativa']=p16_df['l1']
-            p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3146,7 +3068,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #canales retos
         elif pregunta_seleccionada=='p17':
 
             if criterio_seleccionado=='c1':
@@ -3157,9 +3078,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p17_df.loc[p17_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p17_df['l1']= p17_df[criterios_disponibles_bucle].sum(axis=1)
+                p17_df['nota_iniciativa']= p17_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
@@ -3172,10 +3093,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 
             else:
                 pass
-            
-            p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
-            p17_df['nota_iniciativa']=p17_df['l1']
-            p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
 
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
@@ -3186,7 +3103,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #actividades retos
         elif pregunta_seleccionada=='p18':
 
             if criterio_seleccionado=='c1':
@@ -3197,9 +3113,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p18_df.loc[p18_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p18_df['l1']= p18_df[criterios_disponibles_bucle].sum(axis=1)
+                p18_df['nota_iniciativa']= p18_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
@@ -3213,10 +3129,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
-            p18_df['nota_iniciativa']=p18_df['l1']
-            p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3226,7 +3138,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #ideas ciudadanos
         elif pregunta_seleccionada=='p19':
 
             if criterio_seleccionado=='c1':
@@ -3237,9 +3148,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p19_df.loc[p19_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p19_df['l1']= p19_df[criterios_disponibles_bucle].sum(axis=1)
+                p19_df['nota_iniciativa']= p19_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
@@ -3253,10 +3164,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
-            p19_df['nota_iniciativa']=p19_df['l1']
-            p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3266,7 +3173,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #ideas funcionarios
         elif pregunta_seleccionada=='p20':
 
             if criterio_seleccionado=='c1':
@@ -3277,9 +3183,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p20_df.loc[p20_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p20_df['l1']= p20_df[criterios_disponibles_bucle].sum(axis=1)
+                p20_df['nota_iniciativa']= p20_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
@@ -3293,10 +3199,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
-            p20_df['nota_iniciativa']=p20_df['l1']
-            p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3306,7 +3208,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #canales ideas
         elif pregunta_seleccionada=='p21':
 
             if criterio_seleccionado=='c1':
@@ -3317,9 +3218,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p21_df.loc[p21_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p21_df['l1']= p21_df[criterios_disponibles_bucle].sum(axis=1)
+                p21_df['nota_iniciativa']= p21_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
@@ -3333,10 +3234,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
-            p21_df['nota_iniciativa']=p21_df['l1']
-            p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3346,7 +3243,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #actividades ideas
         elif pregunta_seleccionada=='p22':
 
             if criterio_seleccionado=='c1':
@@ -3357,9 +3253,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 p22_df.loc[p22_df['_index']==iniciativa_seleccionada, criterio_seleccionado_bucle]=nota
 
                 #CALCULO PROMEDIO INICIATIVA
-                p22_df['l1']= p22_df[criterios_disponibles_bucle].sum(axis=1)
+                p22_df['nota_iniciativa']= p22_df[criterios_disponibles_bucle].sum(axis=1)
         
-                nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['l1'].mean(),2)
+                nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
 
                 p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
@@ -3373,10 +3269,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             else:
                 pass
 
-            p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
-            p22_df['nota_iniciativa']=p22_df['l1']
-            p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
-
             resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
             respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
             nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
@@ -3386,7 +3278,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #innovaciones diseñadas
         elif pregunta_seleccionada=='p23':
 
             if criterio_seleccionado=='c1':
@@ -3468,7 +3359,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #innovaciones diseñadas
         elif pregunta_seleccionada=='p24':
 
             if criterio_seleccionado=='c1':
@@ -3502,7 +3392,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #promoción de una cultura de innovación
         elif pregunta_seleccionada=='p25':
 
             if criterio_seleccionado=='c1':
@@ -3542,7 +3431,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #espacios de experimentación
         elif pregunta_seleccionada=='p26':
 
             if criterio_seleccionado=='c1':
@@ -3582,7 +3470,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #unidades de innovación
         elif pregunta_seleccionada=='p27':
 
             if criterio_seleccionado=='c1':
@@ -3617,7 +3504,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #implementación de innovaciones
         elif pregunta_seleccionada=='p28':
 
             if criterio_seleccionado=='c1':
@@ -3682,7 +3568,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #funcionarios formados
         elif pregunta_seleccionada=='p29':
 
             if criterio_seleccionado=='c1':
@@ -3702,7 +3587,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #contratistas formados
         elif pregunta_seleccionada=='p30':
 
             if criterio_seleccionado=='c1':
@@ -3722,12 +3606,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #acuerdos o actos en gestión del conocimiento
         elif pregunta_seleccionada=='p31':
 
             pass
 
-        #proyectos o lineas en gestión del conocimiento
         elif pregunta_seleccionada=='p32':
 
             if criterio_seleccionado=='c1':
@@ -3766,7 +3648,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #sistematización de retos ciudadanos
         elif pregunta_seleccionada=='p33':
 
             if criterio_seleccionado=='c1':
@@ -3805,7 +3686,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #sistematización de retos de funcionarios contratistas
         elif pregunta_seleccionada=='p34':
 
             if criterio_seleccionado=='c1':
@@ -3844,7 +3724,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #sistematización ideas de ciudadanos
         elif pregunta_seleccionada=='p35':
 
             if criterio_seleccionado=='c1':
@@ -3883,7 +3762,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #sistematización ideas de funcionarios contratistas
         elif pregunta_seleccionada=='p36':
 
             if criterio_seleccionado=='c1':
@@ -3922,7 +3800,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #buenas prácticas y lecciones aprendidas en innovación
         elif pregunta_seleccionada=='p37':
 
             if criterio_seleccionado=='c1':
@@ -3961,7 +3838,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #buenas prácticas y lecciones aprendidas generales
         elif pregunta_seleccionada=='p38':
 
             if criterio_seleccionado=='c1':
@@ -4000,7 +3876,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Monitoreo y seguimiento a innovaciones
         elif pregunta_seleccionada=='p39':
 
             if criterio_seleccionado=='c1':
@@ -4039,7 +3914,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
-        #Cualquier caso no definido
         else:
             pass
 
@@ -4130,7 +4004,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
     indices_carousel=[0]
     salida_criterio=indices_carousel
 
-    #Acuerdos y/o actos administrativos
     if pregunta_seleccionada=='p1':
 
         indices_carousel = p1_df[p1_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -4190,7 +4063,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_1()
         
-    #Enfoques, lineas o proyectos
     elif pregunta_seleccionada=='p2':
 
         indices_carousel = p2_df[p2_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -4250,7 +4122,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_2()
 
-    #Presupuesto general
     elif pregunta_seleccionada=='p3':
 
         try:
@@ -4323,7 +4194,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_3()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Presupuesto general innovación
     elif pregunta_seleccionada=='p4':
 
         try:
@@ -4396,7 +4266,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_4()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Presupuesto inversión general
     elif pregunta_seleccionada=='p5':
 
         try:
@@ -4469,7 +4338,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_5()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Presupuesto inversión innovación
     elif pregunta_seleccionada=='p6':
 
         try:
@@ -4542,7 +4410,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_6()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Funcionarios total
     elif pregunta_seleccionada=='p7':
 
         try:
@@ -4627,7 +4494,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_7()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Funcionarios manual en innovación 
     elif pregunta_seleccionada=='p8':
 
         try:
@@ -4712,7 +4578,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_8()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Funcionarios ocasionales
     elif pregunta_seleccionada=='p9':
 
         try:
@@ -4797,7 +4662,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_9()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Contratistas total
     elif pregunta_seleccionada=='p10':
         
         try:
@@ -4882,7 +4746,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_10()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Contratistas en innovación 
     elif pregunta_seleccionada=='p11':
 
         try:
@@ -4967,7 +4830,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_11()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #Contratistas ocasionales
     elif pregunta_seleccionada=='p12':
 
         try:
@@ -5052,7 +4914,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_12()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    # Recursos digitales
     elif pregunta_seleccionada=='p13':
 
         indices_carousel = p13_df[p13_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5112,7 +4973,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_13()
         
-    #retos SDQS
     elif pregunta_seleccionada=='p14':
 
         indices_carousel = p14_df[p14_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5143,9 +5003,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                 salida_criterios_entidad=[]
             else:
 
-                if list(act_4_carousel)[0]==1:
+                try:
                     act_4_otr = p14_df[p14_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-                else:
+                except:
                     act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
 
                 cards=[]                
@@ -5186,7 +5046,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_14()
         
-    #retos otros para ciudadanos
     elif pregunta_seleccionada=='p15':
 
         indices_carousel = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5217,9 +5076,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
                 salida_criterios_entidad=[]
             else:
-                if list(act_4_carousel)[0]==1:
+                try:
                     act_4_otr = p15_df[p15_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-                else:
+                except:
                     act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
 
                 cards=[]
@@ -5260,7 +5119,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_15()
         
-    #retos por funcionarios/contratistas
     elif pregunta_seleccionada=='p16':
 
         indices_carousel = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5290,9 +5148,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
                 salida_criterios_entidad=[]
             else:
-                if list(act_4_carousel)[0]==1:
+                try:
                     act_4_otr = p16_df[p16_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-                else:
+                except:
                     act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
 
                 cards=[]
@@ -5333,7 +5191,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_16()
         
-    #canales retos
     elif pregunta_seleccionada=='p17':
         
         indices_carousel = p17_df[p17_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5374,7 +5231,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             
         salida_criterio=criterio_17()
         
-    #actividades retos
     elif pregunta_seleccionada=='p18':
 
         indices_carousel = p18_df[p18_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5415,7 +5271,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_18()
         
-    #ideas ciudadanos
     elif pregunta_seleccionada=='p19':
 
         indices_carousel = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5446,9 +5301,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
                 salida_criterios_entidad=[]
             else:
-                if list(act_4_carousel)[0]==1:
+                try:
                     act_4_otr = p19_df[p19_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-                else:
+                except:
                     act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
 
                 cards=[]
@@ -5489,7 +5344,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_19()
         
-    #ideas funcionarios
     elif pregunta_seleccionada=='p20':
 
         indices_carousel = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5520,9 +5374,9 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
                 salida_criterios_entidad=[]
             else:
-                if list(act_4_carousel)[0]==1:
+                try:
                     act_4_otr = p20_df[p20_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_otr']
-                else:
+                except:
                     act_4_otr=['N/A' for x in range(len(indices_carousel)+1)]
 
                 cards=[]
@@ -5563,7 +5417,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_20()
         
-    #canales ideas
     elif pregunta_seleccionada=='p21':
 
         indices_carousel = p21_df[p21_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5604,7 +5457,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             
         salida_criterio=criterio_21()
         
-    #actividades ideas
     elif pregunta_seleccionada=='p22':
 
         indices_carousel = p22_df[p22_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5645,7 +5497,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             
         salida_criterio=criterio_22()
         
-    #innovaciones diseñadas
     elif pregunta_seleccionada=='p23':
 
         indices_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5675,11 +5526,11 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
                     is_open=True)])
                 salida_criterios_entidad=[]
             else:
-                if list(prototipado)[0] == 'Si':
+                try:
                     vali_usr_1_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_1']
                     vali_usr_2_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_2']
                     vali_usr_3_carousel = p23_df[p23_df['_submission__uuid'] == entidad_seleccionada][f'{pregunta_seleccionada}_val/{pregunta_seleccionada}_val_3']
-                else:
+                except:
                     vali_usr_1_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
                     vali_usr_2_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
                     vali_usr_3_carousel = ['N/A' for x in range(len(indices_carousel)+1)]
@@ -5722,7 +5573,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_23()
         
-    #eventos o formación
     elif pregunta_seleccionada=='p24':
 
         p24_1_indices_carousel = p24_1_df[p24_1_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5896,7 +5746,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_24()
         
-    #promoción de una cultura de innovación
     elif pregunta_seleccionada=='p25':
 
         indices_carousel = p25_df[p25_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -5953,7 +5802,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_25()
         
-    #espacios de experimentación
     elif pregunta_seleccionada=='p26':
 
         indices_carousel = p26_df[p26_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -6010,7 +5858,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_26()
         
-    #unidades de innovación
     elif pregunta_seleccionada=='p27':
 
         indices_carousel = p27_df[p27_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -6070,7 +5917,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_27()
         
-    #implementación de innovaciones
     elif pregunta_seleccionada=='p28':
 
         indices_carousel = p28_df[p28_df['_submission__uuid'] == entidad_seleccionada]['_index']
@@ -6146,7 +5992,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_28()
         
-    #funcionarios formados
     elif pregunta_seleccionada=='p29':
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -6215,7 +6060,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_29()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #contratistas formados
     elif pregunta_seleccionada=='p30':
 
         salida_nota_2021=resultados_2021_df[resultados_2021_df['_uuid']==entidad_seleccionada][pregunta_seleccionada]
@@ -6284,7 +6128,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         salida_criterio=criterio_30()
         salida_criterios_entidad=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada].keys())
         
-    #acuerdos o actos en gestión del conocimiento
     elif pregunta_seleccionada=='p31':
 
         indices_carousel = p31_df[p31_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6345,7 +6188,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_31()
         
-    #proyectos o lineas en gestión del conocimiento
     elif pregunta_seleccionada=='p32':
 
         indices_carousel = p32_df[p32_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6406,7 +6248,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_32()
         
-    #sistematización de retos ciudadanos
     elif pregunta_seleccionada=='p33':
 
         indices_carousel = p33_df[p33_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6463,7 +6304,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_33()
         
-    #sistematización de retos de funcionarios contratistas
     elif pregunta_seleccionada=='p34':
 
         indices_carousel = p34_df[p34_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6520,7 +6360,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_34()
         
-    #sistematización ideas de ciudadanos
     elif pregunta_seleccionada=='p35':
 
         indices_carousel = p35_df[p35_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6577,7 +6416,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_35()
         
-    #sistematización ideas de funcionarios contratistas
     elif pregunta_seleccionada=='p36':
 
         indices_carousel = p36_df[p36_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6634,7 +6472,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_36()
         
-    #buenas prácticas y lecciones aprendidas en innovación
     elif pregunta_seleccionada=='p37':
 
         indices_carousel = p37_df[p37_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6691,7 +6528,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_37()
         
-    #buenas prácticas y lecciones aprendidas generales
     elif pregunta_seleccionada=='p38':
 
         indices_carousel = p38_df[p38_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6748,7 +6584,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_38()
         
-    #Monitoreo y seguimiento a innovaciones
     elif pregunta_seleccionada=='p39':
 
         indices_carousel = p39_df[p39_df['_submission__uuid'] == entidad_seleccionada][f'_index']
@@ -6805,7 +6640,6 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
 
         salida_criterio=criterio_39()
         
-    #Cualquier caso no definido
     else:
         salida_respuesta_2023 = html.Div([dbc.Alert(
                     children='Caso no definido',
