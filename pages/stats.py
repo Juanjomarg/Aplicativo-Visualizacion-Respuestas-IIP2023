@@ -552,6 +552,7 @@ def tabla_resumen_2021(entidad):
     Input('criterio_seleccionado_bucle', 'data'),
 )
 def tabla_resumen_2023(entidad,pregunta,iniciativa,criterio_entidad,criterio_bucle):
+    print(entidad)
     
     pos = round((resultados_2023_df[resultados_2023_df['_uuid'] == entidad]['pos']*100)/25,2)
     if pos.empty == False:
