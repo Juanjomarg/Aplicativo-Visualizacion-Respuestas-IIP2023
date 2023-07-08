@@ -483,15 +483,15 @@ def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_selecc
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
 
-    resultados_2023_df.loc[:,'res_c1'] = round(resultados_2023_df.loc[:,'p1':'p13'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
 
-    resultados_2023_df.loc[:,'res_c2'] = round(resultados_2023_df.loc[:,'p14':'p27'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
 
-    resultados_2023_df.loc[:,'res_c3'] = round(resultados_2023_df.loc[:,'p28':'p30'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
 
-    resultados_2023_df.loc[:,'res_c4'] = round(resultados_2023_df.loc[:,'p31':'p39'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
 
-    resultados_2023_df.loc[:,'total'] = round(resultados_2023_df.loc[:,'res_c1':'res_c4'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
     
     resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
@@ -579,10 +579,10 @@ def tabla_resumen_2023(entidad_seleccionada):
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
     total = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'],2)
-    c1 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1']*100)/25,2)
-    c2 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2']*100)/35,2)
-    c3 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3']*100)/25,2)
-    c4 = round((resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4']*100)/15,2)
+    c1 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1']*100/25,2)
+    c2 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2']*100/35,2)
+    c3 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3']*100/25,2)
+    c4 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4']*100/15,2)
 
     pos_2021 = total
 
@@ -622,10 +622,10 @@ def tabla_resumen_total(entidad_seleccionada):
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
     
     total = round(resultados_2023_df.loc[:,'total'].mean(),2)
-    c1 = round((resultados_2023_df.loc[:,'res_c1'].mean()*100)/25,2)
-    c2 = round((resultados_2023_df.loc[:,'res_c2'].mean()*100)/35,2)
-    c3 = round((resultados_2023_df.loc[:,'res_c3'].mean()*100)/25,2)
-    c4 = round((resultados_2023_df.loc[:,'res_c4'].mean()*100)/15,2)
+    c1 = round(resultados_2023_df.loc[:,'res_c1'].mean()*100/25,2)
+    c2 = round(resultados_2023_df.loc[:,'res_c2'].mean()*100/35,2)
+    c3 = round(resultados_2023_df.loc[:,'res_c3'].mean()*100/25,2)
+    c4 = round(resultados_2023_df.loc[:,'res_c4'].mean()*100/15,2)
 
     pos_2021 = total
 
