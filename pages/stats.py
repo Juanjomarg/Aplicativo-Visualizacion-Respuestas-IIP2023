@@ -468,33 +468,6 @@ def mision_vision_entidad_f(value):
 
     return nom_ent,mis_ent,vis_ent
 
-#Callback para actualizar notas por componente
-@dash.callback(
-    Output('empty_2', 'children'),
-
-    Input('enviar_nota', 'n_clicks'),
-    Input('entidad_seleccionada', 'data'),
-    Input('pregunta_seleccionada', 'data'),
-    Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
-)
-def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
-    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
-    
-    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
 #Callback resumen 2021 lateral
 @dash.callback(
     Output('posicion_2021', 'children'),
@@ -1017,1398 +990,6 @@ def seleccion_criterio_bucle(bucle,opciones_bucle):
 def llamar_numero(valor):
     return valor
 
-#Callback llamar notas
-@dash.callback(
-    Output('tabla_criterios', 'children'),
-
-    Input('enviar_nota', 'n_clicks'),
-    Input('entidad_seleccionada', 'data'),
-    Input('pregunta_seleccionada', 'data'),
-    Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
-)
-def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
-    tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-    
-    if pregunta_seleccionada=='p1':
-        pass
-
-    elif pregunta_seleccionada=='p2':
-        try:
-            p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p3':
-        pass
-
-    elif pregunta_seleccionada=='p4':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p5':
-        pass
-        
-    elif pregunta_seleccionada=='p6':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p7':
-        pass
-
-    elif pregunta_seleccionada=='p8':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p9':
-        pass
-
-    elif pregunta_seleccionada=='p10':
-        pass
-
-    elif pregunta_seleccionada=='p11':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p12':
-        pass
-
-    elif pregunta_seleccionada=='p13':
-        try:
-            p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p14':
-        try:
-            p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p15':
-        try:
-            p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p16':
-        try:
-            p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p17':
-        try:
-            p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p17_df.loc[p17_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p18':
-        try:
-            p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p18_df.loc[p18_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p19':
-        try:
-            p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p20':
-        try:
-            p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p21':
-        try:
-            p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p21_df.loc[p21_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p22':
-        try:
-            p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p22_df.loc[p22_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p23':
-        try:
-            p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
-                        html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c4']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p24':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p25':
-        try:
-            p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p26':
-        try:
-            p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p27':
-        try:
-            p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p27_df.loc[p27_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p28':
-        try:
-            p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                        html.Th(f'c5'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'],2)),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c4']),
-                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c5']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-
-
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p29':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p30':
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p31':
-        pass
-
-    elif pregunta_seleccionada=='p32':
-        try:
-            p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p32_df.loc[p32_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p33':
-        try:
-            p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p33_df.loc[p33_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p34':
-        try:
-            p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p34_df.loc[p34_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p35':
-        try:
-            p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p35_df.loc[p35_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p36':
-        try:
-           p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p36_df.loc[p36_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p37':
-        try:
-            p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p37_df.loc[p37_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p38':
-        try:
-            p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p38_df.loc[p38_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    elif pregunta_seleccionada=='p39':
-        try:
-            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
-        try:
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
-        except Exception as e:
-            print(e)
-            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
-
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(p39_df.loc[p39_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-    else:
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-    
-    return tabla_criterios
 
 #Callback enviar criterios bucle
 @dash.callback(
@@ -2603,7 +1184,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
 
 #Callback calificar iniciativa seleccionada
 @dash.callback(
-    Output('empty', 'children'),
+    Output('tabla_criterios', 'children'),
 
     Input('enviar_nota', 'n_clicks'),
 
@@ -2616,6 +1197,32 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     State('nota', 'data'),
 )
 def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota):
+    
+    tabla_criterios=html.Div(children=[
+        dbc.Table(
+            children=[
+            html.Thead(children=[
+                html.Tr([
+                    html.Th(f'N/A'),
+                ],
+                )                  
+            ]),
+
+            html.Tbody([
+                html.Tr([
+                    html.Td('N/A'),
+                ],
+                ),
+            ])
+        ],
+        bordered=True,
+        hover=True,
+        responsive=True,
+        striped=True,                               
+        ),
+    ],
+    style={'width':'100%'}
+    )
     
     if clicks is not None:
 
@@ -2660,6 +1267,40 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                            html.Th(f'c3'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p3':
 
             pass
@@ -2687,6 +1328,34 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p5':
             
@@ -2716,6 +1385,34 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p7':
 
             pass
@@ -2743,6 +1440,34 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
             
         elif pregunta_seleccionada=='p9':
 
@@ -2775,6 +1500,34 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p12':
 
@@ -2811,6 +1564,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p14':
 
             if criterio_seleccionado=='c1':
@@ -2841,6 +1626,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p15':
 
@@ -2874,6 +1691,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p16':
 
             if criterio_seleccionado=='c1':
@@ -2905,6 +1754,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p17':
 
@@ -2938,6 +1819,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p17_df.loc[p17_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p18':
 
             if criterio_seleccionado=='c1':
@@ -2969,6 +1882,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p18_df.loc[p18_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p19':
 
@@ -3002,6 +1947,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p20':
 
             if criterio_seleccionado=='c1':
@@ -3033,6 +2010,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p21':
 
@@ -3066,6 +2075,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p21_df.loc[p21_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p22':
 
             if criterio_seleccionado=='c1':
@@ -3097,6 +2138,38 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p22_df.loc[p22_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p23':
 
@@ -3167,6 +2240,46 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                            html.Th(f'c3'),
+                            html.Th(f'c4'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c1']),
+                            html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c2']),
+                            html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c3']),
+                            html.Td(p23_df.loc[p23_df['_index']==iniciativa_seleccionada,'c4']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p24':
 
             if criterio_seleccionado=='c1':
@@ -3200,6 +2313,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                            html.Th(f'c3'),
+                            html.Th(f'c4'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
+                            
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p25':
 
             if criterio_seleccionado=='c1':
@@ -3231,6 +2377,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p26':
 
@@ -3264,6 +2443,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p27':
 
             if criterio_seleccionado=='c1':
@@ -3294,6 +2506,37 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p27_df.loc[p27_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p28':
 
@@ -3353,6 +2596,47 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                            html.Th(f'c3'),
+                            html.Th(f'c4'),
+                            html.Th(f'c5'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'],2)),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'],2)),
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c4']),
+                            html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c5']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+
+
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p29':
 
             if criterio_seleccionado=='c1':
@@ -3372,6 +2656,33 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p30':
 
             if criterio_seleccionado=='c1':
@@ -3390,6 +2701,33 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2)),
+                            
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p31':
 
@@ -3426,6 +2764,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p32_df.loc[p32_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p33':
 
             if criterio_seleccionado=='c1':
@@ -3456,6 +2827,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p33_df.loc[p33_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p34':
 
@@ -3488,6 +2892,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p34_df.loc[p34_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p35':
 
             if criterio_seleccionado=='c1':
@@ -3518,6 +2955,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p35_df.loc[p35_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p36':
 
@@ -3550,6 +3020,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p36_df.loc[p36_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p37':
 
             if criterio_seleccionado=='c1':
@@ -3580,6 +3083,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p37_df.loc[p37_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
 
         elif pregunta_seleccionada=='p38':
 
@@ -3612,6 +3148,39 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p38_df.loc[p38_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         elif pregunta_seleccionada=='p39':
 
             if criterio_seleccionado=='c1':
@@ -3643,8 +3212,54 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
             respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
             resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
 
+            tabla_criterios=html.Div(children=[
+                dbc.Table(
+                    children=[
+                    html.Thead(children=[
+                        html.Tr([
+                            html.Th(f'c1'),
+                            html.Th(f'c2'),
+                        ],
+                        )                  
+                    ]),
+
+                    html.Tbody([
+                        html.Tr([
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
+                            html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
+                            
+                        ],
+                        ),
+                        html.Tr([
+                            html.Td(p39_df.loc[p39_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
+                        ],
+                        ),
+                    ])
+                ],
+                bordered=True,
+                hover=True,
+                responsive=True,
+                striped=True,                               
+                ),
+            ],
+            style={'width':'100%'}
+            )
+
         else:
             pass
+
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+        
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+    
+    return tabla_criterios
+
 
 #Callback ver respuestas
 @dash.callback(
