@@ -1331,7 +1331,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1367,7 +1367,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1475,7 +1475,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
@@ -1511,7 +1511,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 children=[
                 html.Thead(children=[
                     html.Tr([
-                        html.Th(f'c1',colSpan=3),
+                        html.Th(f'c1'),
                         html.Th(f'c2'),
                     ],
                     )                  
