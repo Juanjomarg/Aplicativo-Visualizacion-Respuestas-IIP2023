@@ -1818,7 +1818,11 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p29':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1847,7 +1851,11 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p30':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -1879,6 +1887,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         pass
 
     elif pregunta_seleccionada=='p32':
+        try:
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1915,6 +1933,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p33':
+        try:
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1951,6 +1979,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p34':
+        try:
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1987,6 +2025,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p35':
+        try:
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2023,8 +2071,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p36':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
+        try:
+           p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+          p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2059,8 +2115,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p37':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
+        try:
+            p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2095,8 +2159,16 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p38':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
+        try:
+            p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -2131,8 +2203,17 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p39':
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
+        try:
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx',engine='xlrd')
+        try:
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='openpyxl')
+        except Exception as e:
+            print(e)
+            respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx',engine='xlrd')
+
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
