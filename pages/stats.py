@@ -482,20 +482,17 @@ def mision_vision_entidad_f(value):
 def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
-    nota_componente_1=round(resultados_2023_df.loc[:,'p1':'p13'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = nota_componente_1
 
-    nota_componente_2=round(resultados_2023_df.loc[:,'p14':'p27'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = nota_componente_2
+    resultados_2023_df.loc[:,'res_c1'] = round(resultados_2023_df.loc[:,'p1':'p13'].sum().sum(),2)
 
-    nota_componente_3=round(resultados_2023_df.loc[:,'p28':'p30'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = nota_componente_3
+    resultados_2023_df.loc[:,'res_c2'] = round(resultados_2023_df.loc[:,'p14':'p27'].sum().sum(),2)
 
-    nota_componente_4=round(resultados_2023_df.loc[:,'p31':'p39'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = nota_componente_4
+    resultados_2023_df.loc[:,'res_c3'] = round(resultados_2023_df.loc[:,'p28':'p30'].sum().sum(),2)
 
-    total_iip_entidad=round(resultados_2023_df.loc[:,'res_c1':'res_c4'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = total_iip_entidad
+    resultados_2023_df.loc[:,'res_c4'] = round(resultados_2023_df.loc[:,'p31':'p39'].sum().sum(),2)
+
+    resultados_2023_df.loc[:,'total'] = round(resultados_2023_df.loc[:,'res_c1':'res_c4'].sum().sum(),2)
+    
     resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx')
 
 #Callback resumen 2021 lateral
