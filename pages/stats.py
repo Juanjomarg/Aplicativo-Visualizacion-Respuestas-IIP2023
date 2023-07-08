@@ -471,9 +471,16 @@ def mision_vision_entidad_f(value):
 #Callback para actualizar notas por componente
 @dash.callback(
     Output('empty_2', 'children'),
-    Input('entidad_seleccionada', 'data')
+
+    Input('enviar_nota', 'n_clicks'),
+    Input('entidad_seleccionada', 'data'),
+    Input('pregunta_seleccionada', 'data'),
+    Input('iniciativa_seleccionada', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
+    Input('criterios_disponibles_bucle', 'data'),
 )
-def actualizar_ponderados_componentes(entidad_seleccionada):
+def actualizar_ponderados_componentes(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle):
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
     nota_componente_1=round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
