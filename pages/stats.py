@@ -1059,7 +1059,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         pass
 
     elif pregunta_seleccionada=='p2':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c3'])
 
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
@@ -1071,7 +1070,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     html.Tr([
                         html.Th(f'c1'),
                         html.Th(f'c2'),
-                        html.Th(f'c3',colSpan=3),
+                        html.Th(f'c3'),
                     ],
                     )                  
                 ]),
@@ -1080,13 +1079,11 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     html.Tr([
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'],2)),
                     ],
                     ),
                     html.Tr([
-                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,crits[2]]),
+                        html.Td(p2_df.loc[p2_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1243,7 +1240,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         pass
 
     elif pregunta_seleccionada=='p13':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1252,7 +1248,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 html.Thead(children=[
                     html.Tr([
                         html.Th(f'c1'),
-                        html.Th(f'c2',colSpan=3),
+                        html.Th(f'c2'),
                     ],
                     )                  
                 ]),
@@ -1260,13 +1256,11 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                 html.Tbody([
                     html.Tr([
                         html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'],2),rowSpan=2),
-                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2),colSpan=3),
+                        html.Td(round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'],2)),
                     ],
                     ),
                     html.Tr([
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[0]]),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[1]]),
-                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,crits[2]]),
+                        html.Td(p13_df.loc[p13_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1281,7 +1275,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p14':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1302,7 +1295,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p14_df.loc[p14_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1317,7 +1310,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p15':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1338,7 +1330,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p15_df.loc[p15_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1353,7 +1345,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p16':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1374,7 +1365,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p16_df.loc[p16_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1389,7 +1380,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p17':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1410,7 +1400,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p17_df.loc[p17_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p17_df.loc[p17_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1425,7 +1415,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p18':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1446,7 +1435,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p18_df.loc[p18_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p18_df.loc[p18_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1461,7 +1450,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p19':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1482,7 +1470,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p19_df.loc[p19_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1497,7 +1485,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p20':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1518,7 +1505,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p20_df.loc[p20_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1533,7 +1520,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p21':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1554,7 +1540,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p21_df.loc[p21_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p21_df.loc[p21_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1569,7 +1555,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p22':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1590,7 +1575,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p22_df.loc[p22_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p22_df.loc[p22_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1683,7 +1668,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p25':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1705,7 +1689,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p25_df.loc[p25_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1720,7 +1704,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p26':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1742,7 +1725,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p26_df.loc[p26_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1757,7 +1740,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p27':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c1'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1777,7 +1759,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p27_df.loc[p27_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p27_df.loc[p27_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1818,8 +1800,8 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c1']),
-                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c2']),
+                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c4']),
+                        html.Td(p28_df.loc[p28_df['_index']==iniciativa_seleccionada,'c5']),
                     ],
                     ),
                 ])
@@ -1836,7 +1818,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p29':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
@@ -1866,7 +1847,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p30':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         tabla_criterios=html.Div(children=[
             dbc.Table(
@@ -1899,7 +1879,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         pass
 
     elif pregunta_seleccionada=='p32':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1921,7 +1900,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p32_df.loc[p32_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p32_df.loc[p32_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1936,7 +1915,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p33':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1958,7 +1936,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p33_df.loc[p33_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p33_df.loc[p33_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -1973,7 +1951,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p34':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
         tabla_criterios=html.Div(children=[
@@ -1995,7 +1972,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p34_df.loc[p34_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p34_df.loc[p34_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2010,7 +1987,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p35':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2032,7 +2008,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p35_df.loc[p35_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p35_df.loc[p35_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2047,7 +2023,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p36':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2069,7 +2044,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p36_df.loc[p36_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p36_df.loc[p36_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2084,7 +2059,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p37':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2106,7 +2080,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p37_df.loc[p37_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p37_df.loc[p37_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2121,7 +2095,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p38':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2143,7 +2116,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p38_df.loc[p38_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p38_df.loc[p38_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2158,7 +2131,6 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
         )
 
     elif pregunta_seleccionada=='p39':
-        crits=list(CRITS_PREGUNTAS_BASE[pregunta_seleccionada]['c2'])
         respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
         p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
         tabla_criterios=html.Div(children=[
@@ -2180,7 +2152,7 @@ def tabla_criterios(click,entidad_seleccionada,pregunta_seleccionada,iniciativa_
                     ],
                     ),
                     html.Tr([
-                        html.Td(p39_df.loc[p39_df['_index']==iniciativa_seleccionada,crits[0]]),
+                        html.Td(p39_df.loc[p39_df['_index']==iniciativa_seleccionada,'nota_iniciativa']),
                     ],
                     ),
                 ])
@@ -2240,18 +2212,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
         pass
         
     elif pregunta_seleccionada=='p2':
-        if criterio_seleccionado=='c3':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-            
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
 
     elif pregunta_seleccionada=='p3':
         pass
@@ -2284,145 +2245,34 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
         pass
         
     elif pregunta_seleccionada=='p13':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p14':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p15':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p16':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
 
     elif pregunta_seleccionada=='p17':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p18':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p19':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p20':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p21':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p22':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p23':
         if criterio_seleccionado=='c1':
@@ -2466,86 +2316,16 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
             salida_criterios_bucle_seleccionado='N/A'
 
     elif pregunta_seleccionada=='p24':
-        if criterio_seleccionado=='p24_1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='p24_2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='p24_3':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        elif criterio_seleccionado=='p24_4':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
 
     elif pregunta_seleccionada=='p25':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p26':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p27':
-        if criterio_seleccionado=='c1':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p28':
 
@@ -2581,120 +2361,28 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
         pass
         
     elif pregunta_seleccionada=='p32':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p33':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p34':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p35':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p36':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p37':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p38':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
+        pass
         
     elif pregunta_seleccionada=='p39':
-        if criterio_seleccionado=='c2':
-            salida_criterios_bucle_full=CRITS_PREGUNTAS_BASE[pregunta_seleccionada][criterio_seleccionado]
-            salida_criterios_bucle = [item for item in salida_criterios_bucle_full if item not in unwanted]
-
-            try:
-                salida_criterios_bucle_seleccionado=salida_criterios_bucle[0]
-            except:
-                salida_criterios_bucle_seleccionado='N/A'
-
-        else:
-            salida_criterios_bucle=[]
-            salida_criterios_bucle_seleccionado='N/A'
-        
-    else:
-        salida_criterios_bucle=[]
-        salida_criterios_bucle_seleccionado='N/A'
+        pass
     
     return salida_criterios_bucle,salida_criterios_bucle_seleccionado
 
@@ -2891,7 +2579,7 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p13_df.loc[p13_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
 
-                nota_entidad = p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean()
+                nota_entidad = round(p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
 
                 p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
@@ -3428,9 +3116,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
 
                 #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
                 p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c5']=nota
-
-                #CALCULO PROMEDIO INICIATIVA
-                p28_df['l2']= p28_df[criterios_disponibles_bucle].mean(axis=1)
 
                 nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['c5'].mean(),2)
                 respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'] = nota_entidad
