@@ -8,6 +8,34 @@ dash.register_page(__name__, path='/stats')
 par_spacer='1rem'
 progress_thickness='.8rem'
 
+selector_pregunta = dcc.Dropdown(
+    id="selector_pregunta",
+    options=[{'label': x, 'value': x} for x in PREGUNTAS_TODAS],
+    placeholder='Seleccione la pregunta a analizar',
+    value=PREGUNTA_INICIAL
+)
+
+selector_iniciativa = dcc.Dropdown(
+    id="selector_iniciativa",
+    options=[],
+    placeholder='',
+    value=''
+)
+
+selector_criterio_entidad = dcc.Dropdown(
+    id="selector_criterio_entidad",
+    options=[],
+    placeholder='',
+    value=''
+)
+
+selector_criterio_bucle = dcc.Dropdown(
+    id="selector_criterio_bucle",
+    options=[],
+    placeholder='',
+    value=''
+)
+
 tarjeta_resumen_2021 = dbc.Card(
     [
         
@@ -209,34 +237,6 @@ tarjeta_total_2023 = dbc.Card(
             ]
         ),
     ],
-)
-
-selector_pregunta = dcc.Dropdown(
-    id="selector_pregunta",
-    options=[{'label': x, 'value': x} for x in PREGUNTAS_TODAS],
-    placeholder='Seleccione la pregunta a analizar',
-    value=PREGUNTA_INICIAL
-)
-
-selector_iniciativa = dcc.Dropdown(
-    id="selector_iniciativa",
-    options=[],
-    placeholder='',
-    value=''
-)
-
-selector_criterio_entidad = dcc.Dropdown(
-    id="selector_criterio_entidad",
-    options=[],
-    placeholder='',
-    value=''
-)
-
-selector_criterio_bucle = dcc.Dropdown(
-    id="selector_criterio_bucle",
-    options=[],
-    placeholder='',
-    value=''
 )
 
 zona_velas = dbc.Card(
@@ -459,508 +459,6 @@ layout = dbc.Container([
 # CALLBACKS
 ###############################################################################################################################################################################################################
 
-#Callback nombre, misión y visión
-@dash.callback(
-    Output('nom_ent', 'children'),
-    Output('mision', 'children'),
-    Output('vision', 'children'),
-    Input('entidad_seleccionada', 'data')
-)
-def mision_vision_entidad_f(value):
-
-    nom_ent= respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['entidad']
-    
-    mis = respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['mision']
-    vis = respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['vision']
-
-    if mis.empty ==False:
-        mis_ent=mis
-    else:
-        mis_ent = 'N/A'
-
-    if vis.empty ==False:
-        vis_ent=vis
-    else:
-        vis_ent = 'N/A'
-
-    return nom_ent,mis_ent,vis_ent
-
-#Callback resumen 2021 lateral
-@dash.callback(
-    Output('posicion_2021', 'children'),
-    Output('st', 'label'),
-    Output('sc1', 'label'),
-    Output('sc2', 'label'),
-    Output('sc3', 'label'),
-    Output('sc4', 'label'),
-    Output('st', 'value'),
-    Output('sc1', 'value'),
-    Output('sc2', 'value'),
-    Output('sc3', 'value'),
-    Output('sc4', 'value'),
-    Input('entidad_seleccionada', 'data')
-)
-def tabla_resumen_2021(entidad):
-    
-    pos = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['pos']
-    if pos.empty == False:
-        pos_2021 = pos
-    else:
-        pos_2021 = 'N/A'
-
-    total = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['total'].round(2)
-    if total.empty == False:
-        res_total  = total
-        st = total
-    else:
-        res_total = 'N/A'
-        st = 0
-
-    c1 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c1'].round(2)
-    if c1.empty == False:
-        res_c1 = c1
-        sc1 = c1
-    else:
-        res_c1 = 'N/A'
-        sc1 = 0
-
-    c2 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c2'].round(2)
-    if c2.empty == False:
-        res_c2 = c2
-        sc2 = c2
-    else:
-        res_c2 = 'N/A'
-        sc2 = 0
-
-    c3 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c3'].round(2)
-    if c3.empty == False:
-        res_c3 = c3
-        sc3 = c3
-    else:
-        res_c3 = 'N/A'
-        sc3 = 0
-
-    c4 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c4'].round(2)
-    if c4.empty == False:
-        res_c4 = c4
-        sc4 = c4
-    else:
-        res_c4 = 'N/A'
-        sc4 = 0
-
-    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
-
-#Callback resumen 2023 lateral
-@dash.callback(
-    Output('posicion_2023', 'children'),
-    Output('st_2023', 'label'),
-    Output('sc1_2023', 'label'),
-    Output('sc2_2023', 'label'),
-    Output('sc3_2023', 'label'),
-    Output('sc4_2023', 'label'),
-    Output('st_2023', 'value'),
-    Output('sc1_2023', 'value'),
-    Output('sc2_2023', 'value'),
-    Output('sc3_2023', 'value'),
-    Output('sc4_2023', 'value'),
-    Input('entidad_seleccionada', 'data'),
-)
-def tabla_resumen_2023(entidad_seleccionada):
-    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-
-    total = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'],2)
-    c1 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1']*100/25,2)
-    c2 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2']*100/35,2)
-    c3 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3']*100/25,2)
-    c4 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4']*100/15,2)
-
-    pos_2021 = total
-
-    res_total = total
-    st = total
-
-    res_c1 = c1
-    sc1 = c1
-
-    res_c2 = c2
-    sc2 = c2
-
-    res_c3 = c3
-    sc3 = c3
-
-    res_c4 = c4
-    sc4 = c4
-
-    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
-
-#Callback resumen iip lateral
-@dash.callback(
-    Output('posicion_total', 'children'),
-    Output('stotal', 'label'),
-    Output('sc1total', 'label'),
-    Output('sc2total', 'label'),
-    Output('sc3total', 'label'),
-    Output('sc4total', 'label'),
-    Output('stotal', 'value'),
-    Output('sc1total', 'value'),
-    Output('sc2total', 'value'),
-    Output('sc3total', 'value'),
-    Output('sc4total', 'value'),
-    Input('entidad_seleccionada', 'data'),
-)
-def tabla_resumen_total(entidad_seleccionada):
-    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-    
-    total = round(resultados_2023_df.loc[:,'total'].mean(),2)
-    c1 = round(resultados_2023_df.loc[:,'res_c1'].mean()*100/25,2)
-    c2 = round(resultados_2023_df.loc[:,'res_c2'].mean()*100/35,2)
-    c3 = round(resultados_2023_df.loc[:,'res_c3'].mean()*100/25,2)
-    c4 = round(resultados_2023_df.loc[:,'res_c4'].mean()*100/15,2)
-
-    pos_2021 = total
-
-    res_total = total
-    st = total
-
-    res_c1 = c1
-    sc1 = c1
-
-    res_c2 = c2
-    sc2 = c2
-
-    res_c3 = c3
-    sc3 = c3
-
-    res_c4 = c4
-    sc4 = c4
-
-    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
-
-#Callback velas
-@dash.callback(
-    Output('candlesticks', 'figure'),
-    Input('pregunta_seleccionada', 'data'),
-)
-def diagrama_velas(pregunta_seleccionada):
-    
-    x_axis = ['2021','2023']
-    outliers_top = []
-    mean_top = []
-    mean_bottom = []
-    outliers_bottom = []
-
-    try:
-        outliers_top_2021 = resultados_2021_df[pregunta_seleccionada].max()
-        mean_top_2021 = resultados_2021_df[pregunta_seleccionada].median() + resultados_2021_df[pregunta_seleccionada].std()
-        mean_bottom_2021 = resultados_2021_df[pregunta_seleccionada].median() - resultados_2021_df[pregunta_seleccionada].std()
-        outliers_bottom_2021 = resultados_2021_df[pregunta_seleccionada].min()
-    except:
-        outliers_top_2021 = 0
-        mean_top_2021 = 0
-        mean_bottom_2021 = 0
-        outliers_bottom_2021 = 0
-    
-    #"""
-    
-    if pregunta_seleccionada=='p1':
-
-        outliers_top_2023 = p1_df['nota_iniciativa'].max()
-        mean_top_2023 = p1_df['nota_iniciativa'].median() + p1_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p1_df['nota_iniciativa'].median() - p1_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p1_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p2':
-
-        outliers_top_2023 = p2_df['nota_iniciativa'].max()
-        mean_top_2023 = p2_df['nota_iniciativa'].median() + p2_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p2_df['nota_iniciativa'].median() - p2_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p2_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p3':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p4':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p5':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p6':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p7':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p8':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p9':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p10':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p11':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p12':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p13':
-
-        outliers_top_2023 = p13_df['nota_iniciativa'].max()
-        mean_top_2023 = p13_df['nota_iniciativa'].median() + p13_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p13_df['nota_iniciativa'].median() - p13_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p13_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p14':
-
-        outliers_top_2023 = p14_df['nota_iniciativa'].max()
-        mean_top_2023 = p14_df['nota_iniciativa'].median() + p14_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p14_df['nota_iniciativa'].median() - p14_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p14_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p15':
-
-        outliers_top_2023 = p15_df['nota_iniciativa'].max()
-        mean_top_2023 = p15_df['nota_iniciativa'].median() + p15_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p15_df['nota_iniciativa'].median() - p15_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p15_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p16':
-
-        outliers_top_2023 = p16_df['nota_iniciativa'].max()
-        mean_top_2023 = p16_df['nota_iniciativa'].median() + p16_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p16_df['nota_iniciativa'].median() - p16_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p16_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p17':
-
-        outliers_top_2023 = p17_df['nota_iniciativa'].max()
-        mean_top_2023 = p17_df['nota_iniciativa'].median() + p17_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p17_df['nota_iniciativa'].median() - p17_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p17_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p18':
-
-        outliers_top_2023 = p18_df['nota_iniciativa'].max()
-        mean_top_2023 = p18_df['nota_iniciativa'].median() + p18_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p18_df['nota_iniciativa'].median() - p18_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p18_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p19':
-
-        outliers_top_2023 = p19_df['nota_iniciativa'].max()
-        mean_top_2023 = p19_df['nota_iniciativa'].median() + p19_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p19_df['nota_iniciativa'].median() - p19_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p19_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p20':
-
-        outliers_top_2023 = p20_df['nota_iniciativa'].max()
-        mean_top_2023 = p20_df['nota_iniciativa'].median() + p20_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p20_df['nota_iniciativa'].median() - p20_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p20_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p21':
-
-        outliers_top_2023 = p21_df['nota_iniciativa'].max()
-        mean_top_2023 = p21_df['nota_iniciativa'].median() + p21_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p21_df['nota_iniciativa'].median() - p21_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p21_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p22':
-
-        outliers_top_2023 = p22_df['nota_iniciativa'].max()
-        mean_top_2023 = p22_df['nota_iniciativa'].median() + p22_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p22_df['nota_iniciativa'].median() - p22_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p22_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p23':
-
-        outliers_top_2023 = p23_df['nota_iniciativa'].max()
-        mean_top_2023 = p23_df['nota_iniciativa'].median() + p23_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p23_df['nota_iniciativa'].median() - p23_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p23_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p24':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p25':
-
-        outliers_top_2023 = p25_df['nota_iniciativa'].max()
-        mean_top_2023 = p25_df['nota_iniciativa'].median() + p25_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p25_df['nota_iniciativa'].median() - p25_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p25_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p26':
-
-        outliers_top_2023 = p26_df['nota_iniciativa'].max()
-        mean_top_2023 = p26_df['nota_iniciativa'].median() + p26_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p26_df['nota_iniciativa'].median() - p26_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p26_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p27':
-
-        outliers_top_2023 = p27_df['nota_iniciativa'].max()
-        mean_top_2023 = p27_df['nota_iniciativa'].median() + p27_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p27_df['nota_iniciativa'].median() - p27_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p27_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p28':
-
-        outliers_top_2023 = p28_df['nota_iniciativa'].max()
-        mean_top_2023 = p28_df['nota_iniciativa'].median() + p28_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p28_df['nota_iniciativa'].median() - p28_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p28_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p29':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p30':
-
-        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
-        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
-        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
-
-    if pregunta_seleccionada=='p31':
-
-        outliers_top_2023 = p31_df['nota_iniciativa'].max()
-        mean_top_2023 = p31_df['nota_iniciativa'].median() + p31_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p31_df['nota_iniciativa'].median() - p31_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p31_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p32':
-
-        outliers_top_2023 = p32_df['nota_iniciativa'].max()
-        mean_top_2023 = p32_df['nota_iniciativa'].median() + p32_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p32_df['nota_iniciativa'].median() - p32_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p32_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p33':
-
-        outliers_top_2023 = p33_df['nota_iniciativa'].max()
-        mean_top_2023 = p33_df['nota_iniciativa'].median() + p33_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p33_df['nota_iniciativa'].median() - p33_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p33_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p34':
-
-        outliers_top_2023 = p34_df['nota_iniciativa'].max()
-        mean_top_2023 = p34_df['nota_iniciativa'].median() + p34_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p34_df['nota_iniciativa'].median() - p34_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p34_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p35':
-
-        outliers_top_2023 = p35_df['nota_iniciativa'].max()
-        mean_top_2023 = p35_df['nota_iniciativa'].median() + p35_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p35_df['nota_iniciativa'].median() - p35_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p35_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p36':
-
-        outliers_top_2023 = p36_df['nota_iniciativa'].max()
-        mean_top_2023 = p36_df['nota_iniciativa'].median() + p36_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p36_df['nota_iniciativa'].median() - p36_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p36_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p37':
-
-        outliers_top_2023 = p37_df['nota_iniciativa'].max()
-        mean_top_2023 = p37_df['nota_iniciativa'].median() + p37_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p37_df['nota_iniciativa'].median() - p37_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p37_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p38':
-
-        outliers_top_2023 = p38_df['nota_iniciativa'].max()
-        mean_top_2023 = p38_df['nota_iniciativa'].median() + p38_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p38_df['nota_iniciativa'].median() - p38_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p38_df['nota_iniciativa'].min()
-
-    if pregunta_seleccionada=='p39':
-
-        outliers_top_2023 = p39_df['nota_iniciativa'].max()
-        mean_top_2023 = p39_df['nota_iniciativa'].median() + p39_df['nota_iniciativa'].std()
-        mean_bottom_2023 = p39_df['nota_iniciativa'].median() - p39_df['nota_iniciativa'].std()
-        outliers_bottom_2023 = p39_df['nota_iniciativa'].min()
-
-    outliers_top.append(outliers_top_2021)
-    outliers_top.append(outliers_top_2023)
-
-    mean_top.append(mean_top_2021)
-    mean_top.append(mean_top_2023)
-
-    mean_bottom.append(mean_bottom_2021)
-    mean_bottom.append(mean_bottom_2023)
-
-    outliers_bottom.append(outliers_bottom_2021)
-    outliers_bottom.append(outliers_bottom_2023)
-
-
-    fig = go.Figure(data=[
-        go.Candlestick(
-            x=x_axis,
-            high=outliers_top,
-            open=mean_top,
-            close=mean_bottom,
-            low=outliers_bottom,
-            )
-        ],
-        ).update_layout(margin={"t":0,"b":0,"l":0,"r":0},xaxis_rangeslider_visible=False)
-
-    return fig
-
 #Callback guardar pregunta seleccionada
 @dash.callback(
     Output('pregunta_seleccionada', 'data'),
@@ -988,24 +486,6 @@ def seleccion_iniciativa(value):
 )
 def seleccion_criterio_entidad(entidad):
     return entidad
-
-#Callback guardar criterio bucle seleccionado
-@dash.callback(
-    Output('criterio_seleccionado_bucle', 'data'),
-    Output('criterios_disponibles_bucle', 'data'),
-    Input('selector_criterio_bucle', 'value'),
-    Input('selector_criterio_bucle', 'options'),
-)
-def seleccion_criterio_bucle(bucle,opciones_bucle):
-    return bucle,opciones_bucle
-
-#Callback para llamar valor de nota
-@dash.callback(
-    Output('nota', 'data'),
-    Input('entrada_nota', 'value'),
-)
-def llamar_numero(valor):
-    return valor
 
 #Callback enviar criterios bucle
 @dash.callback(
@@ -1198,2395 +678,23 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     
     return salida_criterios_bucle,salida_criterios_bucle_seleccionado
 
-#Callback calificar iniciativa seleccionada
+#Callback guardar criterio bucle seleccionado
 @dash.callback(
-    Output('val1', 'data'),
-    Output('val2', 'data'),
-    Output('val3', 'data'),
-    Output('val4', 'data'),
-    Output('val5', 'data'),
-    Output('val6', 'data'),
-    Output('val7', 'data'),
-    Output('val8', 'data'),
-
-    Input('btn_enviar_nota', 'n_clicks'),
-
-    State('entidad_seleccionada', 'data'),
-    State('pregunta_seleccionada', 'data'),
-    State('iniciativa_seleccionada', 'data'),
-    State('criterio_seleccionado_entidad', 'data'),
-    State('criterio_seleccionado_bucle', 'data'),
-    State('criterios_disponibles_bucle', 'data'),
-    State('nota', 'data'),
-    prevent_initial_call=True,
+    Output('criterio_seleccionado_bucle', 'data'),
+    Output('criterios_disponibles_bucle', 'data'),
+    Input('selector_criterio_bucle', 'value'),
+    Input('selector_criterio_bucle', 'options'),
 )
-def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota):
+def seleccion_criterio_bucle(bucle,opciones_bucle):
+    return bucle,opciones_bucle
 
-    vals={
-        'val1':'N/A',
-        'val2':'N/A',
-        'val3':'N/A',
-        'val4':'N/A',
-        'val5':'N/A',
-        'val6':'N/A',
-        'val7':'N/A',
-        'val8':'N/A',
-    }
-
-    if pregunta_seleccionada=='p1':
-        pass
-
-    elif pregunta_seleccionada=='p2':
-        p2_df=pd.read_excel(UBI_AR['p2'])
-        resultados_2023_df=pd.read_excel(UBI_AR['resultados_2023'])
-        respuestas_2023_df=pd.read_excel(UBI_AR['respuestas_2023'])
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-            
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        elif criterio_seleccionado=='c3':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO
-            p2_df.loc[p2_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-            
-            nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
-        vals['val4']=p2_df.loc[p2_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p2_df.to_excel(UBI_AR['p2'],index=False)
-        respuestas_2023_df.to_excel(UBI_AR['respuestas_2023'],index=False)
-        resultados_2023_df.to_excel(UBI_AR['resultados_2023'],index=False)
-
-    elif pregunta_seleccionada=='p3':
-        pass
-
-    elif pregunta_seleccionada=='p4':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p5':
-        pass
-
-    elif pregunta_seleccionada=='p6':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p7':
-        pass
-
-    elif pregunta_seleccionada=='p8':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p9':
-        pass
-
-    elif pregunta_seleccionada=='p10':
-        pass
-
-    elif pregunta_seleccionada=='p11':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p12':
-        pass
-
-    elif pregunta_seleccionada=='p13':
-        p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-        
-        if criterio_seleccionado=='c1':   
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p13_df.loc[p13_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p13_df.loc[p13_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p14':
-        p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p14_df.loc[p14_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p14_df.loc[p14_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p15':
-        p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p15_df.loc[p15_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-            
-            nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p15_df.loc[p15_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p16':
-        p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p16_df.loc[p16_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-    
-            nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad                
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p16_df.loc[p16_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p17':
-        p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p17_df.loc[p17_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-    
-            nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad                
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p17_df.loc[p17_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p18':
-        p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p18_df.loc[p18_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p18_df.loc[p18_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p19':
-        p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p19_df.loc[p19_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p19_df.loc[p19_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p20':
-        p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p20_df.loc[p20_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p20_df.loc[p20_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p21':
-        p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p21_df.loc[p21_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p21_df.loc[p21_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p22':
-        p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p22_df.loc[p22_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p22_df.loc[p22_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p23':
-        p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c1']=nota
-
-            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c1'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-        
-        elif criterio_seleccionado=='c2':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c2']=nota
-
-            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c2'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-
-        elif criterio_seleccionado=='c3':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c3']=nota
-
-            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c3'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
-
-        elif criterio_seleccionado=='c4':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c4']=nota
-
-            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c4'].mean(),4)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c1'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val4']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c2'].to_string(index=False)
-        vals['val5']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
-        vals['val6']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c3'].to_string(index=False)
-        vals['val7']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
-        vals['val8']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c4'].to_string(index=False)
-
-        p23_df['nota_iniciativa']=p23_df['c1']+p23_df['c2']+p23_df['c3']+p23_df['c4']
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p24':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-
-        elif criterio_seleccionado=='c3':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
-
-        elif criterio_seleccionado=='c4':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
-        vals['val4']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
-        
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p25':
-        p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p25_df.loc[p25_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p25_df.loc[p25_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p26':
-        p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p26_df.loc[p26_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p26_df.loc[p26_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p27':
-        p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p27_df.loc[p27_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
-
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=p27_df.loc[p27_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p27_df.to_excel(f'./files/separadas/repeat_p27.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p28':
-        p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-
-        elif criterio_seleccionado=='c2':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
-
-        elif criterio_seleccionado=='c3':
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
-
-        elif criterio_seleccionado=='c4':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c4']=nota
-
-            nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['c4'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
-
-        elif criterio_seleccionado=='c5':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c5']=nota
-
-            nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['c5'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
-        vals['val4']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
-        vals['val5']=p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c4'].to_string(index=False)
-        vals['val6']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'].to_string(index=False)
-        vals['val7']=p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c5'].to_string(index=False)
-
-        p28_df['nota_iniciativa']=p28_df['c4']+p28_df['c5']
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c5'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p29':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p30':
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-            
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p31':
-        pass
-
-    elif pregunta_seleccionada=='p32':
-        p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p32_df.loc[p32_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p32_df.loc[p32_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p33':
-        p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':   
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p33_df.loc[p33_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p33_df.loc[p33_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p34':
-        p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p34_df.loc[p34_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p34_df.loc[p34_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p35':
-        p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':   
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p35_df.loc[p35_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p35_df.loc[p35_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p36':
-        p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p36_df.loc[p36_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p36_df.loc[p36_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p37':
-        p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':   
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p37_df.loc[p37_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-            
-            nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p37_df.loc[p37_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p38':
-        p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p38_df.loc[p38_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-
-            nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p38_df.loc[p38_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    elif pregunta_seleccionada=='p39':
-        p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
-
-        if criterio_seleccionado=='c1':  
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
-        
-        elif criterio_seleccionado=='c2':
-            
-            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
-            p39_df.loc[p39_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
-            
-            nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
-            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
-        
-        else:
-            pass
-
-        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
-        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
-        vals['val3']=p39_df.loc[p39_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
-
-        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
-        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-
-        p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-    else:
-        pass
-
-    v1=vals['val1']
-    v2=vals['val2']
-    v3=vals['val3']
-    v4=vals['val4']
-    v5=vals['val5']
-    v6=vals['val6']
-    v7=vals['val7']
-    v8=vals['val8']
-    print(v1,v2,v3,v4,v5,v6,v7,v8)
-    return v1,v2,v3,v4,v5,v6,v7,v8
-
-#Callback cargar tabla
+#Callback para llamar valor de nota
 @dash.callback(
-    Output('tabla_criterios', 'children'),
-
-    Input('btn_enviar_nota', 'n_clicks'),
-    Input('entidad_seleccionada', 'data'),
-    Input('pregunta_seleccionada', 'data'),
-    Input('iniciativa_seleccionada', 'data'),
-    Input('criterio_seleccionado_entidad', 'data'),
-    Input('criterio_seleccionado_bucle', 'data'),
-    Input('criterios_disponibles_bucle', 'data'),
-    Input('nota', 'data'),
-    
-    State('val1', 'data'),
-    State('val2', 'data'),
-    State('val3', 'data'),
-    State('val4', 'data'),
-    State('val5', 'data'),
-    State('val6', 'data'),
-    State('val7', 'data'),
-    State('val8', 'data'),
+    Output('nota', 'data'),
+    Input('entrada_nota', 'value'),
 )
-def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota,val1,val2,val3,val4,val5,val6,val7,val8):
-
-    vals={
-        'val1':val1,
-        'val2':val2,
-        'val3':val3,
-        'val4':val4,
-        'val5':val5,
-        'val6':val6,
-        'val7':val7,
-        'val8':val8,
-    }
-
-    if pregunta_seleccionada=='p1':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p2':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2'],rowSpan=2),
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val4']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p3':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p4':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p5':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p6':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p7':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p8':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-        
-    elif pregunta_seleccionada=='p9':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p10':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p11':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p12':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p13':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p14':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p15':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p16':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p17':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p18':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p19':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p20':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p21':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p22':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p23':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                        html.Td(vals['val3']),
-                        html.Td(vals['val4']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val5']),
-                        html.Td(vals['val6']),
-                        html.Td(vals['val7']),
-                        html.Td(vals['val8']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p24':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2']),
-                        html.Td(vals['val3']),
-                        html.Td(vals['val4']),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p25':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p26':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p27':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val2']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p28':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                        html.Th(f'c3'),
-                        html.Th(f'c4'),
-                        html.Th(f'c5'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2'],rowSpan=2),
-                        html.Td(vals['val3'],rowSpan=2),
-                        html.Td(vals['val4']),
-                        html.Td(vals['val5']),
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val6']),
-                        html.Td(vals['val7']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-
-
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p29':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p30':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1']),
-                        
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p31':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p32':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p33':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p34':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p35':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p36':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p37':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p38':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    elif pregunta_seleccionada=='p39':
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'c1'),
-                        html.Th(f'c2'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
-                        
-                    ],
-                    ),
-                    html.Tr([
-                        html.Td(vals['val3']),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-        return tabla_criterios
-
-    else:
-        tabla_criterios=html.Div(children=[
-            dbc.Table(
-                children=[
-                html.Thead(children=[
-                    html.Tr([
-                        html.Th(f'N/A'),
-                    ],
-                    )                  
-                ]),
-
-                html.Tbody([
-                    html.Tr([
-                        html.Td('N/A'),
-                    ],
-                    ),
-                ])
-            ],
-            bordered=True,
-            hover=True,
-            responsive=True,
-            striped=True,                               
-            ),
-        ],
-        style={'width':'100%'}
-        )
-
-@dash.callback(
-    Output('empty','children'),
-
-    Input('btn_actualizar_tablas','n_clicks'),
-    Input('entidad_seleccionada', 'data'),
-)
-def actualizar_totales(click,entidad_seleccionada):
-
-    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
-    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
-    
-    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-
+def llamar_numero(valor):
+    return valor
 
 #Callback ver respuestas
 @dash.callback(
@@ -6501,6 +3609,2897 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
             salida_criterios_entidad_seleccionado='N/A'
 
     return pregunta,salida_criterio,salida_respuesta_2021,salida_nota_2021,salida_max_2021,salida_respuesta_2023,salida_iniciativas,salida_iniciativa_seleccionada,salida_criterios_entidad,salida_criterios_entidad_seleccionado
+
+#Callback calificar iniciativa seleccionada
+@dash.callback(
+    Output('val1', 'data'),
+    Output('val2', 'data'),
+    Output('val3', 'data'),
+    Output('val4', 'data'),
+    Output('val5', 'data'),
+    Output('val6', 'data'),
+    Output('val7', 'data'),
+    Output('val8', 'data'),
+
+    Input('btn_enviar_nota', 'n_clicks'),
+
+    State('entidad_seleccionada', 'data'),
+    State('pregunta_seleccionada', 'data'),
+    State('iniciativa_seleccionada', 'data'),
+    State('criterio_seleccionado_entidad', 'data'),
+    State('criterio_seleccionado_bucle', 'data'),
+    State('criterios_disponibles_bucle', 'data'),
+    State('nota', 'data'),
+    prevent_initial_call=True,
+)
+def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota):
+
+    vals={
+        'val1':'N/A',
+        'val2':'N/A',
+        'val3':'N/A',
+        'val4':'N/A',
+        'val5':'N/A',
+        'val6':'N/A',
+        'val7':'N/A',
+        'val8':'N/A',
+    }
+
+    if pregunta_seleccionada=='p1':
+        pass
+
+    elif pregunta_seleccionada=='p2':
+        p2_df=pd.read_excel(UBI_AR['p2'])
+        resultados_2023_df=pd.read_excel(UBI_AR['resultados_2023'])
+        respuestas_2023_df=pd.read_excel(UBI_AR['respuestas_2023'])
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+            
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        elif criterio_seleccionado=='c3':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO
+            p2_df.loc[p2_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+            
+            nota_entidad = round(p2_df.loc[p2_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
+        vals['val4']=p2_df.loc[p2_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p2_df.to_excel(UBI_AR['p2'],index=False)
+        respuestas_2023_df.to_excel(UBI_AR['respuestas_2023'],index=False)
+        resultados_2023_df.to_excel(UBI_AR['resultados_2023'],index=False)
+
+    elif pregunta_seleccionada=='p3':
+        pass
+
+    elif pregunta_seleccionada=='p4':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p5':
+        pass
+
+    elif pregunta_seleccionada=='p6':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p7':
+        pass
+
+    elif pregunta_seleccionada=='p8':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p9':
+        pass
+
+    elif pregunta_seleccionada=='p10':
+        pass
+
+    elif pregunta_seleccionada=='p11':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p12':
+        pass
+
+    elif pregunta_seleccionada=='p13':
+        p13_df=pd.read_excel('./files/separadas/repeat_p13.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        
+        if criterio_seleccionado=='c1':   
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p13_df.loc[p13_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p13_df.loc[p13_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p13_df.loc[p13_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p13_df.to_excel(f'./files/separadas/repeat_p13.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p14':
+        p14_df=pd.read_excel('./files/separadas/repeat_p14.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p14_df.loc[p14_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p14_df.loc[p14_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p14_df.loc[p14_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p14_df.to_excel(f'./files/separadas/repeat_p14.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p15':
+        p15_df=pd.read_excel('./files/separadas/repeat_p15.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p15_df.loc[p15_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+            
+            nota_entidad = round(p15_df.loc[p15_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p15_df.loc[p15_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p15_df.to_excel(f'./files/separadas/repeat_p15.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p16':
+        p16_df=pd.read_excel('./files/separadas/repeat_p16.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p16_df.loc[p16_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+    
+            nota_entidad = round(p16_df.loc[p16_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad                
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p16_df.loc[p16_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p16_df.to_excel(f'./files/separadas/repeat_p16.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p17':
+        p17_df=pd.read_excel('./files/separadas/repeat_p17.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p17_df.loc[p17_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+    
+            nota_entidad = round(p17_df.loc[p17_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad                
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p17_df.loc[p17_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p17_df.to_excel(f'./files/separadas/repeat_p17.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p18':
+        p18_df=pd.read_excel('./files/separadas/repeat_p18.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p18_df.loc[p18_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p18_df.loc[p18_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p18_df.loc[p18_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p18_df.to_excel(f'./files/separadas/repeat_p18.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p19':
+        p19_df=pd.read_excel('./files/separadas/repeat_p19.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p19_df.loc[p19_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p19_df.loc[p19_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p19_df.loc[p19_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p19_df.to_excel(f'./files/separadas/repeat_p19.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p20':
+        p20_df=pd.read_excel('./files/separadas/repeat_p20.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p20_df.loc[p20_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p20_df.loc[p20_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p20_df.loc[p20_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p20_df.to_excel(f'./files/separadas/repeat_p20.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p21':
+        p21_df=pd.read_excel('./files/separadas/repeat_p21.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p21_df.loc[p21_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p21_df.loc[p21_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p21_df.loc[p21_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p21_df.to_excel(f'./files/separadas/repeat_p21.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p22':
+        p22_df=pd.read_excel('./files/separadas/repeat_p22.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p22_df.loc[p22_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p22_df.loc[p22_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p22_df.loc[p22_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p22_df.to_excel(f'./files/separadas/repeat_p22.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p23':
+        p23_df=pd.read_excel('./files/separadas/repeat_p23.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c1']=nota
+
+            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c1'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+        
+        elif criterio_seleccionado=='c2':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c2']=nota
+
+            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c2'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+
+        elif criterio_seleccionado=='c3':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c3']=nota
+
+            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c3'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota_entidad
+
+        elif criterio_seleccionado=='c4':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c4']=nota
+
+            nota_entidad = round(p23_df.loc[p23_df['_submission__uuid']==entidad_seleccionada]['c4'].mean(),4)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c1'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val4']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c2'].to_string(index=False)
+        vals['val5']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
+        vals['val6']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c3'].to_string(index=False)
+        vals['val7']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
+        vals['val8']=p23_df.loc[p23_df['_index']==iniciativa_seleccionada, 'c4'].to_string(index=False)
+
+        p23_df['nota_iniciativa']=p23_df['c1']+p23_df['c2']+p23_df['c3']+p23_df['c4']
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p23_df.to_excel(f'./files/separadas/repeat_p23.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p24':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+
+        elif criterio_seleccionado=='c3':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
+
+        elif criterio_seleccionado=='c4':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
+        vals['val4']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
+        
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c4'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p25':
+        p25_df=pd.read_excel('./files/separadas/repeat_p25.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p25_df.loc[p25_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p25_df.loc[p25_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p25_df.loc[p25_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p25_df.to_excel(f'./files/separadas/repeat_p25.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p26':
+        p26_df=pd.read_excel('./files/separadas/repeat_p26.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p26_df.loc[p26_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p26_df.loc[p26_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p26_df.loc[p26_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p26_df.to_excel(f'./files/separadas/repeat_p26.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p27':
+        p27_df=pd.read_excel('./files/separadas/repeat_p27.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p27_df.loc[p27_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p27_df.loc[p27_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota_entidad
+
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=p27_df.loc[p27_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p27_df.to_excel(f'./files/separadas/repeat_p27.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p28':
+        p28_df=pd.read_excel('./files/separadas/repeat_p28.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+
+        elif criterio_seleccionado=='c2':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota
+
+        elif criterio_seleccionado=='c3':
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'] = nota
+
+        elif criterio_seleccionado=='c4':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c4']=nota
+
+            nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['c4'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'] = nota_entidad
+
+        elif criterio_seleccionado=='c5':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c5']=nota
+
+            nota_entidad = round(p28_df.loc[p28_df['_submission__uuid']==entidad_seleccionada]['c5'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c3'].to_string(index=False)
+        vals['val4']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c4'].to_string(index=False)
+        vals['val5']=p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c4'].to_string(index=False)
+        vals['val6']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c5'].to_string(index=False)
+        vals['val7']=p28_df.loc[p28_df['_index']==iniciativa_seleccionada, 'c5'].to_string(index=False)
+
+        p28_df['nota_iniciativa']=p28_df['c4']+p28_df['c5']
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c5'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p28_df.to_excel(f'./files/separadas/repeat_p28.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p29':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p30':
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+            
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p31':
+        pass
+
+    elif pregunta_seleccionada=='p32':
+        p32_df=pd.read_excel('./files/separadas/repeat_p32.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p32_df.loc[p32_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p32_df.loc[p32_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p32_df.loc[p32_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p32_df.to_excel(f'./files/separadas/repeat_p32.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p33':
+        p33_df=pd.read_excel('./files/separadas/repeat_p33.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':   
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p33_df.loc[p33_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p33_df.loc[p33_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p33_df.loc[p33_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p33_df.to_excel(f'./files/separadas/repeat_p33.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p34':
+        p34_df=pd.read_excel('./files/separadas/repeat_p34.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p34_df.loc[p34_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p34_df.loc[p34_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p34_df.loc[p34_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p34_df.to_excel(f'./files/separadas/repeat_p34.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p35':
+        p35_df=pd.read_excel('./files/separadas/repeat_p35.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':   
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p35_df.loc[p35_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p35_df.loc[p35_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p35_df.loc[p35_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p35_df.to_excel(f'./files/separadas/repeat_p35.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p36':
+        p36_df=pd.read_excel('./files/separadas/repeat_p36.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p36_df.loc[p36_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p36_df.loc[p36_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p36_df.loc[p36_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p36_df.to_excel(f'./files/separadas/repeat_p36.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p37':
+        p37_df=pd.read_excel('./files/separadas/repeat_p37.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':   
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p37_df.loc[p37_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+            
+            nota_entidad = round(p37_df.loc[p37_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p37_df.loc[p37_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p37_df.to_excel(f'./files/separadas/repeat_p37.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p38':
+        p38_df=pd.read_excel('./files/separadas/repeat_p38.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p38_df.loc[p38_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+
+            nota_entidad = round(p38_df.loc[p38_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p38_df.loc[p38_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p38_df.to_excel(f'./files/separadas/repeat_p38.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    elif pregunta_seleccionada=='p39':
+        p39_df=pd.read_excel('./files/separadas/repeat_p39.xlsx')
+        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx') 
+
+        if criterio_seleccionado=='c1':  
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
+        
+        elif criterio_seleccionado=='c2':
+            
+            #ASIGNACIÓN DE NOTA DE INICIATIVA EN CRITERIO                
+            p39_df.loc[p39_df['_index']==iniciativa_seleccionada, 'nota_iniciativa']=nota
+            
+            nota_entidad = round(p39_df.loc[p39_df['_submission__uuid']==entidad_seleccionada]['nota_iniciativa'].mean(),2)
+            respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'] = nota_entidad
+        
+        else:
+            pass
+
+        vals['val1']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'].to_string(index=False)
+        vals['val2']=respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c2'].to_string(index=False)
+        vals['val3']=p39_df.loc[p39_df['_index']==iniciativa_seleccionada, 'nota_iniciativa'].to_string(index=False)
+
+        nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c2'].sum().sum(),2)
+        respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
+        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
+
+        p39_df.to_excel(f'./files/separadas/repeat_p39.xlsx',index=False)
+        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
+        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+    else:
+        pass
+
+    v1=vals['val1']
+    v2=vals['val2']
+    v3=vals['val3']
+    v4=vals['val4']
+    v5=vals['val5']
+    v6=vals['val6']
+    v7=vals['val7']
+    v8=vals['val8']
+    print(v1,v2,v3,v4,v5,v6,v7,v8)
+    return v1,v2,v3,v4,v5,v6,v7,v8
+
+#Callback actualizar valores por componente
+@dash.callback(
+    Output('empty','children'),
+
+    Input('btn_actualizar_tablas','n_clicks'),
+    Input('entidad_seleccionada', 'data'),
+)
+def actualizar_totales(click,entidad_seleccionada):
+
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+    
+    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+#Callback cargar tabla
+@dash.callback(
+    Output('tabla_criterios', 'children'),
+
+    Input('btn_enviar_nota', 'n_clicks'),
+    Input('entidad_seleccionada', 'data'),
+    Input('pregunta_seleccionada', 'data'),
+    Input('iniciativa_seleccionada', 'data'),
+    Input('criterio_seleccionado_entidad', 'data'),
+    Input('criterio_seleccionado_bucle', 'data'),
+    Input('criterios_disponibles_bucle', 'data'),
+    Input('nota', 'data'),
+    
+    State('val1', 'data'),
+    State('val2', 'data'),
+    State('val3', 'data'),
+    State('val4', 'data'),
+    State('val5', 'data'),
+    State('val6', 'data'),
+    State('val7', 'data'),
+    State('val8', 'data'),
+)
+def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota,val1,val2,val3,val4,val5,val6,val7,val8):
+
+    vals={
+        'val1':val1,
+        'val2':val2,
+        'val3':val3,
+        'val4':val4,
+        'val5':val5,
+        'val6':val6,
+        'val7':val7,
+        'val8':val8,
+    }
+
+    if pregunta_seleccionada=='p1':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p2':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2'],rowSpan=2),
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val4']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p3':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p4':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p5':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p6':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p7':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p8':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+        
+    elif pregunta_seleccionada=='p9':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p10':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p11':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p12':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p13':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p14':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p15':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p16':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p17':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p18':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p19':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p20':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p21':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p22':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p23':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                        html.Th(f'c4'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
+                        html.Td(vals['val4']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val5']),
+                        html.Td(vals['val6']),
+                        html.Td(vals['val7']),
+                        html.Td(vals['val8']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p24':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                        html.Th(f'c4'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
+                        html.Td(vals['val4']),
+                        
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p25':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p26':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        html.Td(vals['val2'],rowSpan=2),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p27':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val2']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p28':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                        html.Th(f'c3'),
+                        html.Th(f'c4'),
+                        html.Th(f'c5'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2'],rowSpan=2),
+                        html.Td(vals['val3'],rowSpan=2),
+                        html.Td(vals['val4']),
+                        html.Td(vals['val5']),
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val6']),
+                        html.Td(vals['val7']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+
+
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p29':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p30':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1']),
+                        
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p31':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p32':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p33':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p34':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p35':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p36':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p37':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p38':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    elif pregunta_seleccionada=='p39':
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'c1'),
+                        html.Th(f'c2'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td(vals['val1'],rowSpan=2),
+                        html.Td(vals['val2']),
+                        
+                    ],
+                    ),
+                    html.Tr([
+                        html.Td(vals['val3']),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+        return tabla_criterios
+
+    else:
+        tabla_criterios=html.Div(children=[
+            dbc.Table(
+                children=[
+                html.Thead(children=[
+                    html.Tr([
+                        html.Th(f'N/A'),
+                    ],
+                    )                  
+                ]),
+
+                html.Tbody([
+                    html.Tr([
+                        html.Td('N/A'),
+                    ],
+                    ),
+                ])
+            ],
+            bordered=True,
+            hover=True,
+            responsive=True,
+            striped=True,                               
+            ),
+        ],
+        style={'width':'100%'}
+        )
+
+#Callback nombre, misión y visión
+@dash.callback(
+    Output('nom_ent', 'children'),
+    Output('mision', 'children'),
+    Output('vision', 'children'),
+    Input('entidad_seleccionada', 'data')
+)
+def mision_vision_entidad_f(value):
+
+    nom_ent= respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['entidad']
+    
+    mis = respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['mision']
+    vis = respuestas_2023_df[respuestas_2023_df['_uuid'] == value]['vision']
+
+    if mis.empty ==False:
+        mis_ent=mis
+    else:
+        mis_ent = 'N/A'
+
+    if vis.empty ==False:
+        vis_ent=vis
+    else:
+        vis_ent = 'N/A'
+
+    return nom_ent,mis_ent,vis_ent
+
+#Callback resumen 2021 lateral
+@dash.callback(
+    Output('posicion_2021', 'children'),
+    Output('st', 'label'),
+    Output('sc1', 'label'),
+    Output('sc2', 'label'),
+    Output('sc3', 'label'),
+    Output('sc4', 'label'),
+    Output('st', 'value'),
+    Output('sc1', 'value'),
+    Output('sc2', 'value'),
+    Output('sc3', 'value'),
+    Output('sc4', 'value'),
+    Input('entidad_seleccionada', 'data')
+)
+def tabla_resumen_2021(entidad):
+    
+    pos = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['pos']
+    if pos.empty == False:
+        pos_2021 = pos
+    else:
+        pos_2021 = 'N/A'
+
+    total = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['total'].round(2)
+    if total.empty == False:
+        res_total  = total
+        st = total
+    else:
+        res_total = 'N/A'
+        st = 0
+
+    c1 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c1'].round(2)
+    if c1.empty == False:
+        res_c1 = c1
+        sc1 = c1
+    else:
+        res_c1 = 'N/A'
+        sc1 = 0
+
+    c2 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c2'].round(2)
+    if c2.empty == False:
+        res_c2 = c2
+        sc2 = c2
+    else:
+        res_c2 = 'N/A'
+        sc2 = 0
+
+    c3 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c3'].round(2)
+    if c3.empty == False:
+        res_c3 = c3
+        sc3 = c3
+    else:
+        res_c3 = 'N/A'
+        sc3 = 0
+
+    c4 = resultados_2021_df[resultados_2021_df['_uuid'] == entidad]['res_c4'].round(2)
+    if c4.empty == False:
+        res_c4 = c4
+        sc4 = c4
+    else:
+        res_c4 = 'N/A'
+        sc4 = 0
+
+    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+
+#Callback resumen 2023 lateral
+@dash.callback(
+    Output('posicion_2023', 'children'),
+    Output('st_2023', 'label'),
+    Output('sc1_2023', 'label'),
+    Output('sc2_2023', 'label'),
+    Output('sc3_2023', 'label'),
+    Output('sc4_2023', 'label'),
+    Output('st_2023', 'value'),
+    Output('sc1_2023', 'value'),
+    Output('sc2_2023', 'value'),
+    Output('sc3_2023', 'value'),
+    Output('sc4_2023', 'value'),
+    Input('entidad_seleccionada', 'data'),
+)
+def tabla_resumen_2023(entidad_seleccionada):
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+
+    total = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'],2)
+    c1 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1']*100/25,2)
+    c2 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2']*100/35,2)
+    c3 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3']*100/25,2)
+    c4 = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4']*100/15,2)
+
+    pos_2021 = total
+
+    res_total = total
+    st = total
+
+    res_c1 = c1
+    sc1 = c1
+
+    res_c2 = c2
+    sc2 = c2
+
+    res_c3 = c3
+    sc3 = c3
+
+    res_c4 = c4
+    sc4 = c4
+
+    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+
+#Callback resumen iip lateral
+@dash.callback(
+    Output('posicion_total', 'children'),
+    Output('stotal', 'label'),
+    Output('sc1total', 'label'),
+    Output('sc2total', 'label'),
+    Output('sc3total', 'label'),
+    Output('sc4total', 'label'),
+    Output('stotal', 'value'),
+    Output('sc1total', 'value'),
+    Output('sc2total', 'value'),
+    Output('sc3total', 'value'),
+    Output('sc4total', 'value'),
+    Input('entidad_seleccionada', 'data'),
+)
+def tabla_resumen_total(entidad_seleccionada):
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+    
+    total = round(resultados_2023_df.loc[:,'total'].mean(),2)
+    c1 = round(resultados_2023_df.loc[:,'res_c1'].mean()*100/25,2)
+    c2 = round(resultados_2023_df.loc[:,'res_c2'].mean()*100/35,2)
+    c3 = round(resultados_2023_df.loc[:,'res_c3'].mean()*100/25,2)
+    c4 = round(resultados_2023_df.loc[:,'res_c4'].mean()*100/15,2)
+
+    pos_2021 = total
+
+    res_total = total
+    st = total
+
+    res_c1 = c1
+    sc1 = c1
+
+    res_c2 = c2
+    sc2 = c2
+
+    res_c3 = c3
+    sc3 = c3
+
+    res_c4 = c4
+    sc4 = c4
+
+    return pos_2021,res_total,res_c1,res_c2,res_c3,res_c4,st,sc1,sc2,sc3,sc4
+
+#Callback velas
+@dash.callback(
+    Output('candlesticks', 'figure'),
+    Input('pregunta_seleccionada', 'data'),
+)
+def diagrama_velas(pregunta_seleccionada):
+    
+    x_axis = ['2021','2023']
+    outliers_top = []
+    mean_top = []
+    mean_bottom = []
+    outliers_bottom = []
+
+    try:
+        outliers_top_2021 = resultados_2021_df[pregunta_seleccionada].max()
+        mean_top_2021 = resultados_2021_df[pregunta_seleccionada].median() + resultados_2021_df[pregunta_seleccionada].std()
+        mean_bottom_2021 = resultados_2021_df[pregunta_seleccionada].median() - resultados_2021_df[pregunta_seleccionada].std()
+        outliers_bottom_2021 = resultados_2021_df[pregunta_seleccionada].min()
+    except:
+        outliers_top_2021 = 0
+        mean_top_2021 = 0
+        mean_bottom_2021 = 0
+        outliers_bottom_2021 = 0
+    
+    #"""
+    
+    if pregunta_seleccionada=='p1':
+
+        outliers_top_2023 = p1_df['nota_iniciativa'].max()
+        mean_top_2023 = p1_df['nota_iniciativa'].median() + p1_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p1_df['nota_iniciativa'].median() - p1_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p1_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p2':
+
+        outliers_top_2023 = p2_df['nota_iniciativa'].max()
+        mean_top_2023 = p2_df['nota_iniciativa'].median() + p2_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p2_df['nota_iniciativa'].median() - p2_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p2_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p3':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p4':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p5':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p6':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p7':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p8':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p9':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p10':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p11':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p12':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p13':
+
+        outliers_top_2023 = p13_df['nota_iniciativa'].max()
+        mean_top_2023 = p13_df['nota_iniciativa'].median() + p13_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p13_df['nota_iniciativa'].median() - p13_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p13_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p14':
+
+        outliers_top_2023 = p14_df['nota_iniciativa'].max()
+        mean_top_2023 = p14_df['nota_iniciativa'].median() + p14_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p14_df['nota_iniciativa'].median() - p14_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p14_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p15':
+
+        outliers_top_2023 = p15_df['nota_iniciativa'].max()
+        mean_top_2023 = p15_df['nota_iniciativa'].median() + p15_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p15_df['nota_iniciativa'].median() - p15_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p15_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p16':
+
+        outliers_top_2023 = p16_df['nota_iniciativa'].max()
+        mean_top_2023 = p16_df['nota_iniciativa'].median() + p16_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p16_df['nota_iniciativa'].median() - p16_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p16_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p17':
+
+        outliers_top_2023 = p17_df['nota_iniciativa'].max()
+        mean_top_2023 = p17_df['nota_iniciativa'].median() + p17_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p17_df['nota_iniciativa'].median() - p17_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p17_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p18':
+
+        outliers_top_2023 = p18_df['nota_iniciativa'].max()
+        mean_top_2023 = p18_df['nota_iniciativa'].median() + p18_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p18_df['nota_iniciativa'].median() - p18_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p18_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p19':
+
+        outliers_top_2023 = p19_df['nota_iniciativa'].max()
+        mean_top_2023 = p19_df['nota_iniciativa'].median() + p19_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p19_df['nota_iniciativa'].median() - p19_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p19_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p20':
+
+        outliers_top_2023 = p20_df['nota_iniciativa'].max()
+        mean_top_2023 = p20_df['nota_iniciativa'].median() + p20_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p20_df['nota_iniciativa'].median() - p20_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p20_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p21':
+
+        outliers_top_2023 = p21_df['nota_iniciativa'].max()
+        mean_top_2023 = p21_df['nota_iniciativa'].median() + p21_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p21_df['nota_iniciativa'].median() - p21_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p21_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p22':
+
+        outliers_top_2023 = p22_df['nota_iniciativa'].max()
+        mean_top_2023 = p22_df['nota_iniciativa'].median() + p22_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p22_df['nota_iniciativa'].median() - p22_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p22_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p23':
+
+        outliers_top_2023 = p23_df['nota_iniciativa'].max()
+        mean_top_2023 = p23_df['nota_iniciativa'].median() + p23_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p23_df['nota_iniciativa'].median() - p23_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p23_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p24':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p25':
+
+        outliers_top_2023 = p25_df['nota_iniciativa'].max()
+        mean_top_2023 = p25_df['nota_iniciativa'].median() + p25_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p25_df['nota_iniciativa'].median() - p25_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p25_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p26':
+
+        outliers_top_2023 = p26_df['nota_iniciativa'].max()
+        mean_top_2023 = p26_df['nota_iniciativa'].median() + p26_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p26_df['nota_iniciativa'].median() - p26_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p26_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p27':
+
+        outliers_top_2023 = p27_df['nota_iniciativa'].max()
+        mean_top_2023 = p27_df['nota_iniciativa'].median() + p27_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p27_df['nota_iniciativa'].median() - p27_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p27_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p28':
+
+        outliers_top_2023 = p28_df['nota_iniciativa'].max()
+        mean_top_2023 = p28_df['nota_iniciativa'].median() + p28_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p28_df['nota_iniciativa'].median() - p28_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p28_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p29':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p30':
+
+        outliers_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].max()
+        mean_top_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() + respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        mean_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].median() - respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].std()
+        outliers_bottom_2023 = respuestas_2023_df[f'{pregunta_seleccionada}_nota_pregunta'].min()
+
+    if pregunta_seleccionada=='p31':
+
+        outliers_top_2023 = p31_df['nota_iniciativa'].max()
+        mean_top_2023 = p31_df['nota_iniciativa'].median() + p31_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p31_df['nota_iniciativa'].median() - p31_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p31_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p32':
+
+        outliers_top_2023 = p32_df['nota_iniciativa'].max()
+        mean_top_2023 = p32_df['nota_iniciativa'].median() + p32_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p32_df['nota_iniciativa'].median() - p32_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p32_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p33':
+
+        outliers_top_2023 = p33_df['nota_iniciativa'].max()
+        mean_top_2023 = p33_df['nota_iniciativa'].median() + p33_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p33_df['nota_iniciativa'].median() - p33_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p33_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p34':
+
+        outliers_top_2023 = p34_df['nota_iniciativa'].max()
+        mean_top_2023 = p34_df['nota_iniciativa'].median() + p34_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p34_df['nota_iniciativa'].median() - p34_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p34_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p35':
+
+        outliers_top_2023 = p35_df['nota_iniciativa'].max()
+        mean_top_2023 = p35_df['nota_iniciativa'].median() + p35_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p35_df['nota_iniciativa'].median() - p35_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p35_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p36':
+
+        outliers_top_2023 = p36_df['nota_iniciativa'].max()
+        mean_top_2023 = p36_df['nota_iniciativa'].median() + p36_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p36_df['nota_iniciativa'].median() - p36_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p36_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p37':
+
+        outliers_top_2023 = p37_df['nota_iniciativa'].max()
+        mean_top_2023 = p37_df['nota_iniciativa'].median() + p37_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p37_df['nota_iniciativa'].median() - p37_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p37_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p38':
+
+        outliers_top_2023 = p38_df['nota_iniciativa'].max()
+        mean_top_2023 = p38_df['nota_iniciativa'].median() + p38_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p38_df['nota_iniciativa'].median() - p38_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p38_df['nota_iniciativa'].min()
+
+    if pregunta_seleccionada=='p39':
+
+        outliers_top_2023 = p39_df['nota_iniciativa'].max()
+        mean_top_2023 = p39_df['nota_iniciativa'].median() + p39_df['nota_iniciativa'].std()
+        mean_bottom_2023 = p39_df['nota_iniciativa'].median() - p39_df['nota_iniciativa'].std()
+        outliers_bottom_2023 = p39_df['nota_iniciativa'].min()
+
+    outliers_top.append(outliers_top_2021)
+    outliers_top.append(outliers_top_2023)
+
+    mean_top.append(mean_top_2021)
+    mean_top.append(mean_top_2023)
+
+    mean_bottom.append(mean_bottom_2021)
+    mean_bottom.append(mean_bottom_2023)
+
+    outliers_bottom.append(outliers_bottom_2021)
+    outliers_bottom.append(outliers_bottom_2023)
+
+
+    fig = go.Figure(data=[
+        go.Candlestick(
+            x=x_axis,
+            high=outliers_top,
+            open=mean_top,
+            close=mean_bottom,
+            low=outliers_bottom,
+            )
+        ],
+        ).update_layout(margin={"t":0,"b":0,"l":0,"r":0},xaxis_rangeslider_visible=False)
+
+    return fig
 
 #Callback descarga respuestas 2023
 @dash.callback(
