@@ -5400,16 +5400,16 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1']),
-                        html.Td(vals['val2']),
                         html.Td(vals['val3']),
-                        html.Td(vals['val4']),
+                        html.Td(vals['val5']),
+                        html.Td(vals['val7']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val5']),
+                        html.Td(vals['val2']),
+                        html.Td(vals['val4']),
                         html.Td(vals['val6']),
-                        html.Td(vals['val7']),
                         html.Td(vals['val8']),
                     ],
                     ),
@@ -5475,12 +5475,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
+                        html.Td(vals['val3'],rowSpan=2),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5510,12 +5510,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1']),
-                        html.Td(vals['val2'],rowSpan=2),
+                        html.Td(vals['val3'],rowSpan=2),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5584,11 +5584,11 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                         html.Td(vals['val2'],rowSpan=2),
                         html.Td(vals['val3'],rowSpan=2),
                         html.Td(vals['val4']),
-                        html.Td(vals['val5']),
+                        html.Td(vals['val6']),
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val6']),
+                        html.Td(vals['val5']),
                         html.Td(vals['val7']),
                     ],
                     ),
@@ -5707,12 +5707,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5742,12 +5742,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5777,12 +5777,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5812,12 +5812,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5847,12 +5847,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5882,12 +5882,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5917,12 +5917,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
@@ -5952,12 +5952,12 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
                 html.Tbody([
                     html.Tr([
                         html.Td(vals['val1'],rowSpan=2),
-                        html.Td(vals['val2']),
+                        html.Td(vals['val3']),
                         
                     ],
                     ),
                     html.Tr([
-                        html.Td(vals['val3']),
+                        html.Td(vals['val2']),
                     ],
                     ),
                 ])
