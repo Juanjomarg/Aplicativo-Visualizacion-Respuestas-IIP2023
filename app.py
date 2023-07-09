@@ -104,7 +104,6 @@ app.layout = dbc.Container(
 
 @dash.callback(
     Output('entidad_seleccionada', 'data'),
-    Output('entidad_seleccionada_nom', 'data'),
     Input('selector_entidad', 'value')
 )
 def sel_entidad(value):
@@ -112,13 +111,13 @@ def sel_entidad(value):
     if value != None:
         ent=list(respuestas_2023_df[respuestas_2023_df['entidad'] == value]['_uuid'])[0]
         print(f'{value} -> {ent}\n')
-        return ent,value
+        return ent
     
     else:
         value = entidades_2023[0]
         ent=list(respuestas_2023_df[respuestas_2023_df['entidad'] == value]['_uuid'])[0]
         print(f'{value} -> {ent}\n')
-        return ent,value
+        return ent
     
 if __name__ == "__main__":
     app.run_server(debug=True)
