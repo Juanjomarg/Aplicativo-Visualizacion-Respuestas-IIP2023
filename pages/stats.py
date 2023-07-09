@@ -3576,6 +3576,8 @@ def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciati
 )
 def actualizar_totales(click,entidad_seleccionada):
 
+    #Test commit
+
     resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
 
     resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
