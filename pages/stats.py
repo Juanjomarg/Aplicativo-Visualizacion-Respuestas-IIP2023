@@ -133,6 +133,14 @@ tarjeta_resumen_2023 = dbc.Card(
                     className="card-text",
                     style={'line-height':f'{par_spacer}'}
                 ),
+
+                html.Div(
+                    [
+                        dbc.Button(id='btn_actualizar_tablas',children='Actualizar componentes', style={'width':'100%'}),
+                    ],
+                    className="card-text",
+                    style={'line-height':f'{par_spacer}'}
+                ),
             ]
         ),
     ],
@@ -264,7 +272,7 @@ zona_de_peligro = dbc.Card(
                 html.Br(),
                 html.Div(id='empty'),
                 html.Div(id='empty_2'),
-                dbc.Button(id='enviar_nota',children='Enviar nota a excel', style={'width':'100%'}),
+                dbc.Button(id='btn_enviar_nota',children='Enviar nota a excel', style={'width':'100%'}),
             ]
             ),
     ],
@@ -1201,7 +1209,7 @@ def enviar_criterios_bucle(criterio_seleccionado,pregunta_seleccionada):
     Output('val7', 'data'),
     Output('val8', 'data'),
 
-    Input('enviar_nota', 'n_clicks'),
+    Input('btn_enviar_nota', 'n_clicks'),
 
     State('entidad_seleccionada', 'data'),
     State('pregunta_seleccionada', 'data'),
@@ -2206,18 +2214,6 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
     else:
         pass
 
-        """
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
-        resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
-        
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
-
-        #"""
     v1=vals['val1']
     v2=vals['val2']
     v3=vals['val3']
@@ -2226,21 +2222,14 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
     v6=vals['val6']
     v7=vals['val7']
     v8=vals['val8']
+    print(v1,v2,v3,v4,v5,v6,v7,v8)
     return v1,v2,v3,v4,v5,v6,v7,v8
 
 #Callback cargar tabla
 @dash.callback(
     Output('tabla_criterios', 'children'),
 
-    Input('val1', 'data'),
-    Input('val2', 'data'),
-    Input('val3', 'data'),
-    Input('val4', 'data'),
-    Input('val5', 'data'),
-    Input('val6', 'data'),
-    Input('val7', 'data'),
-    Input('val8', 'data'),
-    Input('enviar_nota', 'n_clicks'),
+    Input('btn_enviar_nota', 'n_clicks'),
     Input('entidad_seleccionada', 'data'),
     Input('pregunta_seleccionada', 'data'),
     Input('iniciativa_seleccionada', 'data'),
@@ -2248,8 +2237,17 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
     Input('criterio_seleccionado_bucle', 'data'),
     Input('criterios_disponibles_bucle', 'data'),
     Input('nota', 'data'),
+    
+    State('val1', 'data'),
+    State('val2', 'data'),
+    State('val3', 'data'),
+    State('val4', 'data'),
+    State('val5', 'data'),
+    State('val6', 'data'),
+    State('val7', 'data'),
+    State('val8', 'data'),
 )
-def cargar_tabla(val1,val2,val3,val4,val5,val6,val7,val8,enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota):
+def cargar_tabla(enviar_nota,entidad_seleccionada,pregunta_seleccionada,iniciativa_seleccionada,criterio_seleccionado_entidad,criterio_seleccionado_bucle,criterios_disponibles_bucle,nota,val1,val2,val3,val4,val5,val6,val7,val8):
 
     vals={
         'val1':val1,
@@ -2291,7 +2289,6 @@ def cargar_tabla(val1,val2,val3,val4,val5,val6,val7,val8,enviar_nota,entidad_sel
         return tabla_criterios
 
     elif pregunta_seleccionada=='p2':
-        
         tabla_criterios=html.Div(children=[
             dbc.Table(
                 children=[
@@ -3570,6 +3567,26 @@ def cargar_tabla(val1,val2,val3,val4,val5,val6,val7,val8,enviar_nota,entidad_sel
         ],
         style={'width':'100%'}
         )
+
+@dash.callback(
+    Output('empty','children'),
+
+    Input('btn_actualizar_tablas','n_clicks'),
+    Input('entidad_seleccionada', 'data'),
+)
+def actualizar_totales(click,entidad_seleccionada):
+
+    resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
+
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p1':'p13'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c2'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p14':'p27'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c3'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p28':'p30'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c4'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'p31':'p39'].sum().sum(),2)
+    resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'total'] = round(resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,'res_c1':'res_c4'].sum().sum(),2)
+    
+    resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+
 
 #Callback ver respuestas
 @dash.callback(
