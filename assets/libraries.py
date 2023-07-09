@@ -7,11 +7,6 @@ import time
 import statistics
 import numpy as np
 import pandas as pd
-import openpyxl
-
-import psutil
-from openpyxl import load_workbook
-from openpyxl.utils.exceptions import InvalidFileException
 
 import zipfile
 
