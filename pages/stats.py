@@ -1237,9 +1237,9 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         pass
 
     elif pregunta_seleccionada=='p2':
-        p2_df=pd.read_excel('./files/separadas/repeat_p2.xlsx')
-        resultados_2023_df=pd.read_excel('./files/resultados/2023/resultados_2023.xlsx')
-        respuestas_2023_df=pd.read_excel('./files/respuestas/2023/respuestas_2023.xlsx')
+        p2_df=pd.read_excel(UBI_AR['p2'])
+        resultados_2023_df=pd.read_excel(UBI_AR['resultados_2023'])
+        respuestas_2023_df=pd.read_excel(UBI_AR['respuestas_2023'])
 
         if criterio_seleccionado=='c1':  
             respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1'] = nota
@@ -1266,10 +1266,10 @@ def calificacion_iniciativa(clicks,entidad_seleccionada,pregunta_seleccionada,in
         nota_total_pregunta=round(respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'cri_{pregunta_seleccionada}_c1':f'cri_{pregunta_seleccionada}_c3'].sum().sum(),2)
         respuestas_2023_df.loc[respuestas_2023_df['_uuid']==entidad_seleccionada,f'{pregunta_seleccionada}_nota_pregunta'] = nota_total_pregunta
         resultados_2023_df.loc[resultados_2023_df['_uuid']==entidad_seleccionada,pregunta_seleccionada] = nota_total_pregunta
-        
-        p2_df.to_excel(f'./files/separadas/repeat_p2.xlsx',index=False)
-        respuestas_2023_df.to_excel('./files/respuestas/2023/respuestas_2023.xlsx',index=False)
-        resultados_2023_df.to_excel('./files/resultados/2023/resultados_2023.xlsx',index=False)
+
+        p2_df.to_excel(UBI_AR['p2'],index=False)
+        respuestas_2023_df.to_excel(UBI_AR['respuestas_2023'],index=False)
+        resultados_2023_df.to_excel(UBI_AR['resultados_2023'],index=False)
 
     elif pregunta_seleccionada=='p3':
         pass
