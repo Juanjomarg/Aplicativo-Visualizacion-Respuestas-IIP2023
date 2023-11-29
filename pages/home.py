@@ -7,12 +7,12 @@ dash.register_page(__name__, path='/')
 layout = dbc.Container([
     dbc.Row([
         dbc.Col([
-            html.H1(children=['Estadisticas'])
+            html.H1(children=['Home'])
             ],
             width=9,
         ),
         dbc.Col([
-            html.Span('Estadisticas generales')
+            html.Span('Bienvenida al IIP 2023')
             ],
             width=3,
 

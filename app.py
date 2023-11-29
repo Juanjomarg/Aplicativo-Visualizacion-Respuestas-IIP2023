@@ -13,34 +13,35 @@ selector_entidad = dcc.Dropdown(
     id="selector_entidad",
     options=[{'label': x, 'value': x} for x in entidades_2023],
     placeholder='Seleccione una entidad',
-    value=ENTIDAD_INICIAL
+    value=ENTIDAD_INICIAL,
 )
 
 navbar = dbc.Navbar(
     dbc.Container(
-        html.Div([
-            dbc.Row([
-                dbc.Col(
-                    html.A([
+        dbc.Row([
+            dbc.Col(
+                html.A(
+                    [
                         dbc.NavbarBrand("Gestor de respuestas IIP 2023")
                     ],
                     href="/",
                     style={"textDecoration": "none"},
-                    
                 ),
-                    width=7
-                ),
-                dbc.Col(
-                    selector_entidad,
-                    width=5
-                )
-            ]),
-                      
+                width=4
+            ),
+            dbc.Col(
+                html.Div(selector_entidad),
+                width=5
+            )
         ],
-        style={'display':'inline-block','position':'relative','width':'100%'},
-        className='navbar'
-        )   
-    ),color="#f8f9fa"
+        justify="between",
+        align="center",
+        style={'width':'100%'}
+        ),
+    fluid=True,
+    style={'height':'80px'}
+    ),
+    color="#f8f9fa",
 )
 
 sidebar = html.Div(
@@ -58,25 +59,25 @@ sidebar = html.Div(
             [
                 dbc.NavLink(
                     [
-                        html.I(className="fas fa-home me-2"), 
-                        html.Span("Estadisticas")],
+                        html.I(className="fa-solid fa-house me-2"), 
+                        html.Span("Inicio")],
                     href="/",
                     active="exact",
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className="fa-solid fa-chart-bar me-2"),
-                        html.Span("Respuestas"),
+                        html.I(className="fa-solid fa-chart-simple me-2"),
+                        html.Span("Estadísticas"),
                     ],
                     href="/stats",
                     active="exact",
                 ),
                 dbc.NavLink(
                     [
-                        html.I(className="fa-solid fa-bomb me-2"),
-                        html.Span("Eventualmente..."),
+                        html.I(className="fa-solid fa-magnifying-glass me-2"),
+                        html.Span("Explorador"),
                     ],
-                    href="/future",
+                    href="/explorer",
                     active="exact",
                 ),
             ],
