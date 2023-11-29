@@ -231,24 +231,6 @@ layout = dbc.Container([
                     html.Div([
                         html.H3('Respuesta 2021'),
                         html.P(id='respuesta_2021',children=[]),
-
-                        html.H5('Nota obtenida en 2021: ', className="card-title me-2",style={'display':'inline-block'}),
-                        html.H5(id='nota_obtenida_2021',children=20, className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
-                        html.Br(),
-                        html.H5('Nota máxima en 2021: ', className="card-title me-2",style={'display':'inline-block'}),
-                        html.H5(id='nota_max_2021',children=20, className="card-title me-2",style={'display':'inline-block','font-weight':'bold'}),
-                    ],
-                    style={'text-justify':'auto','text-align': 'justify'}
-                    ),
-                ]),
-            ]),
-
-            html.Br(),
-            dbc.Row([
-                dbc.Col([
-                    html.Div([
-                        html.H3('Criterio de evaluación'),
-                        html.Div(id='criterio',children=[]),
                     ],
                     style={'text-justify':'auto','text-align': 'justify'}
                     ),
@@ -302,10 +284,7 @@ def seleccion_pregunta(value):
 #Callback ver respuestas
 @dash.callback(
     Output('pregunta', 'children'),
-    Output('criterio', 'children'),
     Output('respuesta_2021', 'children'),
-    Output('nota_obtenida_2021', 'children'),
-    Output('nota_max_2021', 'children'),
     Output('respuesta_2023', 'children'),
 
     Input('entidad_seleccionada', 'data'),
@@ -3207,7 +3186,7 @@ def visualizacion_respuestas(entidad_seleccionada,pregunta_seleccionada):
         except:
             salida_criterios_entidad_seleccionado='N/A'
 
-    return pregunta,salida_criterio,salida_respuesta_2021,salida_nota_2021,salida_max_2021,salida_respuesta_2023
+    return pregunta,salida_respuesta_2021,salida_respuesta_2023
 
 #Callback nombre, misión y visión
 @dash.callback(

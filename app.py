@@ -68,7 +68,7 @@ sidebar = html.Div(
                     [
                         html.I(className="fa-solid fa-chart-simple me-2"),
                         html.Span("Estadísticas"),
-                    ],
+                    ],  
                     href="/stats",
                     active="exact",
                 ),
@@ -111,13 +111,13 @@ def sel_entidad(value):
     
     if value != None:
         ent=list(respuestas_2023_df[respuestas_2023_df['entidad'] == value]['_uuid'])[0]
-        print(f'{value} -> {ent}\n')
+        #print(f'{value} -> {ent}\n')
         return ent
     
     else:
         value = entidades_2023[0]
         ent=list(respuestas_2023_df[respuestas_2023_df['entidad'] == value]['_uuid'])[0]
-        print(f'{value} -> {ent}\n')
+        #print(f'{value} -> {ent}\n')
         return ent
     
 if __name__ == "__main__":
